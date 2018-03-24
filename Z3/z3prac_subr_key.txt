@@ -91,8 +91,8 @@ so some comments are "hard written" with the values that would be present on the
 Luckily the subroutine barely does anything the second time, so this didn't matter that much in the end.
 
 r3 usually contains the "button offset" (0-9)
-r4 contains the "held down button" base address (1EB0)
-r6 contains the "button held countdown" base address (1EBA~1EC3)
+r4 contains the "held down button" base address (02001EB0)
+r6 contains the "button held countdown" base address (02001EBA)
 r7 contains 1
 
 0x1 shifted left by the value of the "button offset" gives the "button value"

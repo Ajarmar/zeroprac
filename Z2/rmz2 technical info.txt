@@ -1,0 +1,10 @@
+-- ROM
+
+    080E4044    check "change scenario" value
+
+-- RAM
+
+    EWRAM
+    
+    0202F8E1    some sort of "change scenario" value,
+                examples: 0x0 = go to intro, 0x1 = go to load save data, 0x9 = debug stage select menu
