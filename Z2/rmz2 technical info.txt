@@ -7,4 +7,17 @@
     EWRAM
     
     0202F8E1    some sort of "change scenario" value,
-                examples: 0x0 = go to intro, 0x1 = go to load save data, 0x9 = debug stage select menu
+				0x0 = go to intro
+				0x1 = "paused" state; if you set it during gameplay, goes to load save data
+				0x2 = link mode thing
+				0x3 = begin stage
+				0x4 = "gameplay" state
+				0x5 = go to pause screen
+				0x6 = exit pause screen
+				0x7 = exit stage (differs depending on stage)
+				0x8 = game over screen
+				0x9 = debug stage select menu
+				0xA = after credits (hard mode unlocked)
+				0xB = after credits (save data prompt)
+				0xC = despawns sprites and freezes screen for a bit and then reloads stage, possibly an invalid subroutine
+				0xD+ = despawns sprites and freezes screen - most likely invalid subroutines
