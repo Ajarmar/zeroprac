@@ -1,0 +1,102 @@
+-- ROM
+
+    08001994    beginning of main loop
+
+        080019B6    start of inf. loop
+        080019BC    end 1 of inf. loop (wait for VBLANK)
+        080019C4    end 2 of inf. loop (wait for VCOUNT > A0)
+
+        080019CC    branch to input check
+
+    08001A6E    end of main loop
+
+    08001A14    read input specifically for soft reset?
+    
+    080381D8    idk why this value is here
+
+    080FE6E2    cool branches
+
+    08338D34    supposedly important pointer for damage (enemy defense??)
+    0835E89C    Hitbox pointer for Zero hitbox
+    0835E8B4    Hitbox pointer for Zero dash hitbox
+    0835F0D0    Pointer for saber damage
+    0835F134    Hitbox pointer for overhead saber 1
+    08366278    DDP for intro cannon enemy
+    08366290    DRP for intro cannon enemy
+    
+    0863D100    stage data seems to begin around here
+
+-- RAM
+
+    EWRAM
+    
+    020023B8    ROM pointer to current stage data - specifically for collision checking
+    020023BC    some other ROM pointer to stage data?
+    020023C0    some other ROM pointer to stage data?
+    020023C4    some other ROM pointer to something else
+    02037D04    health
+    0203193C    equipped chip (?)
+    02037CB4    zero's x position in the stage
+    02037CB8    zero's y position in the stage
+    02037D60    previous x position
+    02037D64    previous y position
+    02037D22    equipped element
+    02037D24    equipped chip (?)
+    
+    IWRAM
+
+    030015C8    VCOUNT interrupt routine (executed when VCOUNT goes back to 0; after first HBLANK?)
+    03037D14    cyber elf 1
+    03037D15    cyber elf 2
+    
+    IORAM
+    
+    04000004    REG_DISPSTAT (2 bytes). Should be 0x28 during HDRAW, 0x29 during VBLANK, 0x2A during HBLANK, 0x2B during both blanks,
+                0x2C when VCOUNT interrupt is raised/HDRAW, 0x2E when VCOUNT interrupt is raised/HBLANK.
+
+    04000006    VCOUNT, should be 0xA1 (161) when it has drawn the whole screen. Will then continue to count up
+                to 0xE3 (227) during VBLANK. Resets back to 0 after first HBLANK. (need to double check all this if necessary)
+
+-- BREAKPOINTS
+
+    Note that "cursor" = line highlighted in blue (i.e. just whatever line you click on)
+
+    [02001EB0]! break on button press
+    [02001EB0]? break on button read
+    [03005928]! break on write to enemy hp #1
+    [04000130]? break on ioram button read
+    $, [04000130] != 0x03FF break at cursor if button pressed
+    08001A2E    break on soft reset (don't press B last)
+    08007B1A    break on damage calculation
+    [06014800]? break on tile read for "boss beaten" icon on stage select
+    $, r0 = 0006C4FF break when standing on the ground at beginning of intro stage (cursor at 08026034)
+    
+
+-- SUBROUTINES
+
+    SOFTRESET:  08001A12 - 1A4C
+        08001A14 - 1A1C checks start+select, 08001A1E - 1A26 checks A, 08001A28 - 1A30 checks B
+        if true, sets r0 to #0x0 and jumps to 08002388
+
+    KEY: 0800312C
+        see z3prac_subr_key
+
+-- VARIOUS
+
+    Hitbox pointers: +0x14 for width, +0x16 for height
+
+    damage: ENEMY DAMAGE POINTER (IWRAM ~338C) -> ENEMY DAMAGE VALUE (ROM ~365F18) -> STORED IN IWRAM (IWRAM ~592F)
+    
+    ORDER OF BUTTONS: A B Select Start Right Left Up Down R L
+
+    DAMAGE DEALING POINTER (DDP) always(?) followed by DAMAGE RECEIVING POINTER (DRP). Length of 1 chunk = 0x18
+    DDP + 0x03 = damage dealt (for enemies only?)
+    DRP + 0x02 = something if 0x01, see instructions 0800761C - 08007620 (+ some more after)
+    DRP + 0x08 = invincibility if 0xFF (and 0x00?), see instructions 080075DC - 080075E0
+
+    In damage calculation subroutine, branch to 0x08007602 = 0 damage, see ya
+
+    Saber damage sequence: 08 08 08 06 0A 08 08 08 10 10 10 10 0A 0A 0E 0E 0E 0E 0C 0C 04 06 10 10 00 01 02 03
+    Offsets are stored in EWRAM, but where do they come from??
+
+    Hitbox types: i guess i was intending to write something here

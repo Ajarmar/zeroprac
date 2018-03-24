@@ -1,0 +1,110 @@
+0800312C B530     push    {r4,r5,r14}       ; Sets up the parameters for the subroutine at 0800314C
+0800312E 2400     mov     r4,#0x0
+08003130 4D05     ldr     r5,=#0x2001EB0
+08003132 1C28     mov     r0,r5
+08003134 1C21     mov     r1,r4
+08003136 F000F809 bl      #0x800314C        ; Call 314C with r0 = 02001EB0 and r1 = 0 the first time; r0 = 02001EC8 and r1 = 1 the second
+0800313A 3518     add     r5,#0x18          ; Returns here after 314C is finished
+0800313C 3401     add     r4,#0x1
+0800313E 2C01     cmp     r4,#0x1
+08003140 DDF7     ble     #0x8003132        ; Repeat 314C once with different parameters
+08003142 BC30     pop     {r4,r5}
+08003144 BC01     pop     {r0}
+08003146 4700     bx      r0
+08003148 1EB0     sub     r0,r6,2           ; Pool
+0800314A 0200     lsl     r0,r0,#0x8        ; Pool
+0800314C B5F0     push    {r4-r7,r14}
+0800314E 1C04     mov     r4,r0             ; r4 = 02001EB0 for the rest of the subroutine
+08003150 8822     ldrh    r2,[r4]           ; Load current value at 02001EB0,
+08003152 8062     strh    r2,[r4,#0x2]      ; store it at 02001EB2
+08003154 2900     cmp     r1,#0x0           ; True when subroutine is called the first time
+08003156 D002     beq     #0x800315E        ; Will branch the first time and not branch the second time
+08003158 2000     mov     r0,#0x0
+0800315A 8120     strh    r0,[r4,#0x8]      ; Store 0 at 02001ED0
+0800315C E039     b       #0x80031D2        ; Branch to end of subroutine, not checking input
+0800315E 2001     mov     r0,#0x1
+08003160 8120     strh    r0,[r4,#0x8]      ; Store 1 at 02001EB8
+08003162 4812     ldr     r0,=#0x4000130    ; Load key input address in IORAM
+08003164 8800     ldrh    r0,[r0]           ; Load value of key input address (halfword)
+08003166 43C0     mvn     r0,r0             ; Negate value
+08003168 8020     strh    r0,[r4]           ; Store at 02001EB0
+0800316A 4390     bic     r0,r2             ; Clear bits in r0 that are set in r2
+0800316C 80A0     strh    r0,[r4,#0x4]      ; Store result at 02001EB4 (the buttons that are pressed that were not pressed previously)
+0800316E 80E1     strh    r1,[r4,#0x6]      ; Store contents of r1 at 02001EB6 (always 0 when called from 3136)
+08003170 2100     mov     r1,#0x0
+08003172 2701     mov     r7,#0x1           ; r7 = 1 for the rest of the subroutine
+08003174 1C26     mov     r6,r4
+08003176 360A     add     r6,#0xA           ; r6 = 02001EBA for the rest of the subroutine
+08003178 8822     ldrh    r2,[r4]           ; Loop for checking every button begins here
+0800317A 0408     lsl     r0,r1,#0x10
+0800317C 1403     asr     r3,r0,#0x10       ; r3 = button offset (changes every iteration)
+0800317E 411A     asr     r2,r3
+08003180 403A     and     r2,r7
+08003182 1C05     mov     r5,r0             ; r5 = button offset (high halfword, changes every iteration)
+08003184 2A00     cmp     r2,#0x0
+08003186 D01B     beq     #0x80031C0        ; If button is not pressed, branch
+08003188 18F2     add     r2,r6,r3
+0800318A 2000     mov     r0,#0x0
+0800318C 5610     ldsb    r0,[r2,r0]
+0800318E 2800     cmp     r0,#0x0
+08003190 D110     bne     #0x80031B4        ; If "button held countdown" is happening, branch
+08003192 1C38     mov     r0,r7
+08003194 4098     lsl     r0,r3             ; r0 = button value
+08003196 88E1     ldrh    r1,[r4,#0x6]      ; Load value at 02001EB6,
+08003198 4308     orr     r0,r1             ; bitwise OR with the button value
+0800319A 80E0     strh    r0,[r4,#0x6]      ; store value
+0800319C 88A0     ldrh    r0,[r4,#0x4]      ; Load value at 02001EB4 (see instruction at PC = 0800316C)
+0800319E 4118     asr     r0,r3             ; Shift by button offset
+080031A0 4038     and     r0,r7
+080031A2 2800     cmp     r0,#0x0       
+080031A4 D004     beq     #0x80031B0        ; If the button that is being pressed was pressed previously, branch
+080031A6 7D20     ldrb    r0,[r4,#0x14]     ; Load value at 02001EC4 == 0x18
+080031A8 E003     b       #0x80031B2
+080031AA 0000     lsl     r0,r0,#0x0        ; Pool word alignment, probably
+080031AC 0130     lsl     r0,r6,#0x4        ; Pool
+080031AE 0400     lsl     r0,r0,#0x10       ; Pool
+080031B0 7D60     ldrb    r0,[r4,#0x15]     ; Load value at 02001EC5 == 0x4
+080031B2 7010     strb    r0,[r2]           ; Store at "button held countdown" address
+080031B4 1429     asr     r1,r5,#0x10       ; r5 contains the button offset as the high halfword, so shift it 16 times right
+080031B6 1871     add     r1,r6,r1          ; Add offset to "button held countdown" address
+080031B8 7808     ldrb    r0,[r1]           ; Load value at address,
+080031BA 3801     sub     r0,#0x1           ; subtract it by 1,
+080031BC 7008     strb    r0,[r1]           ; store value at address.
+080031BE E001     b       #0x80031C4        ; Continue the loop
+080031C0 18F0     add     r0,r6,r3          ; r0 = "button held countdown" address
+080031C2 7002     strb    r2,[r0]           ; r2 is probably always 0 here because of the branch from 3186
+080031C4 2180     mov     r1,#0x80
+080031C6 0249     lsl     r1,r1,#0x9        ; Shift 0x80 9 times left = 0x1:0000:0000
+080031C8 1868     add     r0,r5,r1          ; Add value of r5 (prev button ID?)
+080031CA 0C01     lsr     r1,r0,#0x10       ; Shift 16 times right, essentially making the high halfword into the low halfword
+080031CC 1400     asr     r0,r0,#0x10       ; Same thing but arithmetic and for r0, should be same result?
+080031CE 2809     cmp     r0,#0x9
+080031D0 DDD2     ble     #0x8003178        ; Branch if "button ID" is leq 9 (there are 10 buttons)
+080031D2 BCF0     pop     {r4-r7}
+080031D4 BC01     pop     {r0}              ; r0 = 0800313B, probably
+080031D6 4700     bx      r0                ; Return to 0800313A in THUMB state
+
+Notes:
+
+I started writing the comments thinking that the 314C subroutine only was going to be executed once,
+so some comments are "hard written" with the values that would be present on the first execution.
+Luckily the subroutine barely does anything the second time, so this didn't matter that much in the end.
+
+r3 usually contains the "button offset" (0-9)
+r4 contains the "held down button" base address (1EB0)
+r6 contains the "button held countdown" base address (1EBA~1EC3)
+r7 contains 1
+
+0x1 shifted left by the value of the "button offset" gives the "button value"
+
+Button  - offs  - value
+A       - 0     - 0x1
+B       - 1     - 0x2
+Select  - 2     - 0x4
+Start   - 3     - 0x8
+Right   - 4     - 0x10
+Left    - 5     - 0x20
+Up      - 6     - 0x40
+Down    - 7     - 0x80
+R       - 8     - 0x100
+L       - 9     - 0x200

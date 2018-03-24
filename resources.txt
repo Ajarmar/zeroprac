@@ -1,0 +1,19 @@
+ARM7TDMI Technical Reference Manual
+http://ww1.microchip.com/downloads/en/DeviceDoc/DDI0029G_7TDMI_R3_trm.pdf#page=34&zoom=auto,-214,342
+
+THUMB instruction set
+https://ece.uwaterloo.ca/~ece222/ARM/ARM7-TDMI-manual-pt3.pdf
+
+ARM instruction set
+http://bear.ces.cwru.edu/eecs_382/ARM7-TDMI-manual-pt2.pdf
+
+Tonc - guide to GBA programming
+https://www.coranac.com/tonc/text/toc.htm
+
+GBATEK reference - very comprehensive technical information
+http://problemkaputt.de/gbatek.htm
+
+CowBite spec - very comprehensive and nicely formatted technical information
+https://www.cs.rit.edu/~tjh8300/CowBite/CowBiteSpec.htm
+
+* In one case (HDRAW/HBLANK timings) I found different information in CowBite than in Tonc/GBATEK. Be wary
