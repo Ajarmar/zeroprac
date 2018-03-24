@@ -1,3 +1,1 @@
 # zeroprac
-
-# Contributors: ajarmar cleartonic
