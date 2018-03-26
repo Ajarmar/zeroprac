@@ -16,4 +16,7 @@ http://problemkaputt.de/gbatek.htm
 CowBite spec - very comprehensive and nicely formatted technical information
 https://www.cs.rit.edu/~tjh8300/CowBite/CowBiteSpec.htm
 
-* In one case (HDRAW/HBLANK timings) I found different information in CowBite than in Tonc/GBATEK. Be wary
+	* In one case (HDRAW/HBLANK timings) I found different information in CowBite than in Tonc/GBATEK. Be wary
+
+gbacomp - various info, notably some on compression
+http://members.iinet.net.au/~freeaxs/gbacomp/
