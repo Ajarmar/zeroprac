@@ -1,11 +1,17 @@
 -- ROM
 
     080E4044    check "change scenario" value
+    
+    08333A00    control setting data, setting A
+    08333A10    control setting data, setting B
 
 -- RAM
 
     EWRAM
     
+    02000D10    pressed keys (halfword, active low)
+    02000D14    pressed keys that were not pressed on the previous frame
+    0202EC34    pressed keys (halfword, active high)
     0202F8E1    some sort of "change scenario" value,
                 0x0 = go to intro
                 0x1 = "paused" state; if you set it during gameplay, goes to load save data
@@ -21,3 +27,11 @@
                 0xB = after credits (save data prompt)
                 0xC = despawns sprites and freezes screen for a bit and then reloads stage, possibly an invalid subroutine
                 0xD+ = despawns sprites and freezes screen - most likely invalid subroutines
+    02037CF0    base address for various data about Zero
+    02037D0E    animation data for zero (halfword?)
+    02037E86    newly pressed keys (specifically for real time gameplay)
+    02037E88    some sort of buffer with pressed buttons? (specifically for real time gameplay)
+    ~02037EC6   (1 byte each, 64 entries)
+    02037ED4    control setting data, setting C (16 bytes)
+    02037EE4    control setting: 0 = setting A, 1 = setting B, 2 = setting C (byte)
+    02037EE5    attack setting: 0 = R+B, 1 = R/B, 2 = R switch (byte)

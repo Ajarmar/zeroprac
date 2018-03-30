@@ -13,8 +13,8 @@
     08001A14    read input specifically for soft reset?
     
     080381D8    idk why this value is here
-	
-	080FE534	BIOS functions
+    
+    080FE534    BIOS functions
 
     080FE6E2    cool branches
 
@@ -32,11 +32,12 @@
 
     EWRAM
     
+    02001EB0    pressed keys (halfword)
     020023B8    ROM pointer to current stage data - specifically for collision checking
     020023BC    some other ROM pointer to stage data?
     020023C0    some other ROM pointer to stage data?
     020023C4    some other ROM pointer to something else
-	02030B60	"change scenario" value (seemingly no debug menu available)
+    02030B60    "change scenario" value (seemingly no debug menu available)
     02037D04    health
     0203193C    equipped chip (?)
     02037CB4    zero's x position in the stage
