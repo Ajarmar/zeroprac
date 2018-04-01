@@ -2,6 +2,9 @@
 
     080E4044    check "change scenario" value
     
+    080E43FD    begin stage subroutine
+    080E5331    stage select menu subroutine
+    
     08333A00    control setting data, setting A
     08333A10    control setting data, setting B
 
@@ -35,3 +38,12 @@
     02037ED4    control setting data, setting C (16 bytes)
     02037EE4    control setting: 0 = setting A, 1 = setting B, 2 = setting C (byte)
     02037EE5    attack setting: 0 = R+B, 1 = R/B, 2 = R switch (byte)
+
+-- BREAKPOINTS
+
+    $, [0202F8E1]=9 break when stage select menu subroutine is called (cursor at 080E404A)
+    cursor at 080E10DE break for some "enter stage" thing
+    
+-- VARIOUS
+
+    There are two stacks? The top is at 7D60 for the "standard" stack at one point, 2530 for the other stack (IWRAM)
