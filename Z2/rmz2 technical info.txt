@@ -1,5 +1,7 @@
 -- ROM
 
+    0803703E    check a bunch of weapon stuff
+
     080E4044    check "change scenario" value
     
     080E43FD    begin stage subroutine
@@ -7,6 +9,8 @@
     
     08333A00    control setting data, setting A
     08333A10    control setting data, setting B
+    
+    0835780C    huge empty section to 0836DAF0
 
 -- RAM
 
