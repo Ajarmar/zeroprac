@@ -3,9 +3,12 @@
 
     .gba
     .open "Rockman Zero 2 (Japan).gba", "z2-stageselect.gba", 0x08000000
-    .include "stageselectcfg_v2.asm"
+    .include "stageselectcfg.asm"
 
-    ; Change to existing code
+    ; Change to existing code.
+    ; When checking inputs for start presses during gameplay,
+    ; checks for start+select instead and branches to a new subroutine
+    ; which sets the value for the stage select menu to appear.
     .org 0x080E4862
     mov     r5,#0xC             ; Check for start/select instead of just start
     .skip 8
@@ -13,7 +16,9 @@
     bx      r5
     .pool
     
-    ; Change to existing code
+    ; Change to existing code.
+    ; Loads a base address pointing at data to be loaded for the chosen stage,
+    ; and branches to a new subroutine to load said data.
     .org 0x080E543C
     .area 14,0
     .skip 2
@@ -23,17 +28,22 @@
     .pool
     .endarea
     
-    ; Change to existing code
-    .org 0x080E5470 ; Fix text alignments
+    ; Change to existing code.
+    ; Fixes text alignments in the stage select menu for entries longer than
+    ; 16 characters.
+    .org 0x080E5470
     .db 0xBB        ; Panter
     .org 0x080E547C
     .db 0xEB        ; Hyleg
     
-    ; Change to existing code
+    ; Change to existing code.
+    ; Manually changes a pool for a PC relative load done at 0x080E543C.
     .org 0x080E54B4
-    .dw 0x08357BC7  ; Change pool for instruction at 080E543C
+    .dw 0x08357BC7
 
-    ; New code
+    ; New code. Called if the user presses start or select during gameplay.
+    ; Checks if the user pressed select (set 0x0202F8E1 to 9, loading the stage select menu),
+    ; or if the user pressed start (execute old code to open pause menu).
     .org 0x080F90F4
 start_or_select:                ; New subroutine, replaces the start check with a start+select check
     mov     r5,#0x8
@@ -56,8 +66,9 @@ only_start:                     ; Old start check code that had to be moved
     bx      r1
     .pool
 
-    ; Change to existing code
-    .org 0x080FEB94 ; Fix stage index order in menu
+    ; Change to existing code.
+    ; Fixes the stage index order in the menu.
+    .org 0x080FEB94
     .skip 1         ; Intro
     .db 0x06        ; Panter
     .db 0x05        ; Phoenix
@@ -71,8 +82,9 @@ only_start:                     ; Old start check code that had to be moved
     .db 0x0A        ; Fefnir
     .db 0x0B        ; NA2
 
-    ; Change to existing code
-    .org 0x080FEBA8 ; Change stage select menu entries
+    ; Change to existing code.
+    ; Changes the stage select menu entries.
+    .org 0x080FEBA8
     .asciiz "INTRO" ; 01
     .fill 0xD
     .asciiz "PANTER FLAUCLAWS" ; 06
@@ -104,30 +116,33 @@ only_start:                     ; Old start check code that had to be moved
     .fill 0x12
     
     ; New code
+    ; Sets the appropriate values for a stage when it is loaded,
+    ; including rank, game progress, equips, experience, etc.
+    ; See stageselectcfg.asm
     .org 0x08357BC6
     push    {r0,r4-r7}
     ldr     r3,=#0x02036BB5     ; Rank address
     mov     r6,r0
-    cmp     r6,#0x11
-    beq     settings_end
-    cmp     r6,#0x1
+    cmp     r6,#0x11            ; If the chosen stage is commander room,
+    beq     settings_end        ; don't load any settings
+    cmp     r6,#0x1             ; If the chosen stage is intro
     beq     in_intro
-    cmp     r6,#0x5
+    cmp     r6,#0x5             ; If the chosen stage is phoenix
     beq     in_phoenix
-    mov     r7,#0x4
+    mov     r7,#0x4             ; B rank
     b       store_rank
 in_intro:
-    mov     r7,#0x0
+    mov     r7,#0x0             ; F rank
     b       store_rank
 in_phoenix:
-    mov     r7,#0x5
+    mov     r7,#0x5             ; A rank
 store_rank:
     strb    r7,[r3]
     bl      set_game_progress
     sub     r0,1                ; Subtract stage index by 1
     mov     r3,0x38
     mul     r0,r3               ; Multiply by 0x38
-    add     r0,r2,r0            ; Add as offset to source address
+    add     r0,r2,r0            ; Add as offset to base address
     ldr     r1,=#0x02036C10     ; "Saved gameplay settings" section to write to
     ldr     r3,=#0x02037EDC     ; Read from control settings
     ldmia   r3!,{r4-r5}         ; Load 8 bytes
