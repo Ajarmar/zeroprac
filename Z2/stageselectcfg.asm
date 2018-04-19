@@ -53,9 +53,26 @@
     SHIELD_MID equ 1
     SHIELD_LONG equ 2
     
+    ; Specific stages beaten - includes preceding stages
+    BEAT_INTRO equ 2
+    BEAT_PANTER equ 0x42
+    BEAT_PHOENIX equ 0x62
+    BEAT_POLER equ 0x6A
+    BEAT_HYLEG equ 0x6E
+    BEAT_NA1 equ 0x106E
+    BEAT_KUWAGUST equ 0x107E
+    BEAT_HARPUIA equ 0x127E
+    BEAT_BURBLE equ 0x12FE
+    BEAT_LEVIATHAN equ 0x13FE
+    BEAT_FEFNIR equ 0x17FE
+    BEAT_NA2 equ 0x1FFE
+    BEAT_AP1 equ 0x3FFE
+    BEAT_AP2 equ 0x7FFE
+    BEAT_AP3 equ 0xFFFE
+    
     .org 0x0835780E
     
-    .area 0x330
+    .area 0x3B8
     
     ; Intro
     .db 0,0,0,0,0,0         ; Unknown
@@ -86,6 +103,9 @@
     .db 0                   ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0                   ; Total points
+    .dh 0                   ; Stages beaten
+    .dw 0                   ; Specific stages beaten
     
     ; Hyleg
     .db 0,0,0,0,0,0         ; Unknown
@@ -109,13 +129,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
+    .dh 220                 ; Saber experience
     .dh 0                   ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
     .db SABER_3SLASH        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x154               ; Total points
+    .dh 4                   ; Stages beaten
+    .dw BEAT_POLER          ; Specific stages beaten
     
     ; Poler
     .db 0,0,0,0,0,0         ; Unknown
@@ -139,13 +162,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_NONE             ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 165                 ; Saber experience
+    .dh 1                   ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
     .db SABER_3SLASH        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x10E               ; Total points
+    .dh 3                   ; Stages beaten
+    .dw BEAT_PHOENIX        ; Specific stages beaten
     
     ; Kuwagust
     .db 0,0,0,0,0,0         ; Unknown
@@ -169,13 +195,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 370                 ; Saber experience
+    .dh 4                   ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
+    .db SABER_CHARGE        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x1F3               ; Total points
+    .dh 6                   ; Stages beaten
+    .dw BEAT_NA1            ; Specific stages beaten
     
     ; Phoenix
     .db 0,0,0,0,0,0         ; Unknown
@@ -199,13 +228,16 @@
     .dh EX_NONE             ; Unlocked EX skills
     .dh EX_NONE             ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
+    .dh 130                   ; Saber experience
     .dh 0                   ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
     .db SABER_3SLASH        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0xB7                ; Total points
+    .dh 2                   ; Stages beaten
+    .dw BEAT_PANTER         ; Specific stages beaten
     
     ; Panter
     .db 0,0,0,0,0,0         ; Unknown
@@ -236,6 +268,9 @@
     .db 0                   ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x55                ; Total points
+    .dh 1                   ; Stages beaten
+    .dw BEAT_INTRO          ; Specific stages beaten
     
     ; Burble
     .db 0,0,0,0,0,0         ; Unknown
@@ -259,13 +294,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 620                 ; Saber experience
+    .dh 125                 ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
+    .db SABER_CHARGE        ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x2AC               ; Total points
+    .dh 8                   ; Stages beaten
+    .dw BEAT_HARPUIA        ; Specific stages beaten
     
     ; Leviathan
     .db 0,0,0,0,0,0         ; Unknown
@@ -282,20 +320,23 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_CHAIN           ; Equipped main weapon
+    .db WEP_BUSTER          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_FLAME          ; Equipped chip
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 730                 ; Saber experience
+    .dh 125                 ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
+    .db SABER_CHARGE        ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x306               ; Total points
+    .dh 9                   ; Stages beaten
+    .dw BEAT_BURBLE         ; Specific stages beaten
     
     ; Harpuia
     .db 0,0,0,0,0,0         ; Unknown
@@ -319,13 +360,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 470                 ; Saber experience
+    .dh 110                 ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
+    .db SABER_CHARGE        ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x252               ; Total points
+    .dh 7                   ; Stages beaten
+    .dw BEAT_KUWAGUST       ; Specific stages beaten
     
     ; Fefnir
     .db 0,0,0,0,0,0         ; Unknown
@@ -349,13 +393,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 800                 ; Saber experience
+    .dh 140                 ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
+    .db SABER_CHARGE        ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x35B               ; Total points
+    .dh 10                  ; Stages beaten
+    .dw BEAT_LEVIATHAN      ; Specific stages beaten
     
     ; Neo Arcadia 2
     .db 0,0,0,0,0,0         ; Unknown
@@ -379,13 +426,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 940                 ; Saber experience
+    .dh 155                 ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
+    .db SABER_QKCHARGE      ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x3AE               ; Total points
+    .dh 11                  ; Stages beaten
+    .dw BEAT_FEFNIR         ; Specific stages beaten
     
     ; Neo Arcadia 1
     .db 0,0,0,0,0,0         ; Unknown
@@ -409,13 +459,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 270                 ; Saber experience
+    .dh 4                   ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
     .db SABER_3SLASH        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x197               ; Total points
+    .dh 5                   ; Stages beaten
+    .dw BEAT_HYLEG          ; Specific stages beaten
     
     ; Fefnir AP
     .db 0,0,0,0,0,0         ; Unknown
@@ -439,13 +492,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 1120                ; Saber experience
+    .dh 160                 ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
+    .db SABER_QKCHARGE      ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x401               ; Total points
+    .dh 12                  ; Stages beaten
+    .dw BEAT_NA2            ; Specific stages beaten
     
     ; Leviathan AP
     .db 0,0,0,0,0,0         ; Unknown
@@ -469,13 +525,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 1250                ; Saber experience
+    .dh 195                 ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
+    .db SABER_QKCHARGE      ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x454               ; Total points
+    .dh 13                  ; Stages beaten
+    .dw BEAT_AP1            ; Specific stages beaten
     
     ; Harpuia AP
     .db 0,0,0,0,0,0         ; Unknown
@@ -499,13 +558,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 1300                ; Saber experience
+    .dh 220                 ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
-    .db CHAIN_CHARGE        ; Chain Rod level
+    .db SABER_QKCHARGE      ; Saber level
+    .db CHAIN_QKCHARGE      ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x4A7               ; Total points
+    .dh 14                  ; Stages beaten
+    .dw BEAT_AP2            ; Specific stages beaten
     
     ; Final
     .db 0,0,0,0,0,0         ; Unknown
@@ -529,13 +591,16 @@
     .dh EX_TENSHOUZAN       ; Unlocked EX skills
     .dh EX_TENSHOUZAN       ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 0                   ; Saber experience
-    .dh 0                   ; Chain Rod experience
+    .dh 1380                ; Saber experience
+    .dh 240                 ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
-    .db CHAIN_CHARGE        ; Chain Rod level
+    .db SABER_QKCHARGE      ; Saber level
+    .db CHAIN_QKCHARGE      ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0x4FB               ; Total points
+    .dh 15                  ; Stages beaten
+    .dw BEAT_AP3            ; Specific stages beaten
     
     ; Commander Room
     .db 0,0,0,0,0,0         ; Unknown
@@ -563,8 +628,11 @@
     .dh 0                   ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
-    .db SABER_3SLASH        ; Saber level
-    .db CHAIN_CHARGE        ; Chain Rod level
+    .db SABER_QKCHARGE      ; Saber level
+    .db CHAIN_QKCHARGE      ; Chain Rod level
     .db 0                   ; Shield Boomerang level
+    .dh 0                   ; Total points
+    .dh 0                   ; Stages beaten
+    .dw 0                   ; Specific stages beaten
     
     .endarea

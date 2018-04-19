@@ -1,8 +1,11 @@
 -- ROM
 
     0803703E    check a bunch of weapon stuff
+    
+    080DF850    check input for during text box
+    080DFA12    check input for end of text box
 
-    080E4044    check "change scenario" value
+    080E4044    check "game state" value
     
     080E43FD    begin stage subroutine
     080E5331    stage select menu subroutine
@@ -19,7 +22,7 @@
     02000D10    pressed keys (halfword, active low)
     02000D14    pressed keys that were not pressed on the previous frame
     0202EC34    pressed keys (halfword, active high)
-    0202F8E1    some sort of "change scenario" value,
+    0202F8E1    some sort of "game state" value,
                 0x0 = go to intro
                 0x1 = "paused" state; if you set it during gameplay, goes to load save data
                 0x2 = link mode thing

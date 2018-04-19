@@ -3,7 +3,7 @@
 
     .gba
     .open "Rockman Zero 2 (Japan).gba", "z2-stageselect.gba", 0x08000000
-    .include "stageselectcfg.asm"
+    .include "stageselectcfg_v2.asm"
 
     ; Change to existing code
     .org 0x080E4862
@@ -18,6 +18,7 @@
     .area 14,0
     .skip 2
     ldr     r2,=#0x0835780E
+    mov     r1,r4
     bx      r3
     .pool
     .endarea
@@ -30,7 +31,7 @@
     
     ; Change to existing code
     .org 0x080E54B4
-    .dw 0x08357B3F  ; Change pool for instruction at 080E543C
+    .dw 0x08357BC7  ; Change pool for instruction at 080E543C
 
     ; New code
     .org 0x080F90F4
@@ -103,11 +104,29 @@ only_start:                     ; Old start check code that had to be moved
     .fill 0x12
     
     ; New code
-    .org 0x08357B3E
+    .org 0x08357BC6
     push    {r0,r4-r7}
+    ldr     r3,=#0x02036BB5     ; Rank address
+    mov     r6,r0
+    cmp     r6,#0x11
+    beq     settings_end
+    cmp     r6,#0x1
+    beq     in_intro
+    cmp     r6,#0x5
+    beq     in_phoenix
+    mov     r7,#0x4
+    b       store_rank
+in_intro:
+    mov     r7,#0x0
+    b       store_rank
+in_phoenix:
+    mov     r7,#0x5
+store_rank:
+    strb    r7,[r3]
+    bl      set_game_progress
     sub     r0,1                ; Subtract stage index by 1
-    mov     r3,0x30
-    mul     r0,r3               ; Multiply by 0x30
+    mov     r3,0x38
+    mul     r0,r3               ; Multiply by 0x38
     add     r0,r2,r0            ; Add as offset to source address
     ldr     r1,=#0x02036C10     ; "Saved gameplay settings" section to write to
     ldr     r3,=#0x02037EDC     ; Read from control settings
@@ -128,9 +147,142 @@ only_start:                     ; Old start check code that had to be moved
     stmia   r1!,{r4-r6}         ; Store 12 bytes
     ldrh    r2,[r0]             ; Load 2 bytes
     strh    r2,[r1]             ; Store 2 bytes
+    add     r0,2
+    ldr     r1,=#0x02036BBE     ; Game progress values here
+    ldrh    r2,[r0]             ; Load total points
+    strh    r2,[r1]             ; Store total points
+    ldrb    r2,[r0,#0x2]        ; Load stages beaten
+    strb    r2,[r1,#0x6]        ; Store
+    strb    r2,[r1,#0x7]        ; Store, offset by 1
+    ldrh    r2,[r0,#0x4]        ; Load specific stages beaten
+    strh    r2,[r1,#0xA]        ; Store
+    strh    r2,[r1,#0xE]        ; Store, offset by 4
+settings_end:
     ldr     r3,=#0x080E544B     ; Address to return to
     pop     {r0,r4-r7}
     bx      r3
     .pool
-
+    
+set_game_progress:
+    ldr     r7,=#0x02036B44     ; Game progress values here
+    mov     r3,r7
+    mov     r4,#0x0
+    mov     r5,#0x0
+    mov     r6,#0x0
+    stmia   r3!,{r4-r6}
+    stmia   r3!,{r4-r6}
+    stmia   r3!,{r4-r6}
+    stmia   r3!,{r4-r6}
+    stmia   r3!,{r4-r5}
+    cmp     r1,#0x0
+    beq     @@subr_end
+    ; Panter
+    mov     r3,r7
+    ldr     r4,=#0x0F80
+    ldr     r5,=#0x05040400
+    str     r4,[r3]
+    str     r5,[r3,#0x18]
+    sub     r1,1
+    cmp     r1,#0x0
+    beq     @@subr_end
+    ; Phoenix
+    mov     r4,#0x11
+    add     r3,#0x26
+    strb    r4,[r3]
+    sub     r1,1
+    cmp     r1,#0x0
+    beq     @@subr_end
+    ; Poler
+    mov     r3,r7
+    ldr     r4,=#0x1E000F84
+    ldr     r5,=#0x3020
+    mov     r6,#0xC
+    str     r4,[r3]
+    str     r5,[r3,#0x8]
+    add     r3,#0x23
+    strb    r6,[r3]
+    sub     r1,1
+    cmp     r1,#0x0
+    beq     @@subr_end
+    ; Hyleg
+    mov     r3,r7
+    mov     r4,#0x28
+    ldr     r5,=#0x0C010603
+    strb    r4,[r3,#0x8]
+    add     r3,#0x20
+    str     r5,[r3]
+    sub     r1,1
+    cmp     r1,#0x0
+    beq     @@subr_end
+    ; NA1
+    mov     r3,r7
+    mov     r4,#0x2F
+    mov     r5,#0x10
+    ldr     r6,=#0x0100020F
+    strb    r4,[r3,#0x1]
+    strb    r5,[r3,#0x9]
+    str     r6,[r3,#0x1C]
+    sub     r1,1
+    cmp     r1,#0x0
+    beq     @@subr_end
+    ; Kuwagust/Harpuia
+    ldr     r4,=#0x1E006F80
+    mov     r5,#0x3
+    mov     r6,#0xF
+    str     r4,[r3]
+    add     r3,#0x33
+    strb    r5,[r3]
+    strb    r6,[r3,#0x1]
+    sub     r1,2
+    cmp     r1,#0x0
+    ble     @@subr_end
+    ; Burble
+    mov     r3,r7
+    mov     r4,#0x4
+    add     r3,#0x2F
+    strb    r4,[r3]
+    sub     r1,1
+    cmp     r1,#0x0
+    beq     @@subr_end
+    ; Leviathan
+    mov     r3,r7
+    mov     r4,#0x4
+    add     r3,#0x28
+    strb    r4,[r3]
+    sub     r1,1
+    cmp     r1,#0x0
+    beq     @@subr_end
+    ; Fefnir
+    mov     r3,r7
+    mov     r4,#0x11
+    mov     r5,#0x4
+    ldr     r6,=#0x04001802
+    strb    r4,[r3,#0x9]
+    add     r3,#0x2A
+    strb    r5,[r3]
+    add     r3,#0x2
+    str     r6,[r3]
+    sub     r1,1
+    cmp     r1,#0x0
+    beq     @@subr_end
+    ; NA2, AP1, AP2, AP3
+    mov     r3,r7
+    mov     r4,#0xEF
+    ldr     r5,=#0x03000201
+    strb    r4,[r3,#0x1]
+    add     r3,#0x30
+    str     r5,[r3]
+    sub     r1,4
+    cmp     r1,#0x0
+    ble     @@subr_end
+    ; Final
+    mov     r3,r7
+    mov     r4,#0x1
+    add     r3,#0x36
+    strb    r4,[r3]
+    
+@@subr_end:
+    bx      r14
+    .pool
+    
     .close

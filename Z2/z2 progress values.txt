@@ -1,0 +1,155 @@
+036B44 - progress stuff begin (set these)
+036B7C - progress stuff begin again
+036BB5 - rank
+036BBE - total points
+036BC4 - stages beaten
+036BC5 - stages beaten
+036BC7 - prev stage
+036BC8 - specific stages beaten
+036BCC - specific stages beaten
+
+Intro
+    just 0 everything
+    02EC48 = 08326574
+
+Panter
+    036B44 = 00000F80
+    036B5C = 05040400
+    rank = 4
+    total points = 0x55
+    stages beaten = 1
+    prev stage = 1
+    specific stages = 0x2
+    02EC48 = 0832A168
+    
+Phoenix
+    036B68 = 00110000
+    rank = 5
+    total points = 0xB7
+    stages beaten = 2
+    prev stage = 6
+    specific stages = 0x42
+    02EC48 = 083294CC
+    
+Poler
+    036B44 = 1E000F84
+    036B4C = 00003020
+    036B64 = 0C000000
+    rank = 4
+    total points = 0x10E
+    stages beaten = 3
+    prev stage = 5
+    specific stages = 0x62
+    02EC48 = 08328374
+    
+Hyleg
+    036B4C = 00003028
+    036B64 = 0C010603
+    rank = 4
+    total points = 0x154
+    stages beaten = 4
+    prev stage = 3
+    specific stages = 0x6A
+    02EC48 = 08327A2C
+    
+NA1
+    036B44 = 1E002F84
+    036B4C = 00001028
+    036B60 = 0100020F
+    rank = 4
+    total points = 0x197
+    stages beaten = 5
+    prev stage = 2
+    specific stages = 0x6E
+    02EC48 = 0832CB30 (N/A)
+    
+Kuwagust
+    036B44 = 1E006F80
+    036B74 = 03000000
+    036B78 = 0000000F
+    rank = 4
+    total points = 0x1F3
+    stages beaten = 6
+    prev stage = 0xC
+    specific stages = 0x106E
+    02EC48 = 08328A64
+
+Harpuia
+    rank = 4
+    total points = 0x252
+    stages beaten = 7
+    prev stage = 4
+    specific stages = 0x107E
+    02EC48 = 0832B820
+    
+Burble
+    036B70 = 04000000
+    rank = 4
+    total points = 0x2AC
+    stages beaten = 8
+    prev stage = 9
+    specific stages = 0x127E
+    02EC48 = 0832A8A4
+    
+Leviathan
+    036B6C = 00000004
+    rank = 4
+    total points = 0x306
+    stages beaten = 9
+    prev stage = 7
+    specific stages = 0x12FE
+    02EC48 = 0832B244
+    
+Fefnir
+    036B4C = 00001128
+    036B6C = 00040004
+    036B70 = 04001802
+    rank = 4
+    total points = 0x35B
+    stages beaten = 0xA
+    prev stage = 8
+    specific stages = 0x13FE
+    02EC48 = 0832C1E4
+    
+NA2
+    036B44 = 1E00EF80
+    036B74 = 03000201
+    rank = 4
+    total points = 0x3AE
+    stages beaten = 0xB
+    prev stage = 0xA
+    specific stages = 0x17FE
+    02EC48 = 0832C67C (N/A)
+    
+Fefnir AP
+    rank = 4
+    total points = 0x401
+    stages beaten = 0xC
+    prev stage = 0xB
+    specific stages = 0x1FFE
+    02EC48 = 0832D3F0 (N/A)
+    
+Leviathan AP
+    rank = 4
+    total points = 0x454
+    stages beaten = 0xD
+    prev stage = 0xD
+    specific stages = 0x3FFE
+    02EC48 = 0832DB34 (N/A)
+    
+Harpuia AP
+    rank = 4
+    total points = 0x4A7
+    stages beaten = 0xE
+    prev stage = 0xE
+    specific stages = 0x7FFE
+    02EC48 = 0832E23C (N/A)
+    
+Final
+    036B78 = 0001000F
+    rank = 4
+    total points = 0x4FB
+    stages beaten = 0xF
+    prev stage = 0xF
+    specific stages = 0xFFFE
+    02EC48 = 0832EE34 (N/A)
