@@ -2,7 +2,6 @@
 ; compile with "armips z2-stageselect.asm -root zeroprac/Z2"
 
     .gba
-    .open "Rockman Zero 2 (Japan).gba", "z2-stageselect.gba", 0x08000000
     .include "stageselectcfg.asm"
 
     ; Change to existing code.
@@ -299,5 +298,3 @@ set_game_progress:
 @@subr_end:
     bx      r14
     .pool
-    
-    .close
