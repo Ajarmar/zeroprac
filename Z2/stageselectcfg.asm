@@ -136,7 +136,7 @@
     .db SABER_3SLASH        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x154               ; Total points
+    .dh 0x147               ; Total points
     .dh 4                   ; Stages beaten
     .dw BEAT_POLER          ; Specific stages beaten
     
@@ -169,7 +169,7 @@
     .db SABER_3SLASH        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x10E               ; Total points
+    .dh 0x105               ; Total points
     .dh 3                   ; Stages beaten
     .dw BEAT_PHOENIX        ; Specific stages beaten
     
@@ -202,7 +202,7 @@
     .db SABER_CHARGE        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x1F3               ; Total points
+    .dh 0x1E6               ; Total points
     .dh 6                   ; Stages beaten
     .dw BEAT_NA1            ; Specific stages beaten
     
@@ -228,14 +228,14 @@
     .dh EX_NONE             ; Unlocked EX skills
     .dh EX_NONE             ; Equipped EX skills
     .dh 0                   ; Buster experience
-    .dh 130                   ; Saber experience
+    .dh 130                 ; Saber experience
     .dh 0                   ; Chain Rod experience
     .dh 0                   ; Shield Boomerang experience
     .db 0                   ; Buster level
     .db SABER_3SLASH        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0xB7                ; Total points
+    .dh 0xB2                ; Total points
     .dh 2                   ; Stages beaten
     .dw BEAT_PANTER         ; Specific stages beaten
     
@@ -268,7 +268,7 @@
     .db 0                   ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x55                ; Total points
+    .dh 0x51                ; Total points
     .dh 1                   ; Stages beaten
     .dw BEAT_INTRO          ; Specific stages beaten
     
@@ -301,7 +301,7 @@
     .db SABER_CHARGE        ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x2AC               ; Total points
+    .dh 0x286               ; Total points
     .dh 8                   ; Stages beaten
     .dw BEAT_HARPUIA        ; Specific stages beaten
     
@@ -334,7 +334,7 @@
     .db SABER_CHARGE        ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x306               ; Total points
+    .dh 0x2E0               ; Total points
     .dh 9                   ; Stages beaten
     .dw BEAT_BURBLE         ; Specific stages beaten
     
@@ -367,7 +367,7 @@
     .db SABER_CHARGE        ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x252               ; Total points
+    .dh 0x22F               ; Total points
     .dh 7                   ; Stages beaten
     .dw BEAT_KUWAGUST       ; Specific stages beaten
     
@@ -400,7 +400,7 @@
     .db SABER_CHARGE        ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x35B               ; Total points
+    .dh 0x337               ; Total points
     .dh 10                  ; Stages beaten
     .dw BEAT_LEVIATHAN      ; Specific stages beaten
     
@@ -433,7 +433,7 @@
     .db SABER_QKCHARGE      ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x3AE               ; Total points
+    .dh 0x388               ; Total points
     .dh 11                  ; Stages beaten
     .dw BEAT_FEFNIR         ; Specific stages beaten
     
@@ -466,7 +466,7 @@
     .db SABER_3SLASH        ; Saber level
     .db 0                   ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x197               ; Total points
+    .dh 0x185               ; Total points
     .dh 5                   ; Stages beaten
     .dw BEAT_HYLEG          ; Specific stages beaten
     
@@ -499,7 +499,7 @@
     .db SABER_QKCHARGE      ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x401               ; Total points
+    .dh 0x3DE               ; Total points
     .dh 12                  ; Stages beaten
     .dw BEAT_NA2            ; Specific stages beaten
     
@@ -532,7 +532,7 @@
     .db SABER_QKCHARGE      ; Saber level
     .db CHAIN_CHARGE        ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x454               ; Total points
+    .dh 0x431               ; Total points
     .dh 13                  ; Stages beaten
     .dw BEAT_AP1            ; Specific stages beaten
     
@@ -565,7 +565,7 @@
     .db SABER_QKCHARGE      ; Saber level
     .db CHAIN_QKCHARGE      ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x4A7               ; Total points
+    .dh 0x47E               ; Total points
     .dh 14                  ; Stages beaten
     .dw BEAT_AP2            ; Specific stages beaten
     
@@ -598,7 +598,7 @@
     .db SABER_QKCHARGE      ; Saber level
     .db CHAIN_QKCHARGE      ; Chain Rod level
     .db 0                   ; Shield Boomerang level
-    .dh 0x4FB               ; Total points
+    .dh 0x4D7               ; Total points
     .dh 15                  ; Stages beaten
     .dw BEAT_AP3            ; Specific stages beaten
     
