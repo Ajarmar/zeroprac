@@ -16,7 +16,7 @@ Panter
     036B44 = 00000F80
     036B5C = 05040400
     rank = 4
-    total points = 0x55
+    total points = 0x51
     stages beaten = 1
     prev stage = 1
     specific stages = 0x2
@@ -25,7 +25,7 @@ Panter
 Phoenix
     036B68 = 00110000
     rank = 5
-    total points = 0xB7
+    total points = 0xB2
     stages beaten = 2
     prev stage = 6
     specific stages = 0x42
@@ -36,7 +36,7 @@ Poler
     036B4C = 00003020
     036B64 = 0C000000
     rank = 4
-    total points = 0x10E
+    total points = 0x105
     stages beaten = 3
     prev stage = 5
     specific stages = 0x62
@@ -46,7 +46,7 @@ Hyleg
     036B4C = 00003028
     036B64 = 0C010603
     rank = 4
-    total points = 0x154
+    total points = 0x147
     stages beaten = 4
     prev stage = 3
     specific stages = 0x6A
@@ -57,7 +57,7 @@ NA1
     036B4C = 00001028
     036B60 = 0100020F
     rank = 4
-    total points = 0x197
+    total points = 0x185
     stages beaten = 5
     prev stage = 2
     specific stages = 0x6E
@@ -68,7 +68,7 @@ Kuwagust
     036B74 = 03000000
     036B78 = 0000000F
     rank = 4
-    total points = 0x1F3
+    total points = 0x1E6
     stages beaten = 6
     prev stage = 0xC
     specific stages = 0x106E
@@ -76,7 +76,7 @@ Kuwagust
 
 Harpuia
     rank = 4
-    total points = 0x252
+    total points = 0x22F
     stages beaten = 7
     prev stage = 4
     specific stages = 0x107E
@@ -85,7 +85,7 @@ Harpuia
 Burble
     036B70 = 04000000
     rank = 4
-    total points = 0x2AC
+    total points = 0x286
     stages beaten = 8
     prev stage = 9
     specific stages = 0x127E
@@ -94,7 +94,7 @@ Burble
 Leviathan
     036B6C = 00000004
     rank = 4
-    total points = 0x306
+    total points = 0x2E0
     stages beaten = 9
     prev stage = 7
     specific stages = 0x12FE
@@ -105,7 +105,7 @@ Fefnir
     036B6C = 00040004
     036B70 = 04001802
     rank = 4
-    total points = 0x35B
+    total points = 0x337
     stages beaten = 0xA
     prev stage = 8
     specific stages = 0x13FE
@@ -115,7 +115,7 @@ NA2
     036B44 = 1E00EF80
     036B74 = 03000201
     rank = 4
-    total points = 0x3AE
+    total points = 0x388
     stages beaten = 0xB
     prev stage = 0xA
     specific stages = 0x17FE
@@ -123,7 +123,7 @@ NA2
     
 Fefnir AP
     rank = 4
-    total points = 0x401
+    total points = 0x3DE
     stages beaten = 0xC
     prev stage = 0xB
     specific stages = 0x1FFE
@@ -131,7 +131,7 @@ Fefnir AP
     
 Leviathan AP
     rank = 4
-    total points = 0x454
+    total points = 0x431
     stages beaten = 0xD
     prev stage = 0xD
     specific stages = 0x3FFE
@@ -139,7 +139,7 @@ Leviathan AP
     
 Harpuia AP
     rank = 4
-    total points = 0x4A7
+    total points = 0x47E
     stages beaten = 0xE
     prev stage = 0xE
     specific stages = 0x7FFE
@@ -148,7 +148,7 @@ Harpuia AP
 Final
     036B78 = 0001000F
     rank = 4
-    total points = 0x4FB
+    total points = 0x4D7
     stages beaten = 0xF
     prev stage = 0xF
     specific stages = 0xFFFE
