@@ -10,6 +10,8 @@
     080E43FD    begin stage subroutine
     080E5331    stage select menu subroutine
     
+    080EF1B4    BIOS functions
+    
     08333A00    control setting data, setting A
     08333A10    control setting data, setting B
     
@@ -22,6 +24,7 @@
     02000D10    pressed keys (halfword, active low)
     02000D14    pressed keys that were not pressed on the previous frame
     0202EC34    pressed keys (halfword, active high)
+    0202F069    equipped chip??
     0202F8E1    some sort of "game state" value,
                 0x0 = go to intro
                 0x1 = "paused" state; if you set it during gameplay, goes to load save data
@@ -45,12 +48,37 @@
     02037ED4    control setting data, setting C (16 bytes)
     02037EE4    control setting: 0 = setting A, 1 = setting B, 2 = setting C (byte)
     02037EE5    attack setting: 0 = R+B, 1 = R/B, 2 = R switch (byte)
+    02038172    max health??
+    020382A8    equipped main weapon??
+    020382A9    equipped secondary weapon??
+    
+    IWRAM
+    
+    03000000    ARM code
+    030015C8    ARM code (to 16DC)
 
 -- BREAKPOINTS
 
     $, [0202F8E1]=9 break when stage select menu subroutine is called (cursor at 080E404A)
     cursor at 080E10DE break for some "enter stage" thing
+    [020381D8..02038219]? break when reading from mystery saved gameplay values
     
 -- VARIOUS
 
-    There are two stacks? The top is at 7D60 for the "standard" stack at one point, 2530 for the other stack (IWRAM)
+    EWRAM 0017E4 - 02D004 is used for stage data (!)
+    BG0, BG1 are stored in EWRAM
+    BG2, BG3 are fetched from ROM when needed
+    
+    Stacks:
+    One stack begins at 255C (initiated on game start)
+    One stack begins at 2A5C (initiated on bootup)
+    One stack begins at 1C5C
+    One stack begins at 7D9C
+    One stack begins at 7F9C - seems like IRQ stack
+    Super short stack at 7FDC - BIOS call stack
+    
+    
+    B7C + 08432D00 = 843387C rom pointer
+    0202E590 + 126 = 0202E6B6 ram pointer
+    
+    continue at 080E44AE / 08006AC4

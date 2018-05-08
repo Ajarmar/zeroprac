@@ -37,7 +37,8 @@
     020023BC    some other ROM pointer to stage data?
     020023C0    some other ROM pointer to stage data?
     020023C4    some other ROM pointer to something else
-    02030B60    "change scenario" value (seemingly no debug menu available)
+    0202FE60    stage index (set before loading stage)
+    02030B61    "game state" value (seemingly no debug menu available)
     02037D04    health
     0203193C    equipped chip (?)
     02037CB4    zero's x position in the stage
