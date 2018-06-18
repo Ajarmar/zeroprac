@@ -1,5 +1,7 @@
 -- ROM
 
+    08013448    get enemy constructor subroutine
+
     0803703E    check a bunch of weapon stuff
     
     080DF850    check input for during text box
@@ -82,3 +84,23 @@
     0202E590 + 126 = 0202E6B6 ram pointer
     
     continue at 080E44AE / 08006AC4
+    
+    
+    read offset 0
+    str 4
+    str 0
+    strh A
+    str C
+    str 10
+    strb 25
+    strb 9
+    str 14
+    strh 20
+    strb 22
+    strb B
+    strb 1D
+    strb 10
+    strb 11
+    str 54
+    str 58
+    083211A0

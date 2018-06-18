@@ -35,6 +35,7 @@
     MISSION_FINAL equ 0x0832EE9C
     
     .org 0x08358100
+    .area 0xA0
     
     .dw PROG_HYLEG
     .dw MISSION_HYLEG
@@ -66,3 +67,5 @@
     .dw MISSION_AP3
     .dw PROG_FINAL
     .dw MISSION_FINAL
+    
+    .endarea

@@ -1,5 +1,5 @@
     .gba
-    .include "cutsceneskipscfg.asm"
+    .include "z2-cutsceneskipscfg.asm"
     
     ; Change to existing code.
     ; Normally checks if you're in the intro stage, now checks
@@ -32,6 +32,7 @@
     ; when you die, but without dying. Also works if you want to reload the
     ; stage quickly after dying.
     .org 0x083581A0
+    .area 0x80
     cmp     r0,#0x1
     bne     not_intro
     mov     r2,r1
@@ -76,11 +77,13 @@ not_intro:
     ldr     r4,=#0x08014EDF
     bx      r4
     .pool
+    .endarea
     
     ; New code.
     ; Allows text boxes to be skipped. By holding start, the current text box 
     ; will be skipped to the end immediately, and the remaining text boxes in
     ; the current set will be skipped. Text boxes with prompts are not skippable.
+    .area 0xE0
     .org 0x08358220
     push    {r4-r6}
     ldr     r4,=#0x0202F660
@@ -105,3 +108,4 @@ not_intro:
     pop     {r4-r6}
     bx      r1
     .pool
+    .endarea
