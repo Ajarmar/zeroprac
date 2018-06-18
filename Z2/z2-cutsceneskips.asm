@@ -1,5 +1,5 @@
     .gba
-    .include "z2-cutsceneskipscfg.asm"
+    .include "cfg/z2-cutsceneskipscfg.asm"
     
     ; Change to existing code.
     ; Normally checks if you're in the intro stage, now checks

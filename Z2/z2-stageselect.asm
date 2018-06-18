@@ -1,5 +1,5 @@
     .gba
-    .include "z2-stageselectcfg.asm"
+    .include "cfg/z2-stageselectcfg.asm"
 
     ; Change to existing code.
     ; When checking inputs for start presses during gameplay,
