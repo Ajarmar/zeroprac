@@ -58,8 +58,8 @@ not_intro:
     cmp     r1,#0x0             ; }
     beq     @@subr_end
     mov     r4,#0x3
-    ldr     r5,=#0x0202F8E0
-    strb    r4,[r5,#0x1]
+    ldr     r5,=#0x0202F8E1
+    strb    r4,[r5]
     ldr     r1,=#0x02036C10     ; "Saved gameplay settings" section to write to
     ldr     r0,=#0x02037EDC     ; Read from control settings
     ldmia   r0!,{r2-r7}         ; Load 24 bytes

@@ -300,6 +300,51 @@ set_game_progress:
     
 @@subr_end:
     bx      r14
+    
+    .org 0x08357D50
+    .db 0x0         ; Intro
+    .db 0x4         ; Hyleg
+    .db 0x3         ; Poler
+    .db 0x6         ; Kuwagust
+    .db 0x2         ; Phoenix
+    .db 0x1         ; Panter
+    .db 0x8         ; Burble
+    .db 0x9         ; Leviathan
+    .db 0x7         ; Harpuia
+    .db 0xA         ; Fefnir
+    .db 0xB         ; NA2
+    .db 0x5         ; NA1
+    .db 0xC         ; AP1
+    .db 0xD         ; AP2
+    .db 0xE         ; AP3
+    .db 0xF         ; Final
+    .db 0x10        ; Commander room
+    .align 2
+    
+    ; New code. Sets BG/window registers to make the stage select menu 
+    ; visible under all circumstances, sets the cursor position to the 
+    ; current stage, and sets the game state to show the stage select menu.
+show_menu:
+    ldr     r4,=#0x02000F91
+    ldrb    r5,[r4]
+    mov     r6,#0x1
+    orr     r5,r6
+    strb    r5,[r4]
+    ldr     r4,=#0x02000FEE
+    ldrb    r5,[r4]
+    orr     r5,r6
+    strb    r5,[r4]
+    ldr     r4,=#0x08357D50
+    ldr     r5,=#0x02036B34
+    ldrb    r6,[r5]
+    sub     r6,r6,#0x1
+    add     r4,r4,r6
+    ldrb    r4,[r4]
+    strb    r4,[r5]
+    ldr     r4,=#0x0202F8E1
+    mov     r5,#0x9
+    strb    r5,[r4]
+    bx      r14
     .pool
     
     .endarea
