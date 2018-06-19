@@ -10,6 +10,8 @@
     .org 0x0800078C
     bl      #0x08358300
     
+    ; Input checking for new functionality.
+    ; Checks for Select+Start, Select+L, Select+R, R+Select
     .org 0x08358300
     push    {r4-r7,r14}
     mov     r7,r10
@@ -81,6 +83,9 @@
     strh    r2,[r1]             ; Store another 2 bytes
     b       @subr_end
     
+    ; Jumps to subroutine end if the current game state is 0, 1 or 2
+    ; Used to prevent certain functionality from being used while 
+    ; the game is paused.
 @check_state:
     ldr     r4,=#0x0202F8E1
     ldrb    r4,[r4]
