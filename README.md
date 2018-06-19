@@ -3,10 +3,10 @@
 ROM hacks of the Mega Man Zero games for the Game Boy Advance.
 
 Currently available: 
-* Mega Man Zero 2
+* Rockman Zero 2
 
 Up next:
-* Mega Man Zero 3
+* Zero 3
 * Save/load state functionality (Zero 2)
 
 Authors: Ajarmar ([@Ajarmar_](http://twitter.com/Ajarmar_)), cleartonic ([@cleartonic](http://twitter.com/cleartonic))
@@ -42,7 +42,7 @@ There will be a new ROM called "z2prac.gba" in the Z2 folder, which is the pract
 
 ## Features
 
-### Mega Man Zero 2
+### Zero 2
 
 - Hold Select and press Start to bring up a stage select menu. Selecting a stage will bring you to it with the appropriate equipment/experience for that point in the route.
 - Hold Select and press L to return to the latest checkpoint.
