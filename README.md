@@ -5,6 +5,10 @@ ROM hacks of the Mega Man Zero games for the Game Boy Advance.
 Currently available: 
 * Mega Man Zero 2
 
+Up next:
+* Mega Man Zero 3
+* Save/load state functionality (Zero 2)
+
 Authors: Ajarmar ([@Ajarmar_](http://twitter.com/Ajarmar_)), cleartonic ([@cleartonic](http://twitter.com/cleartonic))
 
 ## Building the practice ROM
