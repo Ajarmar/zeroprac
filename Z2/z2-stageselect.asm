@@ -1,16 +1,5 @@
     .gba
     .include "cfg/z2-stageselectcfg.asm"
-
-    ; Change to existing code.
-    ; When checking inputs for start presses during gameplay,
-    ; checks for start+select instead and branches to a new subroutine
-    ; which sets the value for the stage select menu to appear.
-    ; .org 0x080E4862
-    ; mov     r5,#0xC             ; Check for start/select instead of just start
-    ; .skip 8
-    ; ldr     r5,=#0x080F90F5     ; New subroutine
-    ; bx      r5
-    ; .pool
     
     ; Change to existing code. Instead of checking for A/Start press on the
     ; stage select menu, check only for A.
@@ -41,31 +30,6 @@
     ; Manually changes a pool for a PC relative load done at 0x080E543C.
     .org 0x080E54B4
     .dw 0x08357BC7
-
-    ; New code. Called if the user presses start or select during gameplay.
-    ; Checks if the user pressed select (set 0x0202F8E1 to 9, loading the stage select menu),
-    ; or if the user pressed start (execute old code to open pause menu).
-    ; .org 0x080F90F4
-; start_or_select:                ; New subroutine, replaces the start check with a start+select check
-    ; mov     r5,#0x8
-    ; and     r0,r5
-    ; cmp     r0,#0x8
-    ; beq     only_start
-    ; push    {r6,r7}
-    ; ldr     r7,=#0x0202F8E1
-    ; mov     r6,#0x9
-    ; strb    r6,[r7]
-    ; pop     {r6,r7}
-    ; ldr     r4,=#0x080E4909
-    ; bx      r4
-; only_start:                     ; Old start check code that had to be moved
-    ; ldr     r3,=#0x75B8
-    ; add     r0,r7,r3
-    ; ldr     r2,[r0]
-    ; mov     r0,r2
-    ; ldr     r1,=#0x080E4875
-    ; bx      r1
-    ; .pool
 
     ; Change to existing code.
     ; Fixes the stage index order in the menu.
