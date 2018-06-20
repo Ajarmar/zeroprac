@@ -13,6 +13,7 @@
     ; Input checking for new functionality.
     ; Checks for Select+Start, Select+L, Select+R, R+Select
     .org 0x08358300
+    .area 0x200
     push    {r4-r7,r14}
     mov     r7,r10
     mov     r6,r9
@@ -98,4 +99,5 @@
     bx      r14
     
     .pool
+    .endarea
     .close

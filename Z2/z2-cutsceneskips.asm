@@ -22,6 +22,16 @@
     .endarea
     
     ; Change to existing code.
+    ; Branch to new subroutine (see changed pool below)
+    .org 0x080E44B6
+    bx      r1
+    
+    ; Change to existing code.
+    ; Manually changes pool for PC relative load at 080E44AE.
+    .org 0x080E45A4
+    .dw 0x08358501
+    
+    ; Change to existing code.
     ; Changes branch destination for text box handling.
     .org 0x0834E0A0
     .dw 0x08358221
@@ -109,3 +119,22 @@ not_intro:
     bx      r1
     .pool
     .endarea
+    
+    ; New code.
+    ; If B is held, skips setting RNG to the stage index value
+    ; when loading a stage/checkpoint.
+    .org 0x08358500
+    push    {r4-r6}
+    ldr     r4,=#0x02000D10
+    ldrh    r5,[r4]
+    mov     r6,#0x2
+    and     r5,r6
+    cmp     r5,#0x0
+    bne     @@subr_end
+    ldr     r1,=#0x0202E188
+    str     r0,[r1]
+@@subr_end:
+    ldr     r0,=#0x080E44B9
+    pop     {r4-r6}
+    bx      r0
+    .pool
