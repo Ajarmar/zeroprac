@@ -41,7 +41,7 @@
     .dw 0x080F2F45 ;1B
     .dw 0x080F3045 ;1C
     .dw 0x080F3129 ;1D
-    .dw 0x08386C70 ;1E CHANGE TO WHERE STAGE SELECT MENU ROUTINE BEGINS
+    .dw 0x08386E00 ;1E CHANGE TO WHERE STAGE SELECT MENU ROUTINE BEGINS
     .endarea
     
     ; New code. Stage order for the stage select menu.
@@ -55,7 +55,7 @@
     .db 0x9         ; Blizzack
     .db 0x8         ; Hanumachine
     .db 0x7         ; Anubis
-    .db 0xA         ; Copy X (needs fix to spawn at beginning)
+    .db 0xA         ; Copy X (needs fix to spawn at beginning - currently spawns at middle checkpoint)
     .db 0xC         ; le Cactank
     .db 0xB         ; Foxtar
     .db 0xE         ; Kelverian
@@ -63,6 +63,24 @@
     .db 0xF         ; Sub Arcadia
     .db 0x10        ; Final
     .db 0x11        ; Commander room (buggy as hell)
+    .align 4
+    .asciiz "INTRO"
+    .asciiz "HELLBAT SCHILT"
+    .asciiz "BLAZIN' FLIZARD"
+    .asciiz "DEATHTANZ MANTISK"
+    .asciiz "CHILDRE INARABITTA"
+    .asciiz "BABY ELVES 1"
+    .asciiz "BLIZZACK STAGGROFF"
+    .asciiz "HANUMACHINE"
+    .asciiz "ANUBIS NECROMANCESS V"
+    .asciiz "COPY X MK 2"
+    .asciiz "GLACIER LE CACTANK"
+    .asciiz "CUBIT FOXTAR"
+    .asciiz "TRETISTA KELVERIAN"
+    .asciiz "VOLTEEL BIBLIO"
+    .asciiz "BABY ELVES 2"
+    .asciiz "FINAL"
+    .asciiz "COMMANDER ROOM"
     
     ; New code. Recreation of stage select menu routine from Z2.
     ; ORDER OF OPERATIONS:
@@ -71,12 +89,25 @@
     ; 3. Draw stage select menu, including cursor
     ; 4. Check for A input
     ; 5a. A input -> goto 6
-    ; 5b. A input -> goto 8
+    ; 5b. No A input -> goto 8
     ; 6. Load stage settings
     ; 7. Set stage index and game state
     ; 8. End
-    .org 0x08386C70
+    .org 0x08386E00
     push    {r4-r7,r14}
     add     sp,-#0x14
     mov     r6,r0
+    ldr     r0,=#0x7254
+    add     r5,r6,r0        ; r5 should be stage index value
+    ldrb    r4,[r5]
+    ldr     r1,=#0x08386C70 ; Fixed (stage indexes)
+    mov     r0,r13
+    mov     r2,#0x11
+    bl      check_a_bunch
+    ldr     r7,=#0x02001EB0 ; Fixed (input checking)
     
+    
+check_a_bunch:
+    
+    
+    .pool
