@@ -29,7 +29,7 @@ The ROM is now the practice hack.
 You will need a Rockman Zero 2 ROM and [ARMIPS](https://github.com/Kingcom/armips/releases/tag/v0.10.0). The following instructions are for Windows, but I think ARMIPS will work on other operating systems as well - although you will have to [build it from source](https://github.com/Kingcom/armips#22-building-from-source).
 
 1. Clone or download this repository. For easier assembling, put the zeroprac folder in the folder where you have ARMIPS.
-2. Put your Rockman Zero 2 ROM in the Z2 folder.
+2. Put your Rockman Zero 2 ROM in the Z2 folder. The ROM must be named "Rockman Zero 2 (Japan).gba".
 3. Open a cmd window in the folder where you have ARMIPS. (Shift + Right click in the folder -> "Open command window here")
 4. Assemble with the following command:
 
