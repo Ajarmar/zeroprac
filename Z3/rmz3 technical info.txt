@@ -27,6 +27,7 @@
     08366290    DRP for intro cannon enemy
     
     0863D100    stage data seems to begin around here
+    
 
 -- RAM
 
