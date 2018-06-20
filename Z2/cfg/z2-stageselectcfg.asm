@@ -82,9 +82,9 @@
     .dh UNLFORM_NORMAL      ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_INTRO        ; Unlocked weapons
@@ -115,9 +115,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -148,9 +148,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -181,9 +181,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -214,9 +214,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -247,9 +247,9 @@
     .dh UNLFORM_NORMAL      ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -280,9 +280,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -313,9 +313,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -346,9 +346,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -379,9 +379,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -412,9 +412,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -445,9 +445,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -478,9 +478,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -511,9 +511,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -544,9 +544,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
@@ -577,9 +577,9 @@
     .dh UNLFORM_RISE        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
-    .db 0                   ; Subtank count
+    .db 1                   ; Subtank count
     .db 0                   ; Subtank count (elves)
-    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
     .db 0,0,0               ; Equipped cyber elves 1-3
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
