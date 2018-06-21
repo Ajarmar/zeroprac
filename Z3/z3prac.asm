@@ -3,9 +3,9 @@
     .include "z3-stageselect.asm"
     
     .org 0x080019D0
-    bl      0x08387100
+    bl      0x08387200
     
-    .org 0x08387100
+    .org 0x08387200
     push    {r4-r7,r14}
     mov     r7,r10
     mov     r6,r9
@@ -39,9 +39,7 @@
     cmp     r2,#0x0
     beq     @subr_end
     bl      @check_state
-    ldr     r4,=#0x02030B61
-    mov     r5,#0x1E
-    strb    r5,[r4]
+    bl      show_menu
     b       @subr_end
 @r_pressed:
     ldrh    r1,[r0,#0x4]

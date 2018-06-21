@@ -50,6 +50,7 @@
     
     ; New code. Stage order for the stage select menu.
     .org 0x08386C70
+    .area 0x190
     .db 0x1         ; Intro
     .db 0x4         ; Hellbat
     .db 0x2         ; Flizard
@@ -59,14 +60,14 @@
     .db 0x9         ; Blizzack
     .db 0x8         ; Hanumachine
     .db 0x7         ; Anubis
-    .db 0xA         ; Copy X (needs fix to spawn at beginning - currently spawns at middle checkpoint)
+    .db 0xA         ; Copy X
     .db 0xC         ; le Cactank
     .db 0xB         ; Foxtar
     .db 0xE         ; Kelverian
     .db 0xD         ; Volteel
     .db 0xF         ; Sub Arcadia
     .db 0x10        ; Final
-    .db 0x11        ; Commander room (buggy as hell)
+    .db 0x11        ; Commander room
     .align 4
     .asciiz "INTRO"
     .asciiz "HELLBAT SCHILT"
@@ -86,6 +87,7 @@
     .asciiz "FINAL"
     .asciiz "COMMANDER ROOM"
     .asciiz ">"
+    .endarea
     
     ; New code. Recreation of stage select menu routine from Z2.
     ; ORDER OF OPERATIONS:
@@ -99,6 +101,7 @@
     ; 7. Set stage index and game state
     ; 8. End
     .org 0x08386E00
+    .area 0x300
     push    {r4-r7,r14}
     sub     sp,#0x14
     mov     r6,r0
@@ -336,3 +339,52 @@
     
 @stage_settings:
     bx      r14
+    
+    .endarea
+    
+    ; New code.
+    ; Cursor positions for the stages, in stage index order.
+    .org 0x08387100
+    .area 0x100
+    .db 0x0         ; Intro
+    .db 0x2         ; Flizard
+    .db 0x4         ; Childre
+    .db 0x1         ; Hellbat
+    .db 0x3         ; Mantisk
+    .db 0x5         ; Baby Elves 1
+    .db 0x8         ; Blizzack
+    .db 0x7         ; Hanumachine
+    .db 0x6         ; Anubis
+    .db 0x9         ; Copy X
+    .db 0xB         ; le Cactank
+    .db 0xA         ; Foxtar
+    .db 0xD         ; Kelverian
+    .db 0xC         ; Volteel
+    .db 0xE         ; Baby Elves 2
+    .db 0xF         ; Final
+    .db 0x10        ; Commander room
+    .align 2
+    
+show_menu:
+    ldr     r4,=#0x02002141 ; DISPCNT register
+    ldrb    r5,[r4]
+    mov     r6,#0x1
+    orr     r5,r6
+    strb    r5,[r4]
+    ; ldr     r4,=#0x02000FEE   ; WINOUT register. Probably unnecessary, so I commented it out
+    ; ldrb    r5,[r4]
+    ; orr     r5,r6
+    ; strb    r5,[r4]
+    ldr     r4,=#0x08387100
+    ldr     r5,=#0x02036DC0
+    ldrb    r6,[r5]
+    sub     r6,r6,#0x1
+    add     r4,r4,r6
+    ldrb    r4,[r4]
+    strb    r4,[r5]
+    ldr     r4,=#0x02030B61
+    mov     r5,#0x1E
+    strb    r5,[r4]
+    bx      r14
+    .pool
+    .endarea
