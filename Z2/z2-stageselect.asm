@@ -265,6 +265,8 @@ set_game_progress:
 @@subr_end:
     bx      r14
     
+    ; New code.
+    ; Cursor positions for the stages, in stage index order.
     .org 0x08357D50
     .db 0x0         ; Intro
     .db 0x4         ; Hyleg
