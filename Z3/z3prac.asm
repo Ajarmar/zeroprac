@@ -6,6 +6,7 @@
     bl      0x08387200
     
     .org 0x08387200
+	.area 0x2FE
     push    {r4-r7,r14}
     mov     r7,r10
     mov     r6,r9
@@ -63,18 +64,14 @@
     ldr     r4,=#0x02030B61
     mov     r5,#0x3
     strb    r5,[r4]
-    ; ldr     r1,=#0x02036C10     ; "Saved gameplay settings" section to write to
-    ; ldr     r0,=#0x02037EDC     ; Read from control settings
-    ; ldmia   r0!,{r2-r7}         ; Load 24 bytes
-    ; stmia   r1!,{r2-r7}         ; Store 24 bytes
-    ; ldmia   r0!,{r2-r7}         ; Load 24 bytes
-    ; stmia   r1!,{r2-r7}         ; Store 24 bytes
-    ; ldmia   r0!,{r2-r7}         ; Load 24 bytes
-    ; stmia   r1!,{r2-r7}         ; Store 24 bytes
-    ; ldmia   r0!,{r2-r3}         ; Load 8 bytes
-    ; stmia   r1!,{r2-r3}         ; Store 8 bytes
-    ; ldrh    r2,[r0]             ; Load another 2 bytes
-    ; strh    r2,[r1]             ; Store another 2 bytes
+    ldr     r1,=#0x02036FC0     ; "Saved gameplay settings" section to write to
+    ldr     r0,=#0x02037D14     ; Read from control settings
+    ldmia   r0!,{r2-r7}         ; Load 24 bytes
+    stmia   r1!,{r2-r7}         ; Store 24 bytes
+    ldmia   r0!,{r2-r4}         ; Load 12 bytes
+    stmia   r1!,{r2-r4}         ; Store 12 bytes
+    ldrh    r2,[r0]             ; Load another 2 bytes
+    strh    r2,[r1]             ; Store another 2 bytes
     b       @subr_end
     
     ; Jumps to subroutine end if the current game state is 0, 1 or 2
@@ -92,5 +89,5 @@
     bx      r14
     
     .pool
-    
+    .endarea
     .close

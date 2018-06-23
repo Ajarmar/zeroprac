@@ -1,4 +1,5 @@
     .gba
+    .include "cfg/z3-stageselectcfg.asm"
     
     ; Stage select menu x position offsets
     MENU_OFFSET equ 5
@@ -225,10 +226,10 @@
     add     r0,r1,r4
     ldrb    r0,[r0]
     str     r0,[r5]
-    ldr     r2,=#0x0835780E ; FIX: should be base address for stage settings
+    ldr     r2,=#0x083874FE ; Fixed, base address for stage settings
     mov     r1,r4
     bl      @stage_settings
-    bl      0x08019E94      ; should be somewhere far away
+    bl      0x08019E94      
     mov     r1,#0xC0
     lsl     r1,r1,#0x2
     str     r1,[r6]
@@ -338,7 +339,57 @@
     .pool
     
 @stage_settings:
-    bx      r14
+    push    {r0,r4-r7,r14}
+    ldr     r3,=#0x02036F71     ; Rank address
+    mov     r6,r0
+    cmp     r6,#0x11            ; If the chosen stage is commander room,
+    beq     @@subr_end          ; don't load any settings
+    cmp     r6,#0x1             ; If the chosen stage is intro
+    beq     @@in_intro
+    mov     r7,#0x5             ; A rank
+    b       @@store_rank
+@@in_intro:
+    mov     r7,#0x0             ; F rank
+@@store_rank:
+    strb    r7,[r3]
+    ; bl      set_game_progress
+    ;sub     r0,1                ; Subtract stage index by 1
+    mov     r3,0x1C
+    mul     r1,r3               ; Multiply by 0x1C
+    add     r0,r2,r1            ; Add as offset to base address
+    ldr     r1,=#0x02036EF8     ; Biraid address
+    ldrb    r2,[r0]
+    strb    r2,[r1]
+    add     r0,1
+    add     r1,0x14             ; Clokkle address
+    ldrb    r2,[r0]
+    strb    r2,[r1]
+    add     r0,1
+    ldr     r1,=#0x02036FC0     ; "Saved gameplay settings" section to write to
+    ldmia   r0!,{r2-r7}
+    stmia   r1!,{r2-r7}
+    ldrh    r2,[r0]
+    strh    r2,[r1]
+    add     r1,4
+    ldr     r3,=#0x02037D30     ; Read from control settings
+    ldmia   r3!,{r4-r5}         ; Load 8 bytes
+    stmia   r1!,{r4-r5}         ; Store 8 bytes
+    ldrh    r2,[r3]             ; Load another 2 bytes
+    strh    r2,[r1]             ; Store another 2 bytes
+    ; ldr     r1,=#0x02036BBE     ; Game progress values here
+    ; ldrh    r2,[r0]             ; Load total points
+    ; strh    r2,[r1]             ; Store total points
+    ; ldrb    r2,[r0,#0x2]        ; Load stages beaten
+    ; strb    r2,[r1,#0x6]        ; Store
+    ; strb    r2,[r1,#0x7]        ; Store, offset by 1
+    ; ldrh    r2,[r0,#0x4]        ; Load specific stages beaten
+    ; strh    r2,[r1,#0xA]        ; Store
+    ; strh    r2,[r1,#0xE]        ; Store, offset by 4
+@@subr_end:
+    pop     {r0,r4-r7}
+    pop     r3
+    bx      r3
+    .pool
     
     .endarea
     
