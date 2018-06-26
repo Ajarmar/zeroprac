@@ -403,14 +403,14 @@
     .db 0x1         ; Hellbat
     .db 0x3         ; Mantisk
     .db 0x5         ; Baby Elves 1
-    .db 0x8         ; Blizzack
+    .db 0x8         ; Anubis
     .db 0x7         ; Hanumachine
-    .db 0x6         ; Anubis
+    .db 0x6         ; Blizzack
     .db 0x9         ; Copy X
-    .db 0xB         ; le Cactank
-    .db 0xA         ; Foxtar
-    .db 0xD         ; Kelverian
-    .db 0xC         ; Volteel
+    .db 0xB         ; Foxtar
+    .db 0xA         ; le Cactank
+    .db 0xD         ; Volteel
+    .db 0xC         ; Kelverian
     .db 0xE         ; Baby Elves 2
     .db 0xF         ; Final
     .db 0x10        ; Commander room

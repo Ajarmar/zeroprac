@@ -106,3 +106,9 @@
     Offsets are stored in EWRAM, but where do they come from??
 
     Hitbox types: i guess i was intending to write something here
+    
+    0202FE28 = stage timer
+    
+    0202FE62 = how far are you into the stage
+    0202FE68 = set to 8 before reloading to simulate death
+    080EEC5E    end of state 4 subroutine
