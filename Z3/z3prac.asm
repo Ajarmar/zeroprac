@@ -1,3 +1,12 @@
+; STRUCTURE:
+; Big open empty area at 0x08386BDC - 0x083A0ADF.
+; 08386BE0 - 08386C6F = New area for game state subroutines (z3-stageselect.asm)
+; 08386C70 - 08386DFF = Stage select menu stage order and entries (z3-stageselect.asm)
+; 08386E00 - 083870FF = Stage select menu subroutine (z3-stageselect.asm)
+; 08387100 - 083871FF = Make stage select menu display correctly (z3-stageselect.asm)
+; 08387200 - 083874FE = Main/input check code (z3prac.asm)
+; 08387A00 - ?        = Stage checkpoints (z3-checkpoints.asm)
+
     .gba
     .open "Rockman Zero 3 (Japan).gba", "z3prac.gba", 0x08000000
     .include "z3-stageselect.asm"

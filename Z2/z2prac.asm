@@ -1,6 +1,16 @@
 ; With "zeroprac" folder in the same folder as ARMIPS:
 ; compile with "armips z2prac.asm -root zeroprac/Z2"
 
+; STRUCTURE:
+; Big open empty area at 0x0835780C - 0x0836DAFF.
+; 0835780E - 08357BC5 = Stage settings (cfg/z2-stageselectcfg.asm)
+; 08357BC6 - 083580FF = Stage select code (z2-stageselect.asm)
+; 08358100 - 0835819F = Stage progress values for cutscene skips (cfg/z2-cutsceneskipscfg.asm)
+; 083581A0 - 0835821F = Cutscene skip code (z2-cutsceneskips.asm)
+; 08358220 - 083582FF = Textbox skip code (z2-cutsceneskips.asm)
+; 08358300 - 083584FF = Main/input check code (z2prac.asm)
+; 08358500 - ?        = "Don't reset RNG" code (z2-cutsceneskips.asm)
+
     .gba
     .open "Rockman Zero 2 (Japan).gba", "z2prac.gba", 0x08000000
     .include "z2-stageselect.asm"

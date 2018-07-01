@@ -126,7 +126,7 @@
 	.db ELF_NONE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_NEUTRAL				; Element
@@ -149,7 +149,7 @@
 	.db ELF_NONE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 40							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_NEUTRAL				; Element
@@ -172,7 +172,7 @@
 	.db ELF_NONE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 100							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_NEUTRAL				; Element
@@ -195,7 +195,7 @@
 	.db ELF_NONE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 200							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_THUNDER				; Element
@@ -217,7 +217,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_RECOIL					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_FLAME					; Element
@@ -240,7 +240,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_RECOIL					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_FLAME					; Element
@@ -263,7 +263,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_RECOIL					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_FLAME					; Element
@@ -286,7 +286,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_RECOIL					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_FLAME					; Element
@@ -309,7 +309,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_THUNDER				; Element
@@ -332,7 +332,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_ICE					; Element
@@ -355,7 +355,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_RECOIL					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_FLAME					; Element
@@ -378,7 +378,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_NEUTRAL				; Element
@@ -401,7 +401,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_NEUTRAL				; Element
@@ -424,7 +424,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_RECOIL					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_NEUTRAL				; Element
@@ -447,7 +447,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_NEUTRAL				; Element
@@ -470,7 +470,7 @@
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
-	.db 32,32,32,32					; Subtank contents
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
 	.db ELEM_NEUTRAL				; Element
