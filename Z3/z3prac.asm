@@ -12,6 +12,7 @@
     .include "z3-stageselect.asm"
     .include "z3-cutsceneskips.asm"
     .include "z3-checkpoints.asm"
+    .include "z3-timer.asm"
     
     .org 0x080019D0
     bl      0x08387200
@@ -64,6 +65,7 @@
     cmp     r2,#0x0
     bne     @subr_end                  ; Change to save state subroutine
 @subr_end:
+    bl      timer
     pop     {r5-r7}
     mov     r8,r5
     mov     r9,r6
@@ -76,6 +78,9 @@
     
 @load_checkpoint:
     bl      check_state
+    ldr     r4,=#0x0202FE28
+    mov     r5,#0x0
+    str     r5,[r4]
     ldr     r4,=#0x02030B61
     mov     r5,#0x3
     strb    r5,[r4]
