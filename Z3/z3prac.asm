@@ -6,6 +6,8 @@
 ; 08387100 - 083871FF = Make stage select menu display correctly (z3-stageselect.asm)
 ; 08387200 - 083874FE = Main/input check code (z3prac.asm)
 ; 08387A00 - ?        = Stage checkpoints (z3-checkpoints.asm)
+; 08388000 - 083881FF = Timer code (z3-timer.asm)
+; 08388200 - ?        = Timer lookup table (z3-timer.asm)
 
     .gba
     .open "Rockman Zero 3 (Japan).gba", "z3prac.gba", 0x08000000
@@ -78,7 +80,7 @@
     
 @load_checkpoint:
     bl      check_state
-    ldr     r4,=#0x0202FE28
+    ldr     r4,=#0x0202FE28     ; Stage timer
     mov     r5,#0x0
     str     r5,[r4]
     ldr     r4,=#0x02030B61
@@ -92,7 +94,7 @@
     stmia   r1!,{r2-r4}         ; Store 12 bytes
     ldrh    r2,[r0]             ; Load another 2 bytes
     strh    r2,[r1]             ; Store another 2 bytes
-    ldr     r3,=#0x02036DC0
+    ldr     r3,=#0x0202FE60
     ldrb    r4,[r3]
     sub     r4,r4,1
     mov     r5,#0x2
