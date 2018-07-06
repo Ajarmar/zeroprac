@@ -13,17 +13,18 @@
 
     .gba
     .open "Rockman Zero 2 (Japan).gba", "z2prac.gba", 0x08000000
+	.include "regions.asm"
     .include "z2-stageselect.asm"
     .include "z2-cutsceneskips.asm"
     .include "z2-savestates.asm"
     
     .org 0x0800078C
-    bl      #0x08358300
+    bl      #REG_INPUT_CHECK
     
     ; Input checking for new functionality.
     ; Checks for Select+Start, Select+L, Select+R, R+Select
-    .org 0x08358300
-    .area 0x200
+    .org REG_INPUT_CHECK
+    .area REG_INPUT_CHECK_AREA
     push    {r4-r7,r14}
     mov     r7,r10
     mov     r6,r9

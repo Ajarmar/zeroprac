@@ -12,7 +12,7 @@
     .org 0x080E543C
     .area 14,0
     .skip 2
-    ldr     r2,=#0x0835780E
+    ldr     r2,=#REG_STAGE_SELECT_CFG
     mov     r1,r4
     bx      r3
     .pool
@@ -29,7 +29,7 @@
     ; Change to existing code.
     ; Manually changes a pool for a PC relative load done at 0x080E543C.
     .org 0x080E54B4
-    .dw 0x08357BC7
+	.dw REG_STAGE_SELECT+0x1
 
     ; Change to existing code.
     ; Fixes the stage index order in the menu.
@@ -84,8 +84,8 @@
     ; Sets the appropriate values for a stage when it is loaded,
     ; including rank, game progress, equips, experience, etc.
     ; See stageselectcfg.asm
-    .org 0x08357BC6
-    .area 0x53A
+    .org REG_STAGE_SELECT
+    .area REG_STAGE_SELECT_AREA
     push    {r0,r4-r7}
     ldr     r3,=#0x02036BB5     ; Rank address
     mov     r6,r0
@@ -267,7 +267,7 @@ set_game_progress:
     
     ; New code.
     ; Cursor positions for the stages, in stage index order.
-    .org 0x08357D50
+    .org REG_STAGE_SELECT+0x18A
     .db 0x0         ; Intro
     .db 0x4         ; Hyleg
     .db 0x3         ; Poler
@@ -300,7 +300,7 @@ show_menu:
     ldrb    r5,[r4]
     orr     r5,r6
     strb    r5,[r4]
-    ldr     r4,=#0x08357D50
+    ldr     r4,=#REG_STAGE_SELECT+0x18A
     ldr     r5,=#0x02036B34
     ldrb    r6,[r5]
     sub     r6,r6,#0x1

@@ -15,7 +15,7 @@
     ; Now branches to a new subroutine instead and skips this check.
     .org 0x08014E96
     .area 14
-    ldr     r2,=#0x083581A1
+    ldr     r2,=#REG_CUTSCENE_SKIP+0x1
     ldr     r5,=#0x0202F8E0
     bx      r2
     .pool
@@ -29,20 +29,20 @@
     ; Change to existing code.
     ; Manually changes pool for PC relative load at 080E44AE.
     .org 0x080E45A4
-    .dw 0x08358501
+    .dw REG_SKIP_RNG+0x1
     
     ; Change to existing code.
     ; Changes branch destination for text box handling.
     .org 0x0834E0A0
-    .dw 0x08358221
+    .dw REG_TEXTBOX_SKIP+0x1
     
     ; New code.
     ; Skips cutscenes at the beginnings of stages when start is pressed.
     ; These cutscene skips are essentially the same as the stage being reloaded
     ; when you die, but without dying. Also works if you want to reload the
     ; stage quickly after dying.
-    .org 0x083581A0
-    .area 0x80
+    .org REG_CUTSCENE_SKIP
+    .area REG_CUTSCENE_SKIP_AREA
     cmp     r0,#0x1
     bne     not_intro
     mov     r2,r1
@@ -51,7 +51,7 @@
     bx      r0
 not_intro:
     push    {r2,r3,r6,r7}
-    ldr     r1,=#0x08358104
+    ldr     r1,=#REG_CUTSCENE_CFG+0x4
     ldr     r5,=#0x0202EC4C
     mov     r4,#0x8
     sub     r0,#0x2
@@ -93,8 +93,8 @@ not_intro:
     ; Allows text boxes to be skipped. By holding start, the current text box 
     ; will be skipped to the end immediately, and the remaining text boxes in
     ; the current set will be skipped. Text boxes with prompts are not skippable.
-    .area 0xE0
-    .org 0x08358220
+    .area REG_TEXTBOX_SKIP_AREA
+    .org REG_TEXTBOX_SKIP
     push    {r4-r6}
     ldr     r4,=#0x0202F660
     ldrb    r5,[r4]
@@ -123,7 +123,7 @@ not_intro:
     ; New code.
     ; If B is held, skips setting RNG to the stage index value
     ; when loading a stage/checkpoint.
-    .org 0x08358500
+    .org REG_SKIP_RNG
     push    {r4-r6}
     ldr     r4,=#0x02000D10
     ldrh    r5,[r4]

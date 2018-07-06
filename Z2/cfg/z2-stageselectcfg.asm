@@ -3,10 +3,12 @@
     ; Equipped form
     FORM_NORMAL equ 0
     FORM_RISE equ 7
+	FORM_PROTO equ 8
     
     ; Unlocked forms
     UNLFORM_NORMAL equ 1
     UNLFORM_RISE equ 0x81
+	UNLFORM_HARD equ 0x100
     UNLFORM_ALL equ 0x3FF
     
     ; Equipped chip
@@ -70,10 +72,12 @@
     BEAT_AP2 equ 0x7FFE
     BEAT_AP3 equ 0xFFFE
     
-    .org 0x0835780E
+    .org REG_STAGE_SELECT_CFG
     
-    .area 0x3B8
-    
+    .area REG_STAGE_SELECT_CFG_AREA
+   
+   	; Normal mode
+
     ; Intro
     .db 0,0,0,0,0,0         ; Unknown
     .db FORM_NORMAL         ; Equipped form
@@ -634,5 +638,5 @@
     .dh 0                   ; Total points
     .dh 0                   ; Stages beaten
     .dw 0                   ; Specific stages beaten
-    
+
     .endarea
