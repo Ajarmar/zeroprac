@@ -639,4 +639,567 @@
     .dh 0                   ; Stages beaten
     .dw 0                   ; Specific stages beaten
 
+   	; Hard mode
+
+    ; Intro
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO         ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD      ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_INTRO        ; Unlocked weapons
+    .db UNLCHIP_NEUTRAL     ; Unlocked chips
+    .db WEP_BUSTER          ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_NEUTRAL        ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0                   ; Total points
+    .dh 0                   ; Stages beaten
+    .dw 0                   ; Specific stages beaten
+    
+    ; Hyleg
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_FLAME          ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x147               ; Total points
+    .dh 4                   ; Stages beaten
+    .dw BEAT_POLER          ; Specific stages beaten
+    
+    ; Poler
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO         ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_FLAME       ; Unlocked chips
+    .db WEP_SHIELD          ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_THUNDER        ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x105               ; Total points
+    .dh 3                   ; Stages beaten
+    .dw BEAT_PHOENIX        ; Specific stages beaten
+    
+    ; Kuwagust
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_ICE            ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x1E6               ; Total points
+    .dh 6                   ; Stages beaten
+    .dw BEAT_NA1            ; Specific stages beaten
+    
+    ; Phoenix
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO         ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_THUNDER     ; Unlocked chips
+    .db WEP_BUSTER          ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_NEUTRAL        ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0xB2                ; Total points
+    .dh 2                   ; Stages beaten
+    .dw BEAT_PANTER         ; Specific stages beaten
+    
+    ; Panter
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO         ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD      ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_NEUTRAL     ; Unlocked chips
+    .db WEP_BUSTER          ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_NEUTRAL        ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x51                ; Total points
+    .dh 1                   ; Stages beaten
+    .dw BEAT_INTRO          ; Specific stages beaten
+    
+    ; Burble
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_ICE            ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x286               ; Total points
+    .dh 8                   ; Stages beaten
+    .dw BEAT_HARPUIA        ; Specific stages beaten
+    
+    ; Leviathan
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_BUSTER          ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_FLAME          ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x2E0               ; Total points
+    .dh 9                   ; Stages beaten
+    .dw BEAT_BURBLE         ; Specific stages beaten
+    
+    ; Harpuia
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_ICE            ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x22F               ; Total points
+    .dh 7                   ; Stages beaten
+    .dw BEAT_KUWAGUST       ; Specific stages beaten
+    
+    ; Fefnir
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_FLAME          ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x337               ; Total points
+    .dh 10                  ; Stages beaten
+    .dw BEAT_LEVIATHAN      ; Specific stages beaten
+    
+    ; Neo Arcadia 2
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_THUNDER        ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x388               ; Total points
+    .dh 11                  ; Stages beaten
+    .dw BEAT_FEFNIR         ; Specific stages beaten
+    
+    ; Neo Arcadia 1
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_ICE            ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x185               ; Total points
+    .dh 5                   ; Stages beaten
+    .dw BEAT_HYLEG          ; Specific stages beaten
+    
+    ; Fefnir AP
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_THUNDER        ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x3DE               ; Total points
+    .dh 12                  ; Stages beaten
+    .dw BEAT_NA2            ; Specific stages beaten
+    
+    ; Leviathan AP
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_THUNDER        ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x431               ; Total points
+    .dh 13                  ; Stages beaten
+    .dw BEAT_AP1            ; Specific stages beaten
+    
+    ; Harpuia AP
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_FLAME          ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x47E               ; Total points
+    .dh 14                  ; Stages beaten
+    .dw BEAT_AP2            ; Specific stages beaten
+    
+    ; Final
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 1                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 32,0,0,0            ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_ICE            ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0x4D7               ; Total points
+    .dh 15                  ; Stages beaten
+    .dw BEAT_AP3            ; Specific stages beaten
+    
+    ; Commander Room
+    .db 0,0,0,0,0,0         ; Unknown
+    .db FORM_PROTO           ; Equipped form
+    .db 0x10                ; Max health
+    .dh 0                   ; E-crystals
+    .dh UNLFORM_HARD        ; Unlocked forms
+    .db 0                   ; Extra health bars
+    .db 0                   ; Unknown
+    .db 0                   ; Subtank count
+    .db 0                   ; Subtank count (elves)
+    .db 0,0,0,0             ; Subtank contents for subtank 1-4
+    .db 0,0,0               ; Equipped cyber elves 1-3
+    .db 0,0,0               ; Unknown
+    .db UNLWEP_ALL          ; Unlocked weapons
+    .db UNLCHIP_ICE         ; Unlocked chips
+    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SABER           ; Equipped secondary weapon
+    .db 0                   ; Unknown
+    .db CHIP_THUNDER        ; Equipped chip
+    .dh EX_NONE             ; Unlocked EX skills
+    .dh EX_NONE             ; Equipped EX skills
+    .dh 0                   ; Buster experience
+    .dh 0                   ; Saber experience
+    .dh 0                   ; Chain Rod experience
+    .dh 0                   ; Shield Boomerang experience
+    .db 0                   ; Buster level
+    .db 0                   ; Saber level
+    .db 0                   ; Chain Rod level
+    .db 0                   ; Shield Boomerang level
+    .dh 0                   ; Total points
+    .dh 0                   ; Stages beaten
+    .dw 0                   ; Specific stages beaten
+
     .endarea
