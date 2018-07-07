@@ -88,13 +88,20 @@
     .area REG_STAGE_SELECT_AREA
     push    {r0,r4-r7}
     ldr     r3,=#0x02036BB5     ; Rank address
-    mov     r6,r0
-    cmp     r6,#0x11            ; If the chosen stage is commander room,
+	ldr     r4,=#0x02000D10     ; Get input
+	ldrh    r4,[r4]
+	lsr     r4,#0x8
+	mov     r5,#0x2
+	and     r5,r4               ; Check if L is pressed
+    cmp     r0,#0x11            ; If the chosen stage is commander room,
     beq     settings_end        ; don't load any settings
-    cmp     r6,#0x1             ; If the chosen stage is intro
+    cmp     r0,#0x1             ; If the chosen stage is intro
     beq     in_intro
-    cmp     r6,#0x5             ; If the chosen stage is phoenix
+	cmp     r5,#0x2             ; If hard mode is selected
+	beq     b_rank
+    cmp     r0,#0x5             ; If the chosen stage is phoenix
     beq     in_phoenix
+b_rank:
     mov     r7,#0x4             ; B rank
     b       store_rank
 in_intro:
@@ -109,6 +116,19 @@ store_rank:
     mov     r3,0x38
     mul     r0,r3               ; Multiply by 0x38
     add     r0,r2,r0            ; Add as offset to base address
+	ldr     r1,=#0x02000D10     ; Get input
+	ldrh    r1,[r1]
+	lsr     r1,#0x8
+	mov     r3,#0x2
+	and     r3,r1               ; Check if L is pressed
+	cmp     r3,#0x2
+	bne     load_config
+	mov     r3,#0xB8
+	add     r0,r0,r3
+	mov     r3,#0x3
+	lsl     r3,#08
+	add     r0,r0,r3
+load_config:
     ldr     r1,=#0x02036C10     ; "Saved gameplay settings" section to write to
     ldr     r3,=#0x02037EDC     ; Read from control settings
     ldmia   r3!,{r4-r5}         ; Load 8 bytes

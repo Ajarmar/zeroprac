@@ -643,10 +643,10 @@
 
     ; Intro
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO         ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
-    .dh UNLFORM_HARD      ; Unlocked forms
+    .dh UNLFORM_HARD        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
     .db 1                   ; Subtank count
@@ -676,7 +676,7 @@
     
     ; Hyleg
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -689,7 +689,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_FLAME          ; Equipped chip
@@ -709,7 +709,7 @@
     
     ; Poler
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO         ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -742,7 +742,7 @@
     
     ; Kuwagust
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -755,7 +755,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_ICE            ; Equipped chip
@@ -775,7 +775,7 @@
     
     ; Phoenix
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO         ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -808,10 +808,10 @@
     
     ; Panter
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO         ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
-    .dh UNLFORM_HARD      ; Unlocked forms
+    .dh UNLFORM_HARD        ; Unlocked forms
     .db 0                   ; Extra health bars
     .db 0                   ; Unknown
     .db 1                   ; Subtank count
@@ -841,7 +841,7 @@
     
     ; Burble
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -854,7 +854,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_ICE            ; Equipped chip
@@ -874,7 +874,7 @@
     
     ; Leviathan
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -887,7 +887,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_BUSTER          ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_FLAME          ; Equipped chip
@@ -907,7 +907,7 @@
     
     ; Harpuia
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -920,7 +920,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_ICE            ; Equipped chip
@@ -940,7 +940,7 @@
     
     ; Fefnir
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -953,7 +953,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_FLAME          ; Equipped chip
@@ -973,7 +973,7 @@
     
     ; Neo Arcadia 2
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -986,7 +986,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_THUNDER        ; Equipped chip
@@ -1006,7 +1006,7 @@
     
     ; Neo Arcadia 1
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -1019,7 +1019,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_ICE            ; Equipped chip
@@ -1039,7 +1039,7 @@
     
     ; Fefnir AP
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -1052,7 +1052,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_THUNDER        ; Equipped chip
@@ -1072,7 +1072,7 @@
     
     ; Leviathan AP
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -1085,7 +1085,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_THUNDER        ; Equipped chip
@@ -1105,7 +1105,7 @@
     
     ; Harpuia AP
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -1118,7 +1118,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_FLAME          ; Equipped chip
@@ -1138,7 +1138,7 @@
     
     ; Final
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -1151,7 +1151,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_ICE            ; Equipped chip
@@ -1171,7 +1171,7 @@
     
     ; Commander Room
     .db 0,0,0,0,0,0         ; Unknown
-    .db FORM_PROTO           ; Equipped form
+    .db FORM_PROTO          ; Equipped form
     .db 0x10                ; Max health
     .dh 0                   ; E-crystals
     .dh UNLFORM_HARD        ; Unlocked forms
@@ -1184,7 +1184,7 @@
     .db 0,0,0               ; Unknown
     .db UNLWEP_ALL          ; Unlocked weapons
     .db UNLCHIP_ICE         ; Unlocked chips
-    .db WEP_SHIELD           ; Equipped main weapon
+    .db WEP_SHIELD          ; Equipped main weapon
     .db WEP_SABER           ; Equipped secondary weapon
     .db 0                   ; Unknown
     .db CHIP_THUNDER        ; Equipped chip
