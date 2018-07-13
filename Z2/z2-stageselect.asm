@@ -113,8 +113,8 @@ store_rank:
     strb    r7,[r3]
     bl      set_game_progress
     sub     r0,1                ; Subtract stage index by 1
-    mov     r3,0x38
-    mul     r0,r3               ; Multiply by 0x38
+    mov     r3,0x50
+    mul     r0,r3               ; Multiply by 0x50
     add     r0,r2,r0            ; Add as offset to base address
 	ldr     r1,=#0x02000D10     ; Get input
 	ldrh    r1,[r1]
@@ -123,11 +123,11 @@ store_rank:
 	and     r3,r1               ; Check if L is pressed
 	cmp     r3,#0x2
 	bne     load_config
-	mov     r3,#0xB8
+	mov     r3,#0x50
 	add     r0,r0,r3
-	mov     r3,#0x3
+	mov     r3,#0x5
 	lsl     r3,#08
-	add     r0,r0,r3
+	add     r0,r0,r3            ; Add offset to load hard mode configuration
 load_config:
     ldr     r1,=#0x02036C10     ; "Saved gameplay settings" section to write to
     ldr     r3,=#0x02037EDC     ; Read from control settings
@@ -158,6 +158,14 @@ load_config:
     ldrh    r2,[r0,#0x4]        ; Load specific stages beaten
     strh    r2,[r1,#0xA]        ; Store
     strh    r2,[r1,#0xE]        ; Store, offset by 4
+	add     r0,#0x6
+	ldr     r1,=#0x02036C4C     ; Cyber elf values
+	ldmia   r0!,{r4-r7}         ; Load 16 bytes
+	stmia   r1!,{r4-r7}         ; Store 16 bytes
+	ldr     r2,[r0]             ; Load 4 bytes
+	str     r2,[r1]             ; Store 4 bytes
+	ldrh    r2,[r0,#0x4]        ; Load 2 bytes
+	strh    r2,[r1,#0x4]        ; Store 2 bytes
 settings_end:
     ldr     r3,=#0x080E544B     ; Address to return to
     pop     {r0,r4-r7}
@@ -287,7 +295,7 @@ set_game_progress:
     
     ; New code.
     ; Cursor positions for the stages, in stage index order.
-    .org REG_STAGE_SELECT+0x18A
+    .org REG_STAGE_SELECT+0x20A
     .db 0x0         ; Intro
     .db 0x4         ; Hyleg
     .db 0x3         ; Poler
@@ -320,7 +328,7 @@ show_menu:
     ldrb    r5,[r4]
     orr     r5,r6
     strb    r5,[r4]
-    ldr     r4,=#REG_STAGE_SELECT+0x18A
+    ldr     r4,=#REG_STAGE_SELECT+0x20A
     ldr     r5,=#0x02036B34
     ldrb    r6,[r5]
     sub     r6,r6,#0x1
