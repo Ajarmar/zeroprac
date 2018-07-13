@@ -19,7 +19,7 @@ There are two ways to build the practice ROM.
 
 You will need a Rockman Zero 2 ROM and an IPS patcher such as [Lunar IPS](https://www.romhacking.net/utilities/240/). Note that Lunar IPS will overwrite your ROM when patching it, so make a copy of the ROM before patching if you want to keep it.
 
-1. Download the [IPS patch](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v1.ips)
+1. Download the [IPS patch](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2.ips)
 2. Open the IPS patch with Lunar IPS, and then choose your original ROM file.
 
 The ROM is now the practice hack.
@@ -45,6 +45,7 @@ There will be a new ROM called "z2prac.gba" in the Z2 folder, which is the pract
 ### Zero 2
 
 - Hold Select and press Start to bring up a stage select menu. Selecting a stage will bring you to it with the appropriate equipment/experience for that point in the route.
+  - Hold L when selecting a stage to get the appropriate hard mode equipment.
 - Hold Select and press L to return to the latest checkpoint.
 - Press Start during stage intro cutscenes to skip them. (Not available for other cutscenes.)
 - If you die, you can press Start to immediately return to the latest checkpoint without losing a life.
