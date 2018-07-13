@@ -3,12 +3,12 @@
     ; Equipped form
     FORM_NORMAL equ 0
     FORM_RISE equ 7
-	FORM_PROTO equ 8
+    FORM_PROTO equ 8
     
     ; Unlocked forms
     UNLFORM_NORMAL equ 1
     UNLFORM_RISE equ 0x81
-	UNLFORM_HARD equ 0x100
+    UNLFORM_HARD equ 0x100
     UNLFORM_ALL equ 0x3FF
     
     ; Equipped chip
@@ -76,9 +76,9 @@
     
     .area REG_STAGE_SELECT_CFG_AREA
    
-   	; Normal mode
+    ; Normal mode
 
-	; Intro
+    ; Intro
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_NORMAL                ; Equipped form
     .db 0x10                       ; Max health
@@ -110,11 +110,11 @@
     .dh 0                          ; Total points
     .dh 0                          ; Stages beaten
     .dh 0                          ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Hyleg
+    ; Hyleg
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -146,11 +146,11 @@
     .dh 0x147                      ; Total points
     .dh 4                          ; Stages beaten
     .dh BEAT_POLER                 ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Poler
+    ; Poler
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_NORMAL                ; Equipped form
     .db 0x10                       ; Max health
@@ -182,11 +182,11 @@
     .dh 0x105                      ; Total points
     .dh 3                          ; Stages beaten
     .dh BEAT_PHOENIX               ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Kuwagust
+    ; Kuwagust
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -218,11 +218,11 @@
     .dh 0x1E6                      ; Total points
     .dh 6                          ; Stages beaten
     .dh BEAT_NA1                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Phoenix
+    ; Phoenix
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_NORMAL                ; Equipped form
     .db 0x10                       ; Max health
@@ -254,11 +254,11 @@
     .dh 0xB2                       ; Total points
     .dh 2                          ; Stages beaten
     .dh BEAT_PANTER                ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Panter
+    ; Panter
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_NORMAL                ; Equipped form
     .db 0x10                       ; Max health
@@ -290,11 +290,11 @@
     .dh 0x51                       ; Total points
     .dh 1                          ; Stages beaten
     .dh BEAT_INTRO                 ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Burble
+    ; Burble
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -326,11 +326,11 @@
     .dh 0x286                      ; Total points
     .dh 8                          ; Stages beaten
     .dh BEAT_HARPUIA               ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Leviathan
+    ; Leviathan
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -362,11 +362,11 @@
     .dh 0x2E0                      ; Total points
     .dh 9                          ; Stages beaten
     .dh BEAT_BURBLE                ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Harpuia
+    ; Harpuia
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -398,11 +398,11 @@
     .dh 0x22F                      ; Total points
     .dh 7                          ; Stages beaten
     .dh BEAT_KUWAGUST              ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Fefnir
+    ; Fefnir
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -434,11 +434,11 @@
     .dh 0x337                      ; Total points
     .dh 10                         ; Stages beaten
     .dh BEAT_LEVIATHAN             ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Neo Arcadia 2
+    ; Neo Arcadia 2
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -470,11 +470,11 @@
     .dh 0x388                      ; Total points
     .dh 11                         ; Stages beaten
     .dh BEAT_FEFNIR                ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Neo Arcadia 1
+    ; Neo Arcadia 1
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -506,11 +506,11 @@
     .dh 0x185                      ; Total points
     .dh 5                          ; Stages beaten
     .dh BEAT_HYLEG                 ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Fefnir AP
+    ; Fefnir AP
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -542,11 +542,11 @@
     .dh 0x3DE                      ; Total points
     .dh 12                         ; Stages beaten
     .dh BEAT_NA2                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Leviathan AP
+    ; Leviathan AP
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -578,11 +578,11 @@
     .dh 0x431                      ; Total points
     .dh 13                         ; Stages beaten
     .dh BEAT_AP1                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Harpuia AP
+    ; Harpuia AP
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -614,11 +614,11 @@
     .dh 0x47E                      ; Total points
     .dh 14                         ; Stages beaten
     .dh BEAT_AP2                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Final
+    ; Final
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -650,11 +650,11 @@
     .dh 0x4D7                      ; Total points
     .dh 15                         ; Stages beaten
     .dh BEAT_AP3                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Commander Room
+    ; Commander Room
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_RISE                  ; Equipped form
     .db 0x10                       ; Max health
@@ -686,13 +686,13 @@
     .dh 0                          ; Total points
     .dh 0                          ; Stages beaten
     .dh 0                          ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Hard mode
+    ; Hard mode
 
-	; Intro
+    ; Intro
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -724,11 +724,11 @@
     .dh 0                          ; Total points
     .dh 0                          ; Stages beaten
     .dh 0                          ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Hyleg
+    ; Hyleg
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -760,11 +760,11 @@
     .dh 0x147                      ; Total points
     .dh 4                          ; Stages beaten
     .dh BEAT_POLER                 ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Poler
+    ; Poler
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -796,11 +796,11 @@
     .dh 0x105                      ; Total points
     .dh 3                          ; Stages beaten
     .dh BEAT_PHOENIX               ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Kuwagust
+    ; Kuwagust
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -832,11 +832,11 @@
     .dh 0x1E6                      ; Total points
     .dh 6                          ; Stages beaten
     .dh BEAT_NA1                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Phoenix
+    ; Phoenix
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -868,11 +868,11 @@
     .dh 0xB2                       ; Total points
     .dh 2                          ; Stages beaten
     .dh BEAT_PANTER                ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Panter
+    ; Panter
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -904,11 +904,11 @@
     .dh 0x51                       ; Total points
     .dh 1                          ; Stages beaten
     .dh BEAT_INTRO                 ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Burble
+    ; Burble
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -940,11 +940,11 @@
     .dh 0x286                      ; Total points
     .dh 8                          ; Stages beaten
     .dh BEAT_HARPUIA               ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Leviathan
+    ; Leviathan
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -976,11 +976,11 @@
     .dh 0x2E0                      ; Total points
     .dh 9                          ; Stages beaten
     .dh BEAT_BURBLE                ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Harpuia
+    ; Harpuia
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -1012,11 +1012,11 @@
     .dh 0x22F                      ; Total points
     .dh 7                          ; Stages beaten
     .dh BEAT_KUWAGUST              ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Fefnir
+    ; Fefnir
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -1048,11 +1048,11 @@
     .dh 0x337                      ; Total points
     .dh 10                         ; Stages beaten
     .dh BEAT_LEVIATHAN             ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Neo Arcadia 2
+    ; Neo Arcadia 2
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -1084,11 +1084,11 @@
     .dh 0x388                      ; Total points
     .dh 11                         ; Stages beaten
     .dh BEAT_FEFNIR                ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Neo Arcadia 1
+    ; Neo Arcadia 1
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -1120,11 +1120,11 @@
     .dh 0x185                      ; Total points
     .dh 5                          ; Stages beaten
     .dh BEAT_HYLEG                 ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Fefnir AP
+    ; Fefnir AP
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -1156,11 +1156,11 @@
     .dh 0x3DE                      ; Total points
     .dh 12                         ; Stages beaten
     .dh BEAT_NA2                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0x4,0xC,0,0  ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0x4,0xC,0,0  ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0x4,0xC,0,0  ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0x4,0xC,0,0  ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Leviathan AP
+    ; Leviathan AP
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -1192,11 +1192,11 @@
     .dh 0x431                      ; Total points
     .dh 13                         ; Stages beaten
     .dh BEAT_AP1                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Harpuia AP
+    ; Harpuia AP
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -1228,11 +1228,11 @@
     .dh 0x47E                      ; Total points
     .dh 14                         ; Stages beaten
     .dh BEAT_AP2                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0x4,0x2C,0,0 ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0x4,0x28,0,0 ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0x4,0x2C,0,0 ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0x4,0x28,0,0 ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Final
+    ; Final
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -1264,11 +1264,11 @@
     .dh 0x4D7                      ; Total points
     .dh 15                         ; Stages beaten
     .dh BEAT_AP3                   ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0x4,0x2C,0,0 ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0x4,0x20,0,0 ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0x4,0x2C,0,0 ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0x4,0x20,0,0 ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
-	; Commander Room
+    ; Commander Room
     .db 0,0,0,0,0,0                ; Unknown
     .db FORM_PROTO                 ; Equipped form
     .db 0x10                       ; Max health
@@ -1300,8 +1300,8 @@
     .dh 0                          ; Total points
     .dh 0                          ; Stages beaten
     .dh 0                          ; Specific stages beaten
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
-	.db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
-	.db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves obtained
+    .db 0,0,0,0,0,0,0,0,0,0,0      ; Cyber elves used
+    .db 0xFF,0xFF,0xFF,0xFF        ; Extra bytes to align configuration
 
     .endarea

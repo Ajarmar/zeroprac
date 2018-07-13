@@ -13,7 +13,7 @@
 
     .gba
     .open "Rockman Zero 2 (Japan).gba", "z2prac.gba", 0x08000000
-	.include "regions.asm"
+    .include "regions.asm"
     .include "z2-stageselect.asm"
     .include "z2-cutsceneskips.asm"
     .include "z2-savestates.asm"
