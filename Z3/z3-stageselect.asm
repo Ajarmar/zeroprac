@@ -46,7 +46,7 @@
     .dw 0x080F2F45 ;1B
     .dw 0x080F3045 ;1C
     .dw 0x080F3129 ;1D
-    .dw 0x08386E01 ;1E CHANGE TO WHERE STAGE SELECT MENU ROUTINE BEGINS
+    .dw 0x08386E01 ;1E
     .endarea
     
     ; New code. Stage order for the stage select menu.
@@ -221,7 +221,7 @@
     mov     r0,#0x1
     and     r0,r1
     cmp     r0,#0x0
-    beq     @@subr_end
+    beq     @@check_for_b
     mov     r1,r13
     add     r0,r1,r4
     ldrb    r0,[r0]
@@ -241,6 +241,15 @@
     pop     {r4-r7}
     pop     {r0}
     bx      r0
+@@check_for_b:
+    mov     r0,#0x2
+    and     r0,r1
+    cmp     r0,#0x0
+    beq     @@subr_end
+    ldr     r0,=#0x02030B61
+    mov     r1,#0x4
+    strb    r1,[r0]
+    b       @@subr_end
     .pool
     
 @indexes_on_stack: ; r0 = sp, r1 = stage index list, r2 = 0x11

@@ -1,23 +1,427 @@
     .gba
     .org 0x08387A00
-    .area 0x600
+    .area 0x1600
+    .area 0x200
+    ; 036FE8 big important for charge
+load_checkpoint:
+    push    r14
+    ldr     r4,=#0x0202FE28     ; Stage timer
+    mov     r5,#0x0
+    str     r5,[r4]
+    ldr     r4,=#0x02030B61     ; Game state
+    mov     r5,#0x3
+    strb    r5,[r4]
+    ldr     r4,=#0x02036FEC     ; Zero's saved health
+    mov     r5,#0x10
+    strb    r5,[r4]
+    ldr     r4,=#0x02001EB0
+    ldrh    r5,[r4]
+    mov     r6,#0x80
+    and     r6,r5
+    cmp     r6,#0x0
+    bne     @after_settings
+    ldr     r1,=#0x02036FC0     ; "Saved gameplay settings" section to write to
+    ldr     r0,=#0x02037D14     ; Read from control settings
+    ldmia   r0!,{r2-r7}         ; Load 24 bytes
+    stmia   r1!,{r2-r7}         ; Store 24 bytes
+    ldmia   r0!,{r2-r4}         ; Load 12 bytes
+    stmia   r1!,{r2-r4}         ; Store 12 bytes
+    ldrh    r2,[r0]             ; Load another 2 bytes
+    strh    r2,[r1]             ; Store another 2 bytes
+@after_settings:
+    ldr     r3,=#0x0202FE60
+    ldrb    r4,[r3]
+    mov     r0,r4
+    cmp     r4,#0x11
+    beq     @checkpoints_end
+    sub     r4,r4,1
+    mov     r5,#0x10
+    mul     r4,r5
+    ldr     r6,=#0x08387C00
+    add     r6,r6,r4
+    ldrb    r1,[r3,#0x2]
+    mov     r2,r3
+    b       @check_if_boss
+@after_boss_check:
+    add     r6,r6,r1
+    ldr     r0,=#0x02001EB0
+    ldrh    r1,[r0]
+    mov     r2,#0x20
+    and     r2,r1
+    cmp     r2,#0x0
+    bne     @left_held
+    mov     r2,#0x10
+    and     r2,r1
+    cmp     r2,#0x0
+    beq     @store_checkpoint
+    mov     r7,#0x24
+    add     r7,r3,r7
+    mov     r5,#0x0
+    strh    r5,[r7]
+    mov     r7,#0x80
+    lsl     r7,r7,2
+    add     r6,r6,r7
+    b       @store_checkpoint
+@left_held:
+    mov     r7,0x80
+    lsl     r7,r7,1
+    add     r6,r6,r7
+@store_checkpoint:
+    ldrb    r5,[r6]
+    strb    r5,[r3,#0x2]
+    cmp     r5,#0xB
+    blt     @after_omega_check
+    ldr     r5,=#0x02036FE8
+    mov     r6,#0x0
+    strh    r6,[r5]
+@after_omega_check:
+    bl      @set_charge
+@checkpoints_end:
+    pop     r0
+    bx      r0
     
-    .db 7, 6    ; Intro
-    .db 6, 7    ; Flizard
-    .db 8, 9    ; Childre
-    .db 5, 6    ; Hellbat
-    .db 6, 7    ; Mantisk
-    .db 5, 6    ; Baby Elves 1
-    .db 4, 5    ; Anubis
-    .db 4, 5    ; Hanumachine
-    .db 4, 5    ; Blizzack
-    .db 4, 5    ; Copy X
-    .db 5, 6    ; Foxtar
-    .db 4, 5    ; Cactank
-    .db 5, 6    ; Volteel
-    .db 5, 6    ; Kelverian
-    .db 7, 8    ; Baby Elves 2
-    .db 9, 0xC  ; Final
+@check_if_boss: ;r0 = stage index, r1 = checkpoint index, r2 = stage index address
+    ldr     r4,=#0x0202FE90
+    ldr     r4,[r4]
+    cmp     r4,#0x0
+    beq     @after_boss_check
+    mov     r7,r4
+    ldr     r4,=#0x08387F00
+    sub     r5,r0,#0x1
+    add     r4,r4,r5
+    ldrb    r4,[r4]
+    cmp     r1,r4
+    beq     @after_boss_check
+    ldr     r4,=#0x0202FE67
+    ldrb    r4,[r4]
+    cmp     r0,#0x1
+    beq     @@in_intro
+    cmp     r0,#0x10
+    beq     @@in_final
+    cmp     r4,#0x0
+    beq     @@continue
+    mov     r4,#0xA4
+    add     r7,r7,r4
+    ldrh    r7,[r7]
+    lsl     r7,r7,#0x10
+    asr     r7,r7,#0x10
+    cmp     r7,#0x0
+    bgt     @after_boss_check
+@@continue:
+    add     r1,r1,1
+    strb    r1,[r2,#0x2]
+    b       @after_boss_check
+@@in_intro:
+    cmp     r4,#0x0
+    beq     @after_boss_check
+    mov     r4,#0xA4
+    add     r7,r7,r4
+    ldr     r7,[r7]
+    cmp     r7,#0x0
+    beq     @after_boss_check
+    add     r1,r1,1
+    strb    r1,[r2,#0x2]
+    b       @after_boss_check
+@@in_final:
+    cmp     r1,#0x9
+    beq     @@at_omega
+    cmp     r4,#0x0
+    beq     @@continue_final
+    mov     r4,#0xA4
+    add     r7,r7,r4
+    ldrh    r7,[r7]
+    lsl     r7,r7,#0x10
+    asr     r7,r7,#0x10
+    cmp     r7,#0x0
+    bgt     @after_boss_check
+@@continue_final:
+    add     r1,r1,1
+    strb    r1,[r2,#0x2]
+    b       @after_boss_check
+@@at_omega:
+    ldr     r5,=#0x0202FE6A
+    ldrb    r5,[r5]
+    mov     r4,#0x7
+    cmp     r5,r4
+    bge     @@at_omega_zero
+    mov     r4,#0x3
+    cmp     r5,r4
+    bge     @@at_omega_2
+    add     r1,r1,1
+    strb    r1,[r2,#0x2]
+    b       @after_boss_check
+@@at_omega_2:
+    add     r1,r1,2
+    strb    r1,[r2,#0x2]
+    b       @after_boss_check
+@@at_omega_zero:
+    add     r1,r1,3
+    strb    r1,[r2,#0x2]
+    b       @after_boss_check
+    
+    .pool
+    
+@set_charge:
+    ldrb    r5,[r3]
+    cmp     r5,#0x1
+    beq     @@continue
+    cmp     r5,#0x6
+    beq     @@continue
+    cmp     r5,#0xA
+    beq     @@continue
+    cmp     r5,#0xF
+    beq     @@continue
+    cmp     r5,#0x10
+    beq     @@continue_final
+    b       @@subr_end
+@@continue:
+    mov     r6,#0x30
+    add     r5,r3,r6
+    ldr     r5,[r5]
+    cmp     r5,#0x0
+    beq     @@subr_end
+    add     r5,#0xA4
+    ldrh    r5,[r5]
+    lsl     r5,r5,#0x10
+    asr     r5,r5,#0x10
+    cmp     r5,#0x0
+    bgt     @@subr_end
+    ldr     r5,=#0x02037D3C
+    mov     r4,#0x24
+    add     r4,r3,r4
+    ldrh    r4,[r4]
+    strh    r4,[r5]
+    ldr     r5,=#0x02036FE8
+    strh    r4,[r5]
+    b       @@subr_end
+@@continue_final:
+    ldrb    r5,[r3,#0x2]
+    cmp     r5,#0xA
+    beq     @@continue
+    ; ldrb    r5,[r3,#0xA]
+    ; cmp     r5,#0x3
+    ; blt     @@continue
+@@subr_end:
+    bx      r14
+    
+    .pool
+    .endarea
+    
+    ; Current checkpoint
+    .org 0x08387C00
+    .area 0x100
+    ; Intro
+    .db 0,1,2,3,4,4,7,6
+    .align 0x10
+    
+    ; Flizard
+    .db 0,1,1,3,4,5,6,7
+    .align 0x10
+    
+    ; Childre
+    .db 0,1,1,3,3,5,6,7,8,9
+    .align 0x10
+    
+    ; Hellbat
+    .db 0,1,1,3,4,5,6
+    .align 0x10
+    
+    ; Mantisk
+    .db 0,1,1,3,3,5,6,7
+    .align 0x10
+    
+    ; Baby Elves 1
+    .db 0,1,1,3,3,5,6
+    .align 0x10
+    
+    ; Anubis
+    .db 0,0,0,3,4,5
+    .align 0x10
+    
+    ; Hanumachine
+    .db 0,0,0,3,4,5
+    .align 0x10
+    
+    ; Blizzack
+    .db 0,0,0,3,4,5
+    .align 0x10
+    
+    ; Copy X
+    .db 0,0,0,3,4,5
+    .align 0x10
+    
+    ; Foxtar
+    .db 0,1,1,3,4,5,6
+    .align 0x10
+    
+    ; le Cactank
+    .db 0,1,1,3,4,5
+    .align 0x10
+    
+    ; Volteel
+    .db 0,1,1,3,3,5,6
+    .align 0x10
+    
+    ; Kelverian
+    .db 0,0,0,3,4,5,6
+    .align 0x10
+    
+    ; Baby Elves 2
+    .db 0,0,0,4,4,5,6,7,8
+    .align 0x10
+    
+    ; Final
+    .db 0,0,0,3,4,5,6,7,8,9,0xA,0xB,0xC
+    .endarea
+    
+    
+    
+    ; Previous checkpoint
+    .org 0x08387D00
+    .area 0x100
+    
+    ; Intro
+    .db 0,1,1,2,3,3,4,7
+    .align 0x10
+    
+    ; Flizard
+    .db 0,1,1,2,3,4,5,6
+    .align 0x10
+    
+    ; Childre
+    .db 0,1,1,2,2,3,5,6,7,8
+    .align 0x10
+    
+    ; Hellbat
+    .db 0,1,1,2,3,4,5
+    .align 0x10
+    
+    ; Mantisk
+    .db 0,1,1,2,2,3,5,6
+    .align 0x10
+    
+    ; Baby Elves 1
+    .db 0,1,1,2,2,3,5
+    .align 0x10
+    
+    ; Anubis
+    .db 0,0,0,0,3,4
+    .align 0x10
+    
+    ; Hanumachine
+    .db 0,0,0,0,3,4
+    .align 0x10
+    
+    ; Blizzack
+    .db 0,0,0,0,3,4
+    .align 0x10
+    
+    ; Copy X
+    .db 0,0,0,0,3,4
+    .align 0x10
+    
+    ; Foxtar
+    .db 0,1,1,2,3,4,5
+    .align 0x10
+    
+    ; le Cactank
+    .db 0,1,1,2,3,4
+    .align 0x10
+    
+    ; Volteel
+    .db 0,1,1,2,2,3,5
+    .align 0x10
+    
+    ; Kelverian
+    .db 0,0,0,0,3,4,5
+    .align 0x10
+    
+    ; Baby Elves 2
+    .db 0,0,0,0,0,4,0,6,7
+    .align 0x10
+    
+    ; Final
+    .db 0,0,0,0,3,3,5,6,6,8,9,0xA,0xB
+    .endarea
+    
+    
+    
+    ; Next checkpoint
+    .org 0x08387E00
+    .area 0x100
+    
+    ; Intro
+    .db 0,3,3,4,7,7,6,6
+    .align 0x10
+    
+    ; Flizard
+    .db 0,2,3,4,5,6,7,7
+    .align 0x10
+    
+    ; Childre
+    .db 0,2,3,5,5,6,7,8,9,9
+    .align 0x10
+    
+    ; Hellbat
+    .db 0,2,3,4,5,6,6
+    .align 0x10
+    
+    ; Mantisk
+    .db 0,2,3,5,5,6,7,7
+    .align 0x10
+    
+    ; Baby Elves 1
+    .db 0,2,3,5,5,6,6
+    .align 0x10
+    
+    ; Anubis
+    .db 0,3,3,4,5,5
+    .align 0x10
+    
+    ; Hanumachine
+    .db 0,3,3,4,5,5
+    .align 0x10
+    
+    ; Blizzack
+    .db 0,3,3,4,5,5
+    .align 0x10
+    
+    ; Copy X
+    .db 0,3,3,4,5,5
+    .align 0x10
+    
+    ; Foxtar
+    .db 0,2,3,4,5,6,6
+    .align 0x10
+    
+    ; le Cactank
+    .db 0,2,3,4,5,5
+    .align 0x10
+    
+    ; Volteel
+    .db 0,2,3,5,5,6,6
+    .align 0x10
+    
+    ; Kelverian
+    .db 0,3,3,4,5,6,6
+    .align 0x10
+    
+    ; Baby Elves 2
+    .db 0,6,6,6,6,6,7,8,8
+    .align 0x10
+    
+    ; Final
+    .db 0,3,3,5,5,6,8,8,9,0xA,0xB,0xC,0xC
+    .endarea
+    
+    
+    
+    ; Miniboss values
+    .org 0x08387F00
+    .db 0,0,0,3,4,0,2,0,0,0,3,2,0,3,0,0
+    
+    
+    
     
     ; Intro
     ; 5 -> 4

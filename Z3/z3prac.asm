@@ -6,8 +6,8 @@
 ; 08387100 - 083871FF = Make stage select menu display correctly (z3-stageselect.asm)
 ; 08387200 - 083874FE = Main/input check code (z3prac.asm)
 ; 08387A00 - ?        = Stage checkpoints (z3-checkpoints.asm)
-; 08388000 - 083881FF = Timer code (z3-timer.asm)
-; 08388200 - ?        = Timer lookup table (z3-timer.asm)
+; 08389000 - 083891FF = Timer code (z3-timer.asm)
+; 08389200 - ?        = Timer lookup table (z3-timer.asm)
 
     .gba
     .open "Rockman Zero 3 (Japan).gba", "z3prac.gba", 0x08000000
@@ -37,18 +37,22 @@
     and     r2,r1
     cmp     r2,#0x0
     bne     @r_pressed
-    b       @subr_end
+    b       main_end
 @select_pressed:
     ldrh    r1,[r0,#0x4]
     mov     r2,#0x80
     lsl     r3,r2,#0x2
     and     r3,r1
     cmp     r3,#0x0
-    bne     @load_checkpoint           ; Change to load state subroutine
+    beq     @no_L
+    bl      check_state
+    bl      load_checkpoint           ; Change to load state subroutine (maybe)
+    b       main_end
+@no_L:
     lsl     r3,r2,#0x1
     and     r3,r1
     cmp     r3,#0x0
-    bne     @subr_end                  ; Change to save state subroutine
+    bne     main_end                  ; Change to save state subroutine (maybe)
     mov     r2,#0x40
     and     r2,r1
     cmp     r2,#0x0
@@ -56,18 +60,21 @@
     mov     r2,#0x8
     and     r2,r1
     cmp     r2,#0x0
-    beq     @subr_end
+    beq     main_end
     bl      check_state
     bl      show_menu
-    b       @subr_end
+    b       main_end
 @r_pressed:
     ldrh    r1,[r0,#0x4]
     mov     r2,#0x4
     and     r2,r1
     cmp     r2,#0x0
-    bne     @subr_end                  ; Change to save state subroutine
-@subr_end:
+    bne     main_end                  ; Change to save state subroutine (maybe)
+main_end:
     bl      timer
+    bl      @maintain_lives
+    bl      @set_omega_room
+    bl      @store_charge
     pop     {r5-r7}
     mov     r8,r5
     mov     r9,r6
@@ -78,49 +85,6 @@
     pop     r0
     bx      r0
     
-@load_checkpoint:
-    bl      check_state
-    ldr     r4,=#0x0202FE28     ; Stage timer
-    mov     r5,#0x0
-    str     r5,[r4]
-    ldr     r4,=#0x02030B61
-    mov     r5,#0x3
-    strb    r5,[r4]
-    ldr     r1,=#0x02036FC0     ; "Saved gameplay settings" section to write to
-    ldr     r0,=#0x02037D14     ; Read from control settings
-    ldmia   r0!,{r2-r7}         ; Load 24 bytes
-    stmia   r1!,{r2-r7}         ; Store 24 bytes
-    ldmia   r0!,{r2-r4}         ; Load 12 bytes
-    stmia   r1!,{r2-r4}         ; Store 12 bytes
-    ldrh    r2,[r0]             ; Load another 2 bytes
-    strh    r2,[r1]             ; Store another 2 bytes
-    ldr     r3,=#0x0202FE60
-    ldrb    r4,[r3]
-    sub     r4,r4,1
-    mov     r5,#0x2
-    mul     r4,r5
-    ldr     r6,=#0x08387A00
-    add     r6,r6,r4
-    ldr     r0,=#0x02001EB0
-    ldrh    r1,[r0]
-    mov     r2,#0x20
-    and     r2,r1
-    cmp     r2,#0x0
-    bne     @left_held
-    mov     r2,#0x10
-    and     r2,r1
-    cmp     r2,#0x0
-    beq     @subr_end
-    ldr     r7,=#0x0202FE62
-    ldrb    r2,[r6,#0x1]
-    strb    r2,[r7]
-    b       @subr_end
-@left_held:
-    ldr     r7,=#0x0202FE62
-    ldrb    r2,[r6]
-    strb    r2,[r7]
-    b       @subr_end
-    
 @change_rank:
     bl      check_state
     ldr     r4,=#0x02036F71
@@ -129,26 +93,107 @@
     beq     @to_b_rank
     mov     r5,#0x5
     strb    r5,[r4]
-    b       @subr_end
+    b       main_end
 @to_b_rank:
     mov     r5,#0x4
     strb    r5,[r4]
-    b       @subr_end
+    b       main_end
     
-    ; Jumps to subroutine end if the current game state is 0, 1, 2 or 3.
+    ; Jumps to subroutine end if the current game state is not 4.
     ; Used to prevent certain functionality from being used while 
     ; the game is paused.
 check_state:
     ldr     r4,=#0x02030B61
     ldrb    r4,[r4]
-    cmp     r4,#0x0
-    beq     @subr_end
-    cmp     r4,#0x1
-    beq     @subr_end
-    cmp     r4,#0x2
-    beq     @subr_end
-    cmp     r4,#0x3
-    beq     @subr_end
+    cmp     r4,#0x4
+    bne     main_end
+    ; cmp     r4,#0x0
+    ; beq     main_end
+    ; cmp     r4,#0x1
+    ; beq     main_end
+    ; cmp     r4,#0x2
+    ; beq     main_end
+    ; cmp     r4,#0x3
+    ; beq     main_end
+    bx      r14
+    
+@maintain_lives:
+    ldr     r4,=#0x02036F70
+    ldrb    r5,[r4]
+    cmp     r5,#0x9
+    bge     @@subr_end
+    mov     r5,#0x9
+    strb    r5,[r4]
+@@subr_end:
+    bx      r14
+    
+@set_omega_room:
+    ldr     r4,=#0x0202FE60
+    ldrb    r5,[r4]
+    cmp     r5,#0x10
+    bne     @@subr_end
+    ldrb    r5,[r4,#0x2]
+    cmp     r5,#0xA
+    beq     @@omega_1
+    cmp     r5,#0xB
+    beq     @@omega_2
+    cmp     r5,#0xC
+    beq     @@omega_zero
+    b       @@subr_end
+@@omega_1:
+    mov     r5,#0x0
+    strb    r5,[r4,#0xA]
+    b       @@subr_end
+@@omega_2:
+    mov     r5,#0x3
+    strb    r5,[r4,#0xA]
+    b       @@subr_end
+@@omega_zero:
+    mov     r5,#0x7
+    strb    r5,[r4,#0xA]
+@@subr_end:
+    bx      r14
+    
+@store_charge:
+    ldr     r4,=#0x0202FE60
+    ldrb    r5,[r4]
+    cmp     r5,#0x1
+    beq     @@continue
+    cmp     r5,#0x6
+    beq     @@continue
+    cmp     r5,#0xA
+    beq     @@continue
+    cmp     r5,#0xF
+    beq     @@continue
+    cmp     r5,#0x10
+    beq     @@continue_final
+    b       @@subr_end
+@@continue:
+    mov     r6,#0x30
+    add     r5,r4,r6
+    ldr     r5,[r5]
+    cmp     r5,#0x0
+    beq     @@subr_end
+    add     r5,#0xA4
+    ldrh    r5,[r5]
+    lsl     r5,r5,#0x10
+    asr     r5,r5,#0x10
+    cmp     r5,#0x0
+    bgt     @@subr_end
+    ldrb    r5,[r4,#0x5]
+    lsr     r5,r5,#0x4
+    cmp     r5,#0x7
+    bne     @@subr_end
+    ldr     r5,=#0x02036FE8
+    ldrh    r5,[r5]
+    add     r4,#0x24
+    strh    r5,[r4]
+    b       @@subr_end
+@@continue_final:
+    ldrb    r5,[r4,#0x2]
+    cmp     r5,#0x9
+    beq     @@continue
+@@subr_end:
     bx      r14
     
     .pool
