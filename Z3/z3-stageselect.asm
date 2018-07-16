@@ -249,6 +249,10 @@
     ldr     r0,=#0x02030B61
     mov     r1,#0x4
     strb    r1,[r0]
+    ldr     r0,=#0x02036DC0
+    ldr     r4,=#0x0202FE60
+    ldrb    r4,[r4]
+    strb    r4,[r0]
     b       @@subr_end
     .pool
     
