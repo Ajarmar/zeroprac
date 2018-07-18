@@ -7,38 +7,44 @@ Currently available:
 
 Up next:
 * Zero 3
-* Save/load state functionality (Zero 2)
 
 Authors: Ajarmar ([@Ajarmar_](http://twitter.com/Ajarmar_)), cleartonic ([@cleartonic](http://twitter.com/cleartonic))
 
 ## Building the practice ROM
 
-There are two ways to build the practice ROM.
+There are two ways to build the practice ROMs.
 
 ### IPS Patch (recommended)
 
-You will need a Rockman Zero 2 ROM and an IPS patcher such as [Lunar IPS](https://www.romhacking.net/utilities/240/). Note that Lunar IPS will overwrite your ROM when patching it, so make a copy of the ROM before patching if you want to keep it.
+You will need a Rockman Zero 2/Rockman Zero 3 ROM and an IPS patcher such as [Lunar IPS](https://www.romhacking.net/utilities/240/). Note that Lunar IPS will overwrite your ROM when patching it, so make a copy of the ROM before patching if you want to keep it.
 
-1. Download the [IPS patch](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v1.ips)
+1. Download the IPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v1.ips) or [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v1.ips)
 2. Open the IPS patch with Lunar IPS, and then choose your original ROM file.
 
 The ROM is now the practice hack.
 
 ### Assembling with ARMIPS
 
-You will need a Rockman Zero 2 ROM and [ARMIPS](https://github.com/Kingcom/armips/releases/tag/v0.10.0). The following instructions are for Windows, but I think ARMIPS will work on other operating systems as well - although you will have to [build it from source](https://github.com/Kingcom/armips#22-building-from-source).
+You will need a Rockman Zero 2/Rockman Zero 3 ROM and [ARMIPS](https://github.com/Kingcom/armips/releases/tag/v0.10.0). The following instructions are for Windows, but I think ARMIPS will work on other operating systems as well - although you will have to [build it from source](https://github.com/Kingcom/armips#22-building-from-source).
 
 1. Clone or download this repository. For easier assembling, put the zeroprac folder in the folder where you have ARMIPS.
-2. Put your Rockman Zero 2 ROM in the Z2 folder. The ROM must be named "Rockman Zero 2 (Japan).gba".
+2. Put your Rockman Zero 2/Rockman Zero 3 ROM in the Z2/Z3 folder. The ROM must be named "Rockman Zero 2 (Japan).gba" / "Rockman Zero 3 (Japan).gba".
 3. Open a cmd window in the folder where you have ARMIPS. (Shift + Right click in the folder -> "Open command window here")
 4. Assemble with the following command:
 
+* Z2
 ```
 armips z2prac.asm -root zeroprac/Z2
 ```
-If you don't put the zeroprac folder in the folder where you have ARMIPS, put the whole filepath to the Z2 folder instead of "zeroprac/Z2".
 
-There will be a new ROM called "z2prac.gba" in the Z2 folder, which is the practice hack.
+* Z3
+```
+armips z3prac.asm -root zeroprac/Z3
+```
+
+If you don't put the zeroprac folder in the folder where you have ARMIPS, put the whole filepath to the Z2/Z3 folder instead of "zeroprac/Z2" / "zeroprac/Z3".
+
+There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, which is the practice hack.
 
 ## Features
 
