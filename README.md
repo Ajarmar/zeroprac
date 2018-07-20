@@ -51,6 +51,8 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, 
 
 ### Zero 2
 
+[Video](https://www.youtube.com/watch?v=oFmz7C9agcM)
+
 - Hold Select and press Start to bring up a stage select menu. Selecting a stage will bring you to it with the appropriate equipment/experience for that point in the route.
 - Hold Select and press L to return to the latest checkpoint.
 - Press Start during stage intro cutscenes to skip them. (Not available for other cutscenes.)
@@ -58,6 +60,8 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, 
 - Skip text boxes by holding Start.
 
 ### Zero 3
+
+[Video](https://www.youtube.com/watch?v=hQKZBsgO-4k)
 
 - Skippable cutscenes without needing a save file.
 - Infinite lives.
