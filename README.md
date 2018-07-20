@@ -4,9 +4,10 @@ ROM hacks of the Mega Man Zero games for the Game Boy Advance.
 
 Currently available: 
 * Rockman Zero 2
+* Rockman Zero 3
 
 Up next:
-* Zero 3
+* Rockman Zero 4
 
 Authors: Ajarmar ([@Ajarmar_](http://twitter.com/Ajarmar_)), cleartonic ([@cleartonic](http://twitter.com/cleartonic))
 
@@ -55,3 +56,18 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, 
 - Press Start during stage intro cutscenes to skip them. (Not available for other cutscenes.)
 - If you die, you can press Start to immediately return to the latest checkpoint without losing a life.
 - Skip text boxes by holding Start.
+
+### Zero 3
+
+- Skippable cutscenes without needing a save file.
+- Infinite lives.
+- Holding Select and pressing Start opens the stage select menu. You can press B to exit.
+- Hold Select and press Up to switch between A rank and B rank.
+- Hold Select and press L to reload latest checkpoint. Also works on bosses (the beginning of a boss fight is a checkpoint).
+    - Hold Select+Left and press L to load previous checkpoint, hold Select+Right and press L to load next checkpoint.
+    - Hold Select+Down (plus Left/Right if you want) and press L to load checkpoint without loading changes you've made to your equipment.
+- There is a timer showing the stage time. It displays minutes:seconds:frames. When you load a checkpoint, it will go back to 0.
+
+- Tips:
+    - When you enter/skip a cutscene, your weapon charges are stored and will be loaded whenever you load a checkpoint. If you want your weapons to be charged at the beginning of a boss fight, go to the checkpoint just before the boss, enter the boss room normally with your weapons charged and skip the cutscene. When reloading the checkpoint, your weapons will be charged in the same way that they were when you skipped the cutscene. If you want to get rid of your stored charge, just enter/skip a cutscene without your weapons charged.
+    - To start a stage with different equipment than what you're given, you can load the stage, change your equipment normally and then reload the checkpoint to store your equipment status.
