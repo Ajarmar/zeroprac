@@ -229,6 +229,7 @@
     ldr     r2,=#0x083874FE ; Fixed, base address for stage settings
     mov     r1,r4
     bl      @stage_settings
+    bl      reset_progress
     bl      0x08019E94      
     mov     r1,#0xC0
     lsl     r1,r1,#0x2
@@ -236,6 +237,8 @@
     mov     r1,#0x0
     str     r1,[r6,#0x4]
     str     r1,[r6,#0x8]
+    bl      reset_disks
+    bl      reset_volteel_rng
 @@subr_end:
     add     sp,#0x14
     pop     {r4-r7}
@@ -404,6 +407,40 @@
     bx      r3
     .pool
     
+reset_disks:
+    ldr     r0,=#0x02036E78
+    mov     r4,#0x0
+    mov     r5,#0x0
+    mov     r6,#0x0
+    mov     r7,#0x0
+    stmia   r0!,{r4-r7}
+    stmia   r0!,{r4-r7}
+    stmia   r0!,{r4-r7}
+    bx      r14
+    
+reset_volteel_rng:
+    ldr     r0,=#0x0202FFF0
+    mov     r4,#0x0
+    str     r4,[r0]
+    bx      r14
+    
+reset_progress:
+    push    {r0,r4-r7}
+    ldr     r0,=#0x02036F72
+    mov     r4,#0x0
+    mov     r5,#0x0
+    mov     r6,#0x0
+    mov     r7,#0x0
+    strh    r4,[r0]
+    add     r0,#0x2
+    stmia   r0!,{r4-r6}
+    stmia   r0!,{r4-r7}
+    stmia   r0!,{r4-r7}
+    stmia   r0!,{r4-r7}
+    stmia   r0!,{r4-r7}
+    pop     {r0,r4-r7}
+    bx      r14
+    .pool
     .endarea
     
     ; New code.

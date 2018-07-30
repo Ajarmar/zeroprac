@@ -76,6 +76,10 @@ load_checkpoint:
     strh    r6,[r5]
 @after_omega_check:
     bl      @set_charge
+    bl      reset_disks
+    bl      reset_volteel_rng
+    bl      reset_progress
+    bl      @undo_mission
 @checkpoints_end:
     pop     r0
     bx      r0
@@ -203,8 +207,15 @@ load_checkpoint:
     ; blt     @@continue
 @@subr_end:
     bx      r14
-    
     .pool
+    
+@undo_mission:
+    ldr     r0,=#0x0202FDC8
+    ldr     r4,=#0x000C0000
+    str     r4,[r0]
+    bx      r14
+    .pool
+    
     .endarea
     
     ; Current checkpoint
