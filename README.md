@@ -19,7 +19,7 @@ There are two ways to build the practice ROMs.
 
 You will need a Rockman Zero 2/Rockman Zero 3 ROM and an IPS patcher such as [Lunar IPS](https://www.romhacking.net/utilities/240/). Note that Lunar IPS will overwrite your ROM when patching it, so make a copy of the ROM before patching if you want to keep it.
 
-1. Download the IPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v1.ips) or [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v1.ips)
+1. Download the IPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v1.ips) or [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v1_1.ips)
 2. Open the IPS patch with Lunar IPS, and then choose your original ROM file.
 
 The ROM is now the practice hack.
