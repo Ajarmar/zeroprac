@@ -270,8 +270,8 @@
 	.db HEAD_NEUTRAL				; Head chip
 	.db BODY_FLAME					; Body chip
 	.db FOOT_NEUTRAL				; Foot chip
-	.dh EX_SMASH + EX_1000 + EX_SPLIT ; Equipped EX skills
-	.dh UNLEX_BABY1
+	.dh EX_SMASH + EX_1000          ; Equipped EX skills
+	.dh UNLEX_ANUBIS
 	.db UNLWEP_ALL					; Unlocked weapons
 	.db UNLHEAD_NEUTRAL				; Unlocked head chips
 	.db UNLBODY_BABY1
