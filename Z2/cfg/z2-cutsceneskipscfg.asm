@@ -34,8 +34,8 @@
     MISSION_AP3 equ 0x0832E29C
     MISSION_FINAL equ 0x0832EE9C
     
-    .org 0x08358100
-    .area 0xA0
+    .org REG_CUTSCENE_CFG
+    .area REG_CUTSCENE_CFG_AREA
     
     .dw PROG_HYLEG
     .dw MISSION_HYLEG

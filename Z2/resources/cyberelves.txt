@@ -1,0 +1,8 @@
+02036C4C to 02036C56 - Cyber elf table
+02036C57 to 02036C61 - Cyber elf used
+
+Each bit in the table is an individual elf
+
+There's a copy of the table at these addresses:
+02037F18 to 02037F22 - Cyber elf table
+02037F23 to 02037F2D - Cyber elf used
