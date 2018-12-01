@@ -171,7 +171,7 @@
 	.db ELF_NONE					; Elf 1
 	.db ELF_NONE					; Elf 2
 	.db 0,0,0,0						; Unknown
-	.dh 100							; E-crystals
+	.dh 150							; E-crystals
 	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
 	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
@@ -271,7 +271,7 @@
 	.db BODY_FLAME					; Body chip
 	.db FOOT_NEUTRAL				; Foot chip
 	.dh EX_SMASH + EX_1000          ; Equipped EX skills
-	.dh UNLEX_BABY1
+	.dh UNLEX_ANUBIS
 	.db UNLWEP_ALL					; Unlocked weapons
 	.db UNLHEAD_NEUTRAL				; Unlocked head chips
 	.db UNLBODY_BABY1

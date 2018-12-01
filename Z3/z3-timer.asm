@@ -1,5 +1,5 @@
     .gba
-    .org 0x08388000
+    .org 0x08389000
     .area 0x200
     
 div:
@@ -17,7 +17,7 @@ timer:
     bl      div
     mov     r5,r1               ; Seconds
     mov     r6,r0               ; Minutes
-    ldr     r0,=#0x08388200
+    ldr     r0,=#0x08389200
     ldr     r3,=#0x3C7          ; Apostrophe
     ldr     r7,=#0x02030B9C
     cmp     r6,#60
@@ -56,7 +56,7 @@ timer:
     .pool
     .endarea
     
-    .org 0x08388200
+    .org 0x08389200
     .dw 0x03D003D0  ; 00
     .dw 0x03D003D1  ; 01
     .dw 0x03D003D2  ; 02
