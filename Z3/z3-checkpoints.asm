@@ -1,7 +1,7 @@
     .gba
-    .org 0x08387A00
-    .area 0x1600
-    .area 0x200
+    .org REG_CHECKPOINTS
+    .area REG_CHECKPOINTS_AREA
+    .area REG_CHECKPOINTS_INSTR_AREA
     ; 036FE8 big important for charge
 load_checkpoint:
     push    r14
@@ -37,7 +37,7 @@ load_checkpoint:
     sub     r4,r4,1
     mov     r5,#0x10
     mul     r4,r5
-    ldr     r6,=#0x08387C00
+    ldr     r6,=#REG_CHECKPOINTS_CURRENT
     add     r6,r6,r4
     ldrb    r1,[r3,#0x2]
     mov     r2,r3
@@ -90,7 +90,7 @@ load_checkpoint:
     cmp     r4,#0x0
     beq     @after_boss_check
     mov     r7,r4
-    ldr     r4,=#0x08387F00
+    ldr     r4,=#REG_CHECKPOINTS_MINIBOSS
     sub     r5,r0,#0x1
     add     r4,r4,r5
     ldrb    r4,[r4]
@@ -219,8 +219,8 @@ load_checkpoint:
     .endarea
     
     ; Current checkpoint
-    .org 0x08387C00
-    .area 0x100
+    .org REG_CHECKPOINTS_CURRENT
+    .area REG_CHECKPOINTS_CURRENT_AREA
     ; Intro
     .db 0,1,2,3,4,4,7,6
     .align 0x10
@@ -288,8 +288,8 @@ load_checkpoint:
     
     
     ; Previous checkpoint
-    .org 0x08387D00
-    .area 0x100
+    .org REG_CHECKPOINTS_PREV
+    .area REG_CHECKPOINTS_PREV_AREA
     
     ; Intro
     .db 0,1,1,2,3,3,4,7
@@ -358,8 +358,8 @@ load_checkpoint:
     
     
     ; Next checkpoint
-    .org 0x08387E00
-    .area 0x100
+    .org REG_CHECKPOINTS_NEXT
+    .area REG_CHECKPOINTS_NEXT_AREA
     
     ; Intro
     .db 0,3,3,4,7,7,6,6
@@ -428,7 +428,7 @@ load_checkpoint:
     
     
     ; Miniboss values
-    .org 0x08387F00
+    .org REG_CHECKPOINTS_MINIBOSS
     .db 0,0,0,3,4,0,2,0,0,0,3,2,0,3,0,0
     
     

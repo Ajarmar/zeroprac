@@ -115,7 +115,8 @@
     UNLEX_VOLTEEL equ EX_SMASH + EX_BURST + EX_1000 + EX_THROW + EX_BLIZZ + EX_SPLIT + EX_SWEEP + EX_LASER + EX_ORBIT + EX_SOUL + EX_GALE
     
 	; 2 + 26 bytes per stage
-	.org 0x083874FE
+	.org REG_STAGE_SELECT_CFG
+    .area REG_STAGE_SELECT_CFG_AREA
 	
     ; Intro
     
@@ -138,6 +139,51 @@
 	.db UNLWEP_INTRO				; Unlocked weapons
 	.db UNLHEAD_NEUTRAL				; Unlocked head chips
 	.db UNLBODY_NEUTRAL				; Unlocked body chips
+	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
+    
+	; Flizard
+	
+	.db ELF_EXISTS					; Biraid status
+    .db 0							; Clokkle status
+	
+	.db ELF_NONE					; Elf 1
+	.db ELF_NONE					; Elf 2
+	.db 0,0,0,0						; Unknown
+	.dh 150							; E-crystals
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
+	.db WEP_BUSTER					; Main weapon
+	.db WEP_SABER					; Sub weapon
+	.db ELEM_NEUTRAL				; Element
+	.db HEAD_NEUTRAL				; Head chip
+	.db BODY_NEUTRAL				; Body chip
+	.db FOOT_NEUTRAL				; Foot chip
+	.dh 0							; Equipped EX skills
+	.dh EX_SMASH					; Unlocked EX skills
+	.db UNLWEP_ALL					; Unlocked weapons
+	.db UNLHEAD_NEUTRAL				; Unlocked head chips
+	.db UNLBODY_FLIZARD             ; Unlocked body chips
+	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
+    
+	; Childre
+	.db ELF_EXISTS					; Biraid status
+    .db ELF_FED_S					; Clokkle status
+	
+	.db ELF_NONE					; Elf 1
+	.db ELF_CLOKKLE					; Elf 2
+	.db 0,0,0,0						; Unknown
+	.dh 0							; E-crystals
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
+	.db WEP_RECOIL					; Main weapon
+	.db WEP_SABER					; Sub weapon
+	.db ELEM_FLAME					; Element
+	.db HEAD_NEUTRAL				; Head chip
+	.db BODY_FLAME					; Body chip
+	.db FOOT_NEUTRAL				; Foot chip
+	.dh EX_SMASH					; Equipped EX skills
+	.dh UNLEX_CHILDRE
+	.db UNLWEP_ALL					; Unlocked weapons
+	.db UNLHEAD_NEUTRAL				; Unlocked head chips
+	.db UNLBODY_CHILDRE
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
     
 	; Hellbat
@@ -163,29 +209,6 @@
 	.db UNLBODY_NEUTRAL				; Unlocked body chips
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
-	; Flizard
-	
-	.db ELF_EXISTS					; Biraid status
-    .db 0							; Clokkle status
-	
-	.db ELF_NONE					; Elf 1
-	.db ELF_NONE					; Elf 2
-	.db 0,0,0,0						; Unknown
-	.dh 150							; E-crystals
-	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
-	.db WEP_BUSTER					; Main weapon
-	.db WEP_SABER					; Sub weapon
-	.db ELEM_NEUTRAL				; Element
-	.db HEAD_NEUTRAL				; Head chip
-	.db BODY_NEUTRAL				; Body chip
-	.db FOOT_NEUTRAL				; Foot chip
-	.dh 0							; Equipped EX skills
-	.dh EX_SMASH					; Unlocked EX skills
-	.db UNLWEP_ALL					; Unlocked weapons
-	.db UNLHEAD_NEUTRAL				; Unlocked head chips
-	.db UNLBODY_FLIZARD             ; Unlocked body chips
-	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
-	
 	; Mantisk
 	
 	.db ELF_EXISTS					; Biraid status
@@ -209,27 +232,6 @@
 	.db UNLBODY_MANTISK
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
-	; Childre
-	.db ELF_EXISTS					; Biraid status
-    .db ELF_FED_S					; Clokkle status
-	
-	.db ELF_NONE					; Elf 1
-	.db ELF_CLOKKLE					; Elf 2
-	.db 0,0,0,0						; Unknown
-	.dh 0							; E-crystals
-	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
-	.db WEP_RECOIL					; Main weapon
-	.db WEP_SABER					; Sub weapon
-	.db ELEM_FLAME					; Element
-	.db HEAD_NEUTRAL				; Head chip
-	.db BODY_FLAME					; Body chip
-	.db FOOT_NEUTRAL				; Foot chip
-	.dh EX_SMASH					; Equipped EX skills
-	.dh UNLEX_CHILDRE
-	.db UNLWEP_ALL					; Unlocked weapons
-	.db UNLHEAD_NEUTRAL				; Unlocked head chips
-	.db UNLBODY_CHILDRE
-	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
 	; Baby Elves 1
 	
@@ -254,7 +256,7 @@
 	.db UNLBODY_BABY1
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
-	; Blizzack
+	; Anubis
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -264,13 +266,13 @@
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
 	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
-	.db WEP_RECOIL					; Main weapon
+	.db WEP_BUSTER					; Main weapon
 	.db WEP_SABER					; Sub weapon
-	.db ELEM_FLAME					; Element
+	.db ELEM_THUNDER				; Element
 	.db HEAD_NEUTRAL				; Head chip
-	.db BODY_FLAME					; Body chip
+	.db BODY_THUNDER				; Body chip
 	.db FOOT_NEUTRAL				; Foot chip
-	.dh EX_SMASH + EX_1000          ; Equipped EX skills
+	.dh EX_SMASH + EX_1000
 	.dh UNLEX_ANUBIS
 	.db UNLWEP_ALL					; Unlocked weapons
 	.db UNLHEAD_NEUTRAL				; Unlocked head chips
@@ -300,7 +302,7 @@
 	.db UNLBODY_BABY1
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
-	; Anubis
+	; Blizzack
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -310,13 +312,13 @@
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
 	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
-	.db WEP_BUSTER					; Main weapon
+	.db WEP_RECOIL					; Main weapon
 	.db WEP_SABER					; Sub weapon
-	.db ELEM_THUNDER				; Element
+	.db ELEM_FLAME					; Element
 	.db HEAD_NEUTRAL				; Head chip
-	.db BODY_THUNDER				; Body chip
+	.db BODY_FLAME					; Body chip
 	.db FOOT_NEUTRAL				; Foot chip
-	.dh EX_SMASH + EX_1000
+	.dh EX_SMASH + EX_1000          ; Equipped EX skills
 	.dh UNLEX_ANUBIS
 	.db UNLWEP_ALL					; Unlocked weapons
 	.db UNLHEAD_NEUTRAL				; Unlocked head chips
@@ -346,29 +348,6 @@
 	.db UNLBODY_BABY1
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
-	; le Cactank
-	
-	.db ELF_EXISTS					; Biraid status
-    .db ELF_FED_S					; Clokkle status
-	
-	.db ELF_NONE					; Elf 1
-	.db ELF_CLOKKLE					; Elf 2
-	.db 0,0,0,0						; Unknown
-	.dh 0							; E-crystals
-	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
-	.db WEP_RECOIL					; Main weapon
-	.db WEP_SABER					; Sub weapon
-	.db ELEM_FLAME					; Element
-	.db HEAD_NEUTRAL				; Head chip
-	.db BODY_FLAME					; Body chip
-	.db FOOT_NEUTRAL				; Foot chip
-	.dh EX_SMASH + EX_1000 + EX_BLIZZ + EX_SPLIT
-	.dh UNLEX_CACTANK
-	.db UNLWEP_ALL					; Unlocked weapons
-	.db UNLHEAD_NEUTRAL				; Unlocked head chips
-	.db UNLBODY_BABY1
-	.db UNLFOOT_CACTANK
-	
 	; Foxtar
 	
 	.db ELF_EXISTS					; Biraid status
@@ -392,28 +371,28 @@
 	.db UNLBODY_BABY1
 	.db UNLFOOT_FOXTAR
 	
-	; Kelverian
+	; le Cactank
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
 	
-	.db ELF_BIRAID					; Elf 1
+	.db ELF_NONE					; Elf 1
 	.db ELF_CLOKKLE					; Elf 2
 	.db 0,0,0,0						; Unknown
 	.dh 0							; E-crystals
 	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
-	.db WEP_BUSTER					; Main weapon
+	.db WEP_RECOIL					; Main weapon
 	.db WEP_SABER					; Sub weapon
-	.db ELEM_NEUTRAL				; Element
+	.db ELEM_FLAME					; Element
 	.db HEAD_NEUTRAL				; Head chip
-	.db BODY_LIGHT					; Body chip
-	.db FOOT_QUICK					; Foot chip
-	.dh EX_SMASH + EX_1000 + EX_BLIZZ + EX_SPLIT + EX_LASER
-	.dh UNLEX_KELVERIAN
+	.db BODY_FLAME					; Body chip
+	.db FOOT_NEUTRAL				; Foot chip
+	.dh EX_SMASH + EX_1000 + EX_BLIZZ + EX_SPLIT
+	.dh UNLEX_CACTANK
 	.db UNLWEP_ALL					; Unlocked weapons
-	.db UNLHEAD_NEUTRAL + UNLHEAD_QKCHARGE
+	.db UNLHEAD_NEUTRAL				; Unlocked head chips
 	.db UNLBODY_BABY1
-	.db UNLFOOT_KELVERIAN
+	.db UNLFOOT_CACTANK
 	
 	; Volteel
 	
@@ -436,6 +415,29 @@
 	.db UNLWEP_ALL					; Unlocked weapons
 	.db UNLHEAD_NEUTRAL + UNLHEAD_QKCHARGE
 	.db UNLBODY_ALL					; Unlocked body chips
+	.db UNLFOOT_KELVERIAN
+	
+	; Kelverian
+	
+	.db ELF_EXISTS					; Biraid status
+    .db ELF_FED_S					; Clokkle status
+	
+	.db ELF_BIRAID					; Elf 1
+	.db ELF_CLOKKLE					; Elf 2
+	.db 0,0,0,0						; Unknown
+	.dh 0							; E-crystals
+	.db 32,SUBT_NONE,SUBT_NONE,SUBT_NONE					; Subtank contents
+	.db WEP_BUSTER					; Main weapon
+	.db WEP_SABER					; Sub weapon
+	.db ELEM_NEUTRAL				; Element
+	.db HEAD_NEUTRAL				; Head chip
+	.db BODY_LIGHT					; Body chip
+	.db FOOT_QUICK					; Foot chip
+	.dh EX_SMASH + EX_1000 + EX_BLIZZ + EX_SPLIT + EX_LASER
+	.dh UNLEX_KELVERIAN
+	.db UNLWEP_ALL					; Unlocked weapons
+	.db UNLHEAD_NEUTRAL + UNLHEAD_QKCHARGE
+	.db UNLBODY_BABY1
 	.db UNLFOOT_KELVERIAN
 	
 	; Baby Elves 2
@@ -483,3 +485,5 @@
 	.db UNLHEAD_NEUTRAL + UNLHEAD_QKCHARGE
 	.db UNLBODY_ALL					; Unlocked body chips
 	.db UNLFOOT_BABY2
+    
+    .endarea

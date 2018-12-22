@@ -9,13 +9,13 @@
     ; Manually changes the pool for loading the base address
     ; for game state subroutines. (See below.)
     .org 0x080EE374
-    .dw 0x08386BE0
+    .dw REG_GAME_STATE_ROUTINES
     
     ; New code.
     ; All previous game state subroutines have been moved over here to 
     ; make place for potential new subroutines. 0-1D are the old subroutines.
-    .org 0x08386BE0
-    .area 0x90
+    .org REG_GAME_STATE_ROUTINES
+    .area REG_GAME_STATE_ROUTINES_AREA
     .dw 0x080EE4C9 ;0
     .dw 0x080EE615 ;1
     .dw 0x080EE699 ;2
@@ -46,47 +46,47 @@
     .dw 0x080F2F45 ;1B
     .dw 0x080F3045 ;1C
     .dw 0x080F3129 ;1D
-    .dw 0x08386E01 ;1E
+    .dw REG_STAGE_SELECT_MENU+1 ;1E
     .endarea
     
-    ; New code. Stage order for the stage select menu.
-    .org 0x08386C70
-    .area 0x190
-    .db 0x1         ; Intro
-    .db 0x4         ; Hellbat
-    .db 0x2         ; Flizard
-    .db 0x5         ; Mantisk
-    .db 0x3         ; Childre
-    .db 0x6         ; Baby Elves 1
-    .db 0x9         ; Blizzack
-    .db 0x8         ; Hanumachine
-    .db 0x7         ; Anubis
-    .db 0xA         ; Copy X
-    .db 0xC         ; le Cactank
-    .db 0xB         ; Foxtar
-    .db 0xE         ; Kelverian
-    .db 0xD         ; Volteel
-    .db 0xF         ; Sub Arcadia
-    .db 0x10        ; Final
-    .db 0x11        ; Commander room
+    ; New code. Stage names for the stage select menu in stage index order.
+    .org REG_STAGE_SELECT_ENTRIES
+    .area REG_STAGE_SELECT_ENTRIES_AREA
     .align 4
     .asciiz "INTRO"
-    .asciiz "HELLBAT SCHILT"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*1
     .asciiz "BLAZIN' FLIZARD"
-    .asciiz "DEATHTANZ MANTISK"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*2
     .asciiz "CHILDRE INARABITTA"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*3
+    .asciiz "HELLBAT SCHILT"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*4
+    .asciiz "DEATHTANZ MANTISK"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*5
     .asciiz "BABY ELVES 1"
-    .asciiz "BLIZZACK STAGGROFF"
-    .asciiz "HANUMACHINE"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*6
     .asciiz "ANUBIS NECROMANCESS V"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*7
+    .asciiz "HANUMACHINE"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*8
+    .asciiz "BLIZZACK STAGGROFF"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*9
     .asciiz "COPY X MK 2"
-    .asciiz "GLACIER LE CACTANK"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*10
     .asciiz "CUBIT FOXTAR"
-    .asciiz "TRETISTA KELVERIAN"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*11
+    .asciiz "GLACIER LE CACTANK"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*12
     .asciiz "VOLTEEL BIBLIO"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*13
+    .asciiz "TRETISTA KELVERIAN"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*14
     .asciiz "BABY ELVES 2"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*15
     .asciiz "FINAL"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*16
     .asciiz "COMMANDER ROOM"
+    .org REG_STAGE_SELECT_ENTRIES+0x16*17
     .asciiz ">"
     .endarea
     
@@ -101,15 +101,15 @@
     ; 6. Load stage settings
     ; 7. Set stage index and game state
     ; 8. End
-    .org 0x08386E00
-    .area 0x300
+    .org REG_STAGE_SELECT_MENU
+    .area REG_STAGE_SELECT_MENU_AREA
     push    {r4-r7,r14}
     sub     sp,#0x14
     mov     r6,r0
     ldr     r0,=#0x6260
     add     r5,r6,r0        ; Fixed (r5 is stage index address)
     ldrb    r4,[r5]
-    ldr     r1,=#0x08386C70 ; Fixed (stage indexes)
+    ldr     r1,=#REG_STAGE_SELECT_ROUTES ; Fixed (stage indexes)
     mov     r0,r13
     mov     r2,#0x11
     bl      @indexes_on_stack
@@ -144,76 +144,28 @@
 @no_downwrap:
     lsl     r0,r0,#0x18
     lsr     r4,r0,#0x18
-    ldr     r0,=#0x08386C84 ; "INTRO"
+    push    {r3-r7}
+    ldr     r4,=#REG_STAGE_SELECT_ENTRIES
+    ldr     r5,=#REG_STAGE_SELECT_ROUTES
+    mov     r6,#0x16        ; Size of a stage select entry "cell"
+    mov     r3,#0x1         ; y offset
+@print_menu_loop:
     mov     r1,MENU_OFFSET  ; x offset
-    mov     r2,#0x1         ; y offset
+    mov     r2,r3
+    sub     r7,r2,#0x1      ; 0-indexed stage number
+    ldrb    r7,[r5,r7]      ; 1-indexed stage index
+    sub     r7,#0x1         ; 0-indexed stage index
+    mul     r7,r6           ; Stage select entry offset
+    add     r0,r4,r7        ; Stage select entry address
     bl      @draw_textline
-    ldr     r0,=#0x08386C8A ; "HELLBAT SCHILT"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x2
-    bl      @draw_textline
-    ldr     r0,=#0x08386C99 ; "BLAZIN' FLIZARD"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x3
-    bl      @draw_textline
-    ldr     r0,=#0x08386CA9 ; "DEATHTANZ MANTISK"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x4
-    bl      @draw_textline
-    ldr     r0,=#0x08386CBB ; "CHILDRE INARABITTA"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x5
-    bl      @draw_textline
-    ldr     r0,=#0x08386CCE ; "BABY ELVES 1"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x6
-    bl      @draw_textline
-    ldr     r0,=#0x08386CDB ; "BLIZZACK STAGGROFF"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x7
-    bl      @draw_textline
-    ldr     r0,=#0x08386CEE ; "HANUMACHINE"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x8
-    bl      @draw_textline
-    ldr     r0,=#0x08386CFA ; "ANUBIS NECROMANCESS V"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x9
-    bl      @draw_textline
-    ldr     r0,=#0x08386D10 ; "COPY X MK 2"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0xA
-    bl      @draw_textline
-    ldr     r0,=#0x08386D1C ; "GLACIER LE CACTANK"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0xB
-    bl      @draw_textline
-    ldr     r0,=#0x08386D2F ; "CUBIT FOXTAR"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0xC
-    bl      @draw_textline
-    ldr     r0,=#0x08386D3C ; "TRETISTA KELVERIAN"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0xD
-    bl      @draw_textline
-    ldr     r0,=#0x08386D4F ; "VOLTEEL BIBLIO"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0xE
-    bl      @draw_textline
-    ldr     r0,=#0x08386D5E ; "BABY ELVES 2"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0xF
-    bl      @draw_textline
-    ldr     r0,=#0x08386D6B ; "FINAL"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x10
-    bl      @draw_textline
-    ldr     r0,=#0x08386D71 ; "COMMANDER ROOM"
-    mov     r1,MENU_OFFSET
-    mov     r2,#0x11
-    bl      @draw_textline
-    ldr     r0,=#0x08386D80 ; ">"
+    add     r3,#0x1
+    cmp     r3,#0x11
+    ble     @print_menu_loop
+    sub     r3,r3,#0x1
+    mul     r6,r3
+    add     r0,r4,r6        ; ">" address
     mov     r1,CURSOR_OFFSET
+    pop     {r3-r7}
     add     r2,r4,#0x1
     bl      @draw_textline
     str     r4,[r5]
@@ -226,8 +178,10 @@
     add     r0,r1,r4
     ldrb    r0,[r0]
     str     r0,[r5]
-    ldr     r2,=#0x083874FE ; Fixed, base address for stage settings
-    mov     r1,r4
+    ldr     r2,=#REG_STAGE_SELECT_CFG ; Fixed, base address for stage settings
+    ldr     r3,=#REG_STAGE_SELECT_ROUTES
+    ldrb    r1,[r3,r4]
+    sub     r1,#0x1
     bl      @stage_settings
     bl      reset_progress
     bl      0x08019E94      
@@ -264,7 +218,7 @@
     mov     r5,r0
     mov     r4,r5
     mov     r3,r1
-    cmp     r2,0xF          ; Probably unnecessary
+    cmp     r2,#0xF          ; Probably unnecessary
     bls     @@hmm
     mov     r0,r3
     orr     r0,r5
@@ -311,7 +265,7 @@
     pop     {r4-r7,r15}
     
 @draw_textline:
-    push    {r4-r6,r14}
+    push    {r3-r6,r14}
     mov     r3,r0
     mov     r4,r1
     ldr     r1,=#0x02030B70 ; Fixed (BG0 tiles)
@@ -349,7 +303,7 @@
     cmp     r0,#0x0         ; Check for terminating null byte
     bne     @@write_loop
 @@subr_end:
-    pop     {r4-r6}
+    pop     {r3-r6}
     pop     {r0}
     bx      r0
     .pool
@@ -445,8 +399,8 @@ reset_progress:
     
     ; New code.
     ; Cursor positions for the stages, in stage index order.
-    .org 0x08387100
-    .area 0x100
+    .org REG_STAGE_SELECT_DISPLAY
+    .area REG_STAGE_SELECT_DISPLAY_AREA
     .db 0x0         ; Intro
     .db 0x2         ; Flizard
     .db 0x4         ; Childre
@@ -476,7 +430,7 @@ show_menu:
     ; ldrb    r5,[r4]
     ; orr     r5,r6
     ; strb    r5,[r4]
-    ldr     r4,=#0x08387100
+    ldr     r4,=#REG_STAGE_SELECT_DISPLAY
     ldr     r5,=#0x02036DC0
     ldrb    r6,[r5]
     sub     r6,r6,#0x1
@@ -488,4 +442,27 @@ show_menu:
     strb    r5,[r4]
     bx      r14
     .pool
+    .endarea
+    
+    .org REG_STAGE_SELECT_ROUTES
+    .area REG_STAGE_SELECT_ROUTES_AREA
+    
+    .db 0x1         ; Intro
+    .db 0x4         ; Hellbat
+    .db 0x2         ; Flizard
+    .db 0x5         ; Mantisk
+    .db 0x3         ; Childre
+    .db 0x6         ; Baby Elves 1
+    .db 0x9         ; Blizzack
+    .db 0x8         ; Hanumachine
+    .db 0x7         ; Anubis
+    .db 0xA         ; Copy X
+    .db 0xC         ; le Cactank
+    .db 0xB         ; Foxtar
+    .db 0xE         ; Kelverian
+    .db 0xD         ; Volteel
+    .db 0xF         ; Sub Arcadia
+    .db 0x10        ; Final
+    .db 0x11        ; Commander room
+    
     .endarea

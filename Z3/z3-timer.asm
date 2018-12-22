@@ -1,6 +1,6 @@
     .gba
-    .org 0x08389000
-    .area 0x200
+    .org REG_TIMER
+    .area REG_TIMER_AREA
     
 div:
     swi     #0x6
@@ -17,7 +17,7 @@ timer:
     bl      div
     mov     r5,r1               ; Seconds
     mov     r6,r0               ; Minutes
-    ldr     r0,=#0x08389200
+    ldr     r0,=#REG_TIMER_TABLE
     ldr     r3,=#0x3C7          ; Apostrophe
     ldr     r7,=#0x02030B9C
     cmp     r6,#60
@@ -56,7 +56,8 @@ timer:
     .pool
     .endarea
     
-    .org 0x08389200
+    .org REG_TIMER_TABLE
+    .area REG_TIMER_TABLE_AREA
     .dw 0x03D003D0  ; 00
     .dw 0x03D003D1  ; 01
     .dw 0x03D003D2  ; 02
@@ -122,3 +123,4 @@ timer:
     .dw 0x03D503D7
     .dw 0x03D503D8
     .dw 0x03D503D9
+    .endarea

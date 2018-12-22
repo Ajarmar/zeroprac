@@ -11,16 +11,17 @@
 
     .gba
     .open "Rockman Zero 3 (Japan).gba", "z3prac.gba", 0x08000000
+    .include "z3-regions.asm"
     .include "z3-stageselect.asm"
     .include "z3-cutsceneskips.asm"
     .include "z3-checkpoints.asm"
     .include "z3-timer.asm"
     
     .org 0x080019D0
-    bl      0x08387200
+    bl      REG_MAIN
     
-    .org 0x08387200
-	.area 0x2FE
+    .org REG_MAIN
+	.area REG_MAIN_AREA
     push    {r4-r7,r14}
     mov     r7,r10
     mov     r6,r9
