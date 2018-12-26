@@ -47,6 +47,7 @@
     .dw 0x080F3045 ;1C
     .dw 0x080F3129 ;1D
     .dw REG_STAGE_SELECT_MENU+1 ;1E
+    .dw REG_STAGE_SELECT_MENU+1 ;1F
     .endarea
     
     ; New code. Stage names for the stage select menu in stage index order.
@@ -109,7 +110,14 @@
     ldr     r0,=#0x6260
     add     r5,r6,r0        ; Fixed (r5 is stage index address)
     ldrb    r4,[r5]
+    ldr     r0,=#ADDR_GAMESTATE
+    ldrb    r0,[r0]
+    mov     r1,#0x1E
+    sub     r0,r0,r1
+    mov     r1,#0x11
+    mul     r0,r1
     ldr     r1,=#REG_STAGE_SELECT_ROUTES ; Fixed (stage indexes)
+    add     r1,r1,r0
     mov     r0,r13
     mov     r2,#0x11
     bl      @indexes_on_stack
@@ -146,7 +154,22 @@
     lsr     r4,r0,#0x18
     push    {r3-r7}
     ldr     r4,=#REG_STAGE_SELECT_ENTRIES
+    ldr     r3,=#ADDR_GAMESTATE
+    ldrb    r3,[r3]
+    mov     r6,#0x1E
+    sub     r3,r3,r6
+    mov     r5,r3
+    mov     r6,#0x20
+    mul     r5,r6
+    ldr     r0,=#REG_STAGE_SELECT_ROUTE_NAMES
+    add     r0,r0,r5
+    mov     r1,#0x0
+    mov     r2,#0x13
+    bl      @draw_textline  ; Draw route name
+    mov     r6,#0x11
+    mul     r3,r6
     ldr     r5,=#REG_STAGE_SELECT_ROUTES
+    add     r5,r5,r3
     mov     r6,#0x16        ; Size of a stage select entry "cell"
     mov     r3,#0x1         ; y offset
 @print_menu_loop:
@@ -178,8 +201,17 @@
     add     r0,r1,r4
     ldrb    r0,[r0]
     str     r0,[r5]
-    ldr     r2,=#REG_STAGE_SELECT_CFG ; Fixed, base address for stage settings
+    ldr     r2,=#REG_STAGE_SETTING_POINTERS ; Fixed, base address for stage settings
+    ldr     r1,=#ADDR_GAMESTATE
+    ldrb    r1,[r1]
+    ldr     r3,=#0x02030B5C             ; Address for storing stage select menu game state
+    strb    r1,[r3]
+    mov     r3,#0x1E
+    sub     r1,r3
+    mov     r3,#0x11
+    mul     r1,r3
     ldr     r3,=#REG_STAGE_SELECT_ROUTES
+    add     r3,r1
     ldrb    r1,[r3,r4]
     sub     r1,#0x1
     bl      @stage_settings
@@ -202,14 +234,31 @@
     mov     r0,#0x2
     and     r0,r1
     cmp     r0,#0x0
-    beq     @@subr_end
-    ldr     r0,=#0x02030B61
+    beq     @@check_for_l
+    ldr     r0,=#ADDR_GAMESTATE
     mov     r1,#0x4
     strb    r1,[r0]
     ldr     r0,=#0x02036DC0
     ldr     r4,=#0x0202FE60
     ldrb    r4,[r4]
     strb    r4,[r0]
+    b       @@subr_end
+@@check_for_l:
+    mov     r0,#0x1
+    lsl     r0,r0,#OFFSET_KEY_L
+    and     r0,r1
+    cmp     r0,#0x0
+    beq     @@subr_end
+    ldr     r0,=#ADDR_GAMESTATE
+    ldrb    r1,[r0]
+    cmp     r1,#0x1E
+    bne     @@gamestate_nowrap
+    mov     r1,#0x1F
+    b       @@store_changed_gamestate
+@@gamestate_nowrap:
+    sub     r1,r1,#0x1
+@@store_changed_gamestate:
+    strb    r1,[r0]
     b       @@subr_end
     .pool
     
@@ -264,7 +313,7 @@
     mov     r0,r5
     pop     {r4-r7,r15}
     
-@draw_textline:
+@draw_textline: ; r0 = string to be drawn, r1 = x offset, r2 = y offset
     push    {r3-r6,r14}
     mov     r3,r0
     mov     r4,r1
@@ -324,9 +373,17 @@
     strb    r7,[r3]
     ; bl      set_game_progress
     ;sub     r0,1                ; Subtract stage index by 1
-    mov     r3,0x1C
+    mov     r3,0x4
     mul     r1,r3               ; Multiply by 0x1C
-    add     r0,r2,r1            ; Add as offset to base address
+    add     r2,r2,r1            ; Add as offset to base address
+    ldr     r1,=#ADDR_GAMESTATE
+    ldrb    r1,[r1]
+    mov     r3,#0x1E
+    sub     r1,r3
+    mov     r3,#0x40
+    mul     r1,r3
+    add     r0,r2,r1
+    ldr     r0,[r0]
     ldr     r1,=#0x02036EF8     ; Biraid address
     ldrb    r2,[r0]
     strb    r2,[r1]
@@ -401,6 +458,9 @@ reset_progress:
     ; Cursor positions for the stages, in stage index order.
     .org REG_STAGE_SELECT_DISPLAY
     .area REG_STAGE_SELECT_DISPLAY_AREA
+    
+    ; Route 1
+    
     .db 0x0         ; Intro
     .db 0x2         ; Flizard
     .db 0x4         ; Childre
@@ -410,6 +470,26 @@ reset_progress:
     .db 0x8         ; Anubis
     .db 0x7         ; Hanumachine
     .db 0x6         ; Blizzack
+    .db 0x9         ; Copy X
+    .db 0xB         ; Foxtar
+    .db 0xA         ; le Cactank
+    .db 0xD         ; Volteel
+    .db 0xC         ; Kelverian
+    .db 0xE         ; Baby Elves 2
+    .db 0xF         ; Final
+    .db 0x10        ; Commander room
+    
+    ; Route 2
+    
+    .db 0x0         ; Intro
+    .db 0x2         ; Flizard
+    .db 0x4         ; Childre
+    .db 0x1         ; Hellbat
+    .db 0x3         ; Mantisk
+    .db 0x5         ; Baby Elves 1
+    .db 0x8         ; Anubis
+    .db 0x6         ; Hanumachine
+    .db 0x7         ; Blizzack
     .db 0x9         ; Copy X
     .db 0xB         ; Foxtar
     .db 0xA         ; le Cactank
@@ -430,16 +510,28 @@ show_menu:
     ; ldrb    r5,[r4]
     ; orr     r5,r6
     ; strb    r5,[r4]
+    ldr     r4,=#ADDR_GAMESTATE
+    ldr     r5,=#0x02030B5C
+    ldrb    r5,[r5]
+    cmp     r5,#0x0
+    bne     @@store_gamestate
+    mov     r5,#0x1E
+@@store_gamestate:
+    strb    r5,[r4]
     ldr     r4,=#REG_STAGE_SELECT_DISPLAY
     ldr     r5,=#0x02036DC0
     ldrb    r6,[r5]
     sub     r6,r6,#0x1
     add     r4,r4,r6
+    ldr     r3,=#ADDR_GAMESTATE
+    ldrb    r3,[r3]
+    mov     r6,#0x1E
+    sub     r3,r3,r6
+    mov     r6,#0x11
+    mul     r3,r6
+    add     r4,r3
     ldrb    r4,[r4]
     strb    r4,[r5]
-    ldr     r4,=#0x02030B61
-    mov     r5,#0x1E
-    strb    r5,[r4]
     bx      r14
     .pool
     .endarea
@@ -464,5 +556,32 @@ show_menu:
     .db 0xF         ; Sub Arcadia
     .db 0x10        ; Final
     .db 0x11        ; Commander room
+    
+    .db 0x1         ; Intro
+    .db 0x4         ; Hellbat
+    .db 0x2         ; Flizard
+    .db 0x5         ; Mantisk
+    .db 0x3         ; Childre
+    .db 0x6         ; Baby Elves 1
+    .db 0x8         ; Hanumachine
+    .db 0x9         ; Blizzack
+    .db 0x7         ; Anubis
+    .db 0xA         ; Copy X
+    .db 0xC         ; le Cactank
+    .db 0xB         ; Foxtar
+    .db 0xE         ; Kelverian
+    .db 0xD         ; Volteel
+    .db 0xF         ; Sub Arcadia
+    .db 0x10        ; Final
+    .db 0x11        ; Commander room
+    
+    .endarea
+    
+    .org REG_STAGE_SELECT_ROUTE_NAMES
+    .area REG_STAGE_SELECT_ROUTE_NAMES_AREA
+    
+    .asciiz "BLIZZACK 1ST/FOXTAR LASER"
+    .org REG_STAGE_SELECT_ROUTE_NAMES+0x20*1
+    .asciiz "HANU 1ST/NO FOXTAR LASER"
     
     .endarea
