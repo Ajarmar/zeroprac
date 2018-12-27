@@ -20,7 +20,7 @@ There are two ways to build the practice ROMs.
 You will need a Rockman Zero 2/Rockman Zero 3 ROM and an IPS patcher such as [Lunar IPS](https://www.romhacking.net/utilities/240/). Note that Lunar IPS will overwrite your ROM when patching it, so make a copy of the ROM before patching if you want to keep it.
 
 
-1. Download the IPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2.ips) or [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v1_1.ips)
+1. Download the IPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2.ips) or [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v1_2.ips)
 2. Open the IPS patch with Lunar IPS, and then choose your original ROM file.
 
 The ROM is now the practice hack.
@@ -67,7 +67,10 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, 
 
 - Skippable cutscenes without needing a save file.
 - Infinite lives.
-- Holding Select and pressing Start opens the stage select menu. You can press B to exit.
+- Holding Select and pressing Start opens the stage select menu.
+    - Choose a stage with up/down, and press A to enter the stage.
+    - Press B to exit the menu.
+    - Press L to switch between routes (currently available: Blizzack first/Reflect Laser in Foxtar, and Hanumachine first/No Reflect Laser in Foxtar)
 - Hold Select and press Up to switch between A rank and B rank.
 - Hold Select and press L to reload latest checkpoint. Also works on bosses (the beginning of a boss fight is a checkpoint).
     - Hold Select+Left and press L to load previous checkpoint, hold Select+Right and press L to load next checkpoint.
