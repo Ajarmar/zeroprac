@@ -14,6 +14,7 @@
     .include "z3-regions.asm"
     .include "z3-constants.asm"
     .include "z3-stageselect.asm"
+    .include "z3-customroutes.asm"
     .include "z3-cutsceneskips.asm"
     .include "z3-checkpoints.asm"
     .include "z3-timer.asm"

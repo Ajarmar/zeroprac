@@ -1,95 +1,44 @@
     .gba
-    .include "cfg/z3-stageselectcfg.asm"
     
     ; Stage select menu x position offsets
-    MENU_OFFSET equ 5
-    CURSOR_OFFSET equ 4
-    
-    ; Change to existing code.
-    ; Manually changes the pool for loading the base address
-    ; for game state subroutines. (See below.)
-    .org 0x080EE374
-    .dw REG_GAME_STATE_ROUTINES
-    
-    ; New code.
-    ; All previous game state subroutines have been moved over here to 
-    ; make place for potential new subroutines. 0-1D are the old subroutines.
-    .org REG_GAME_STATE_ROUTINES
-    .area REG_GAME_STATE_ROUTINES_AREA
-    .dw 0x080EE4C9 ;0
-    .dw 0x080EE615 ;1
-    .dw 0x080EE699 ;2
-    .dw 0x080EE69D ;3
-    .dw 0x080EE869 ;4
-    .dw 0x080EECAD ;5
-    .dw 0x080EEDF1 ;6
-    .dw 0x080EEFE1 ;7
-    .dw 0x080EF401 ;8
-    .dw 0x080EF581 ;9
-    .dw 0x080EF921 ;A
-    .dw 0x080EF925 ;B
-    .dw 0x080EFD09 ;C
-    .dw 0x080F02F1 ;D
-    .dw 0x080F033D ;E
-    .dw 0x080F0465 ;F
-    .dw 0x080F0655 ;10
-    .dw 0x080F0659 ;11
-    .dw 0x080F10B9 ;12
-    .dw 0x080F1DAD ;13
-    .dw 0x080F1FE5 ;14
-    .dw 0x080F20F5 ;15
-    .dw 0x080F21F5 ;16
-    .dw 0x080F2621 ;17
-    .dw 0x080F2C25 ;18
-    .dw 0x080F2D35 ;19
-    .dw 0x080F2E45 ;1A
-    .dw 0x080F2F45 ;1B
-    .dw 0x080F3045 ;1C
-    .dw 0x080F3129 ;1D
-    .dw REG_STAGE_SELECT_MENU+1 ;1E
-    .dw REG_STAGE_SELECT_MENU+1 ;1F
-    .dw REG_STAGE_SELECT_MENU+1 ;20
-    .dw REG_CUSTOM_ROUTE_MENU+1 ;21
-    .endarea
     
     ; New code. Stage names for the stage select menu in stage index order.
-    .org REG_STAGE_SELECT_ENTRIES
-    .area REG_STAGE_SELECT_ENTRIES_AREA
-    .align 4
-    .asciiz "INTRO"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*1
-    .asciiz "BLAZIN' FLIZARD"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*2
-    .asciiz "CHILDRE INARABITTA"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*3
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES
+    .area REG_CUSTOM_ROUTE_MENU_ENTRIES_AREA
+    .asciiz "EDITING CUSTOM ROUTE"
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*1
+    .asciiz ">"
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*2
+    .asciiz ">>"
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*3
     .asciiz "HELLBAT SCHILT"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*4
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*4
     .asciiz "DEATHTANZ MANTISK"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*5
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*5
     .asciiz "BABY ELVES 1"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*6
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*6
     .asciiz "ANUBIS NECROMANCESS V"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*7
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*7
     .asciiz "HANUMACHINE"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*8
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*8
     .asciiz "BLIZZACK STAGGROFF"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*9
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*9
     .asciiz "COPY X MK 2"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*10
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*10
     .asciiz "CUBIT FOXTAR"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*11
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*11
     .asciiz "GLACIER LE CACTANK"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*12
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*12
     .asciiz "VOLTEEL BIBLIO"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*13
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*13
     .asciiz "TRETISTA KELVERIAN"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*14
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*14
     .asciiz "BABY ELVES 2"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*15
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*15
     .asciiz "FINAL"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*16
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*16
     .asciiz "COMMANDER ROOM"
-    .org REG_STAGE_SELECT_ENTRIES+0x16*17
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*17
     .asciiz ">"
     .endarea
     
@@ -104,28 +53,22 @@
     ; 6. Load stage settings
     ; 7. Set stage index and game state
     ; 8. End
-    .org REG_STAGE_SELECT_MENU
-    .area REG_STAGE_SELECT_MENU_AREA
+    .org REG_CUSTOM_ROUTE_MENU
+    .area REG_CUSTOM_ROUTE_MENU_AREA
     push    {r4-r7,r14}
+    ldr     r4,=#ADDR_CUSTOM_ROUTE_MENU_STATE
+    ldr     r4,[r4]
+    cmp     r4,#0x1
+    ble     @level_not_chosen
+    ldr     r4,=#REG_CUSTOM_ROUTE_MENU_LV2+1
+    bx      r4
+@level_not_chosen:
     sub     sp,#0x14
     mov     r6,r0
     ldr     r0,=#0x6260
     add     r5,r6,r0        ; Fixed (r5 is stage index address)
     ldrb    r4,[r5]
-    ldr     r0,=#ADDR_GAMESTATE
-    ldrb    r0,[r0]
-    cmp     r0,#0x20
-    bne     @@continue_normal
-    ldr     r1,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
-    b       @@continue_custom
-@@continue_normal:
-    mov     r1,#0x1E
-    sub     r0,r0,r1
-    mov     r1,#0x11
-    mul     r0,r1
-    ldr     r1,=#REG_STAGE_SELECT_ROUTES ; Fixed (stage indexes)
-    add     r1,r1,r0
-@@continue_custom:
+    ldr     r1,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM ; Fixed (stage indexes)
     mov     r0,r13
     mov     r2,#0x11
     bl      @indexes_on_stack
@@ -162,30 +105,11 @@
     lsr     r4,r0,#0x18
     push    {r3-r7}
     ldr     r4,=#REG_STAGE_SELECT_ENTRIES
-    ldr     r3,=#ADDR_GAMESTATE
-    ldrb    r3,[r3]
-    mov     r6,#0x1E
-    sub     r3,r3,r6
-    mov     r5,r3
-    mov     r6,#0x20
-    mul     r5,r6
-    ldr     r0,=#REG_STAGE_SELECT_ROUTE_NAMES
-    add     r0,r0,r5
+    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES
     mov     r1,#0x0
-    mov     r2,#0x13
+    mov     r2,#0x0
     bl      @draw_textline  ; Draw route name
-    ldr     r1,=#ADDR_GAMESTATE
-    ldrb    r1,[r1]
-    cmp     r1,#0x20
-    bne     @@continue_normal
     ldr     r5,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
-    b       @@continue_custom
-@@continue_normal:
-    mov     r6,#0x11
-    mul     r3,r6
-    ldr     r5,=#REG_STAGE_SELECT_ROUTES
-    add     r5,r5,r3
-@@continue_custom:
     mov     r6,#0x16        ; Size of a stage select entry "cell"
     mov     r3,#0x1         ; y offset
 @print_menu_loop:
@@ -200,10 +124,17 @@
     add     r3,#0x1
     cmp     r3,#0x11
     ble     @print_menu_loop
-    sub     r3,r3,#0x1
-    mul     r6,r3
-    add     r0,r4,r6        ; ">" address
+    ldr     r3,=#ADDR_CUSTOM_ROUTE_MENU_STATE
+    ldrb    r3,[r3]
+    cmp     r3,#0x1
+    beq     @@diff_cursor
+    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*1
     mov     r1,CURSOR_OFFSET
+    b       @@cursor_chosen
+@@diff_cursor:
+    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*2
+    mov     r1,CURSOR_OFFSET-1
+@@cursor_chosen:
     pop     {r3-r7}
     add     r2,r4,#0x1
     bl      @draw_textline
@@ -213,6 +144,8 @@
     and     r0,r1
     cmp     r0,#0x0
     beq     @@check_for_b
+    b       @@subr_end
+    ;; A press handling should be here!!
     mov     r1,r13
     add     r0,r1,r4
     ldrb    r0,[r0]
@@ -220,20 +153,14 @@
     ldr     r2,=#REG_STAGE_SETTING_POINTERS ; Fixed, base address for stage settings
     ldr     r1,=#ADDR_GAMESTATE
     ldrb    r1,[r1]
-    ldr     r3,=#ADDR_STORED_GAMESTATE      ; Address for storing stage select menu game state
+    ldr     r3,=#0x02030B5C             ; Address for storing stage select menu game state
     strb    r1,[r3]
-    cmp     r1,#0x20
-    bne     @@continue_normal
-    ldr     r3,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
-    b       @@continue_custom
-@@continue_normal:
     mov     r3,#0x1E
     sub     r1,r3
     mov     r3,#0x11
     mul     r1,r3
     ldr     r3,=#REG_STAGE_SELECT_ROUTES
     add     r3,r1
-@@continue_custom:
     ldrb    r1,[r3,r4]
     sub     r1,#0x1
     bl      @stage_settings
@@ -247,6 +174,7 @@
     str     r1,[r6,#0x8]
     bl      reset_disks
     bl      reset_volteel_rng
+    ;; A press handling should end here!!
 @@subr_end:
     add     sp,#0x14
     pop     {r4-r7}
@@ -256,41 +184,56 @@
     mov     r0,#0x2
     and     r0,r1
     cmp     r0,#0x0
-    beq     @@check_for_l
+    beq     @@check_for_select
     ldr     r0,=#ADDR_GAMESTATE
-    mov     r1,#0x4
-    strb    r1,[r0]
-    ldr     r0,=#0x02036DC0
-    ldr     r4,=#0x0202FE60
-    ldrb    r4,[r4]
-    strb    r4,[r0]
-    b       @@subr_end
-@@check_for_l:
-    mov     r0,#0x1
-    lsl     r0,r0,#OFFSET_KEY_L
-    and     r0,r1
-    cmp     r0,#0x0
-    beq     @@check_for_r
-    ldr     r0,=#ADDR_GAMESTATE
-    ldrb    r1,[r0]
-    cmp     r1,#0x20
-    bne     @@gamestate_nowrap
+    ldr     r1,=#ADDR_STORED_GAMESTATE
+    ldrb    r1,[r1]
+    cmp     r1,#0x0
+    bne     @@store_menu
     mov     r1,#0x1E
-    b       @@store_changed_gamestate
-@@gamestate_nowrap:
-    add     r1,r1,#0x1
-@@store_changed_gamestate:
+@@store_menu:
     strb    r1,[r0]
     b       @@subr_end
-@@check_for_r:
+@@check_for_select:
     mov     r0,#0x1
-    lsl     r0,r0,#OFFSET_KEY_R
+    lsl     r0,r0,#OFFSET_KEY_SEL
     and     r0,r1
     cmp     r0,#0x0
     beq     @@subr_end
-    ldr     r0,=#ADDR_GAMESTATE
-    mov     r1,#0x21
+    ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
+    ldrb    r1,[r0]
+    cmp     r1,#0x0
+    beq     @@change_pos
+    cmp     r1,#0x1
+    beq     @@confirm_change
+    b       @@subr_end
+@@change_pos:
+    mov     r2,#0x1
+    strb    r2,[r0]
+    ldr     r0,=#ADDR_CHANGING_ORDER
+    ldr     r1,=#ADDR_CURSOR_POSITION
+    ldrb    r1,[r1]
     strb    r1,[r0]
+    b       @@subr_end
+@@confirm_change:
+    mov     r1,#0x0
+    strb    r1,[r0]
+    ldr     r0,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
+    ldr     r1,=#ADDR_CURSOR_POSITION
+    ldrb    r1,[r1]
+    ldr     r2,=#ADDR_CHANGING_ORDER
+    ldrb    r2,[r2]
+    ldrb    r3,[r0,r1]
+    ldrb    r4,[r0,r2]
+    strb    r4,[r0,r1]
+    strb    r3,[r0,r2]
+    ldr     r0,=#ADDR_STAGE_SELECT_DISPLAY_CUSTOM
+    sub     r3,r3,#0x1
+    sub     r4,r4,#0x1
+    ldrb    r1,[r0,r3]
+    ldrb    r2,[r0,r4]
+    strb    r2,[r0,r3]
+    strb    r1,[r0,r4]
     b       @@subr_end
     .pool
     
@@ -449,41 +392,11 @@
     pop     r3
     bx      r3
     .pool
+    .endarea
     
-reset_disks:
-    ldr     r0,=#0x02036E78
-    mov     r4,#0x0
-    mov     r5,#0x0
-    mov     r6,#0x0
-    mov     r7,#0x0
-    stmia   r0!,{r4-r7}
-    stmia   r0!,{r4-r7}
-    stmia   r0!,{r4-r7}
+    .org REG_CUSTOM_ROUTE_MENU_LV2
+    .area REG_CUSTOM_ROUTE_MENU_LV2_AREA
     bx      r14
-    
-reset_volteel_rng:
-    ldr     r0,=#0x0202FFF0
-    mov     r4,#0x0
-    str     r4,[r0]
-    bx      r14
-    
-reset_progress:
-    push    {r0,r4-r7}
-    ldr     r0,=#0x02036F72
-    mov     r4,#0x0
-    mov     r5,#0x0
-    mov     r6,#0x0
-    mov     r7,#0x0
-    strh    r4,[r0]
-    add     r0,#0x2
-    stmia   r0!,{r4-r6}
-    stmia   r0!,{r4-r7}
-    stmia   r0!,{r4-r7}
-    stmia   r0!,{r4-r7}
-    stmia   r0!,{r4-r7}
-    pop     {r0,r4-r7}
-    bx      r14
-    .pool
     .endarea
     
     ; New code.
@@ -532,91 +445,6 @@ reset_progress:
     .db 0x10        ; Commander room
     .align 2
     
-show_menu:
-    push    r14
-    ldr     r4,=#0x02002141 ; DISPCNT register
-    ldrb    r5,[r4]
-    mov     r6,#0x1
-    orr     r5,r6
-    strb    r5,[r4]
-    ; ldr     r4,=#0x02000FEE   ; WINOUT register. Probably unnecessary, so I commented it out
-    ; ldrb    r5,[r4]
-    ; orr     r5,r6
-    ; strb    r5,[r4]
-    ldr     r3,=#ADDR_CUSTOM_ROUTE_STATUS
-    ldrb    r5,[r3]
-    cmp     r5,#0x0
-    bne     @@no_init
-    bl      @init_custom_route
-    mov     r5,#0x1
-    strb    r5,[r3]
-@@no_init:
-    ldr     r3,=#ADDR_GAMESTATE
-    ldr     r5,=#ADDR_STORED_GAMESTATE
-    ldrb    r5,[r5]
-    cmp     r5,#0x0
-    bne     @@store_gamestate
-    mov     r5,#0x1E
-@@store_gamestate:
-    strb    r5,[r3]
-    cmp     r5,#0x20
-    bne     @@continue_normal
-    ldr     r4,=#ADDR_STAGE_SELECT_DISPLAY_CUSTOM
-    b       @@continue_custom
-@@continue_normal:
-    mov     r6,#0x1E
-    sub     r5,r5,r6
-    mov     r6,#0x11
-    mul     r5,r6
-    ldr     r4,=#REG_STAGE_SELECT_DISPLAY
-    add     r4,r5
-@@continue_custom:
-    ldr     r5,=#0x02036DC0
-    ldrb    r6,[r5]
-    sub     r6,r6,#0x1
-    add     r4,r4,r6
-    ldrb    r4,[r4]
-    strb    r4,[r5]
-    pop     r0
-    bx      r0
-    .pool
-    
-@init_custom_route:
-    push    {r0-r7}
-    ldr     r0,=#REG_STAGE_SELECT_DISPLAY
-    ldr     r1,=#ADDR_STAGE_SELECT_DISPLAY_CUSTOM
-    ldmia   r0!,{r3-r6}
-    stmia   r1!,{r3-r6}
-    ldrb    r2,[r0]
-    strb    r2,[r1]
-    ldr     r0,=#REG_STAGE_SELECT_ROUTES
-    ldr     r1,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
-    ldmia   r0!,{r3-r6}
-    stmia   r1!,{r3-r6}
-    ldrb    r2,[r0]
-    strb    r2,[r1]
-    ldr     r0,=#REG_STAGE_SELECT_CFG
-    ldr     r1,=#ADDR_STORED_CUSTOM_ROUTE_CFG
-    ldrh    r2,[r0]
-    strh    r2,[r1]
-    add     r0,#0x2
-    add     r1,#0x2
-    mov     r2,#0x0
-@@load_store_loop:
-    ldmia   r0!,{r3-r7}
-    stmia   r1!,{r3-r7}
-    add     r2,#0x1
-    cmp     r2,#0x16
-    blt     @@load_store_loop
-    ldr     r2,[r0]
-    str     r2,[r1]
-    add     r0,#0x4
-    add     r1,#0x4
-    ldrh    r2,[r0]
-    strh    r2,[r1]
-    pop     {r0-r7}
-    bx      r14
-    .pool
     .endarea
     
     .org REG_STAGE_SELECT_ROUTES
@@ -657,16 +485,5 @@ show_menu:
     .db 0xF         ; Sub Arcadia
     .db 0x10        ; Final
     .db 0x11        ; Commander room
-    
-    .endarea
-    
-    .org REG_STAGE_SELECT_ROUTE_NAMES
-    .area REG_STAGE_SELECT_ROUTE_NAMES_AREA
-    
-    .asciiz "BLIZZACK 1ST/FOXTAR LASER"
-    .org REG_STAGE_SELECT_ROUTE_NAMES+0x20*1
-    .asciiz "HANU 1ST/NO FOXTAR LASER"
-    .org REG_STAGE_SELECT_ROUTE_NAMES+0x20*2
-    .asciiz "CUSTOM"
     
     .endarea

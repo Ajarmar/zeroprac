@@ -143,7 +143,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
     
 	; Flizard
-    INDEX_FLIZARD equ INDEX_INTRO+1
+    INDEX_FLIZARD equ (INDEX_INTRO+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db 0							; Clokkle status
@@ -167,7 +167,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
     
 	; Childre
-    INDEX_CHILDRE equ INDEX_FLIZARD+1
+    INDEX_CHILDRE equ (INDEX_FLIZARD+1)
     
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -191,7 +191,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
     
 	; Hellbat
-    INDEX_HELLBAT equ INDEX_CHILDRE+1
+    INDEX_HELLBAT equ (INDEX_CHILDRE+1)
 	
 	.db 0							; Biraid status
     .db 0							; Clokkle status
@@ -215,7 +215,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
 	; Mantisk
-    INDEX_MANTISK equ INDEX_HELLBAT+1
+    INDEX_MANTISK equ (INDEX_HELLBAT+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_EXISTS					; Clokkle status
@@ -240,7 +240,7 @@
 	
 	
 	; Baby Elves 1
-    INDEX_BABY1 equ INDEX_MANTISK+1
+    INDEX_BABY1 equ (INDEX_MANTISK+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -264,7 +264,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
 	; Anubis
-    INDEX_ANUBIS equ INDEX_BABY1+1
+    INDEX_ANUBIS equ (INDEX_BABY1+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -288,7 +288,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
 	; Hanumachine
-    INDEX_HANUMACHINE equ INDEX_ANUBIS+1
+    INDEX_HANUMACHINE equ (INDEX_ANUBIS+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -312,7 +312,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
 	; Blizzack
-    INDEX_BLIZZACK equ INDEX_HANUMACHINE+1
+    INDEX_BLIZZACK equ (INDEX_HANUMACHINE+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -336,7 +336,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
 	; Copy X
-    INDEX_COPYX equ INDEX_BLIZZACK+1
+    INDEX_COPYX equ (INDEX_BLIZZACK+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -360,7 +360,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
 	
 	; Foxtar
-    INDEX_FOXTAR equ INDEX_COPYX+1
+    INDEX_FOXTAR equ (INDEX_COPYX+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -384,7 +384,7 @@
 	.db UNLFOOT_FOXTAR
 	
 	; le Cactank
-    INDEX_CACTANK equ INDEX_FOXTAR+1
+    INDEX_CACTANK equ (INDEX_FOXTAR+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -408,7 +408,7 @@
 	.db UNLFOOT_CACTANK
 	
 	; Volteel
-    INDEX_VOLTEEL equ INDEX_CACTANK+1
+    INDEX_VOLTEEL equ (INDEX_CACTANK+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -432,7 +432,7 @@
 	.db UNLFOOT_KELVERIAN
 	
 	; Kelverian
-    INDEX_KELVERIAN equ INDEX_VOLTEEL+1
+    INDEX_KELVERIAN equ (INDEX_VOLTEEL+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -456,7 +456,7 @@
 	.db UNLFOOT_KELVERIAN
 	
 	; Baby Elves 2
-    INDEX_BABY2 equ INDEX_KELVERIAN+1
+    INDEX_BABY2 equ (INDEX_KELVERIAN+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -480,7 +480,7 @@
 	.db UNLFOOT_BABY2
 	
 	; Final
-    INDEX_FINAL equ INDEX_BABY2+1
+    INDEX_FINAL equ (INDEX_BABY2+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -504,7 +504,7 @@
 	.db UNLFOOT_BABY2
     
     ; Hanumachine 1st
-    INDEX_HANUMACHINE_ALT1 equ INDEX_FINAL+1
+    INDEX_HANUMACHINE_ALT1 equ (INDEX_FINAL+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -528,7 +528,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
     
 	; Blizzack 2nd
-    INDEX_BLIZZACK_ALT1 equ INDEX_HANUMACHINE_ALT1+1
+    INDEX_BLIZZACK_ALT1 equ (INDEX_HANUMACHINE_ALT1+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -552,7 +552,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
     
     ; Anubis with Hanumachine 1st
-    INDEX_ANUBIS_ALT1 equ INDEX_BLIZZACK_ALT1+1
+    INDEX_ANUBIS_ALT1 equ (INDEX_BLIZZACK_ALT1+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -576,7 +576,7 @@
 	.db UNLFOOT_NEUTRAL				; Unlocked foot chips
     
     ; Foxtar without laser
-    INDEX_FOXTAR_ALT1 equ INDEX_ANUBIS_ALT1+1
+    INDEX_FOXTAR_ALT1 equ (INDEX_ANUBIS_ALT1+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -600,7 +600,7 @@
 	.db UNLFOOT_FOXTAR
     
     ; Volteel without laser
-    INDEX_VOLTEEL_ALT1 equ INDEX_FOXTAR_ALT1+1
+    INDEX_VOLTEEL_ALT1 equ (INDEX_FOXTAR_ALT1+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -624,7 +624,7 @@
 	.db UNLFOOT_KELVERIAN
 	
 	; Kelverian without laser
-    INDEX_KELVERIAN_ALT1 equ INDEX_VOLTEEL_ALT1+1
+    INDEX_KELVERIAN_ALT1 equ (INDEX_VOLTEEL_ALT1+1)
 	
 	.db ELF_EXISTS					; Biraid status
     .db ELF_FED_S					; Clokkle status
@@ -654,40 +654,59 @@
     
     ; Route 1
     
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_INTRO       ; Intro
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_FLIZARD     ; Flizard
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_CHILDRE     ; Childre
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_HELLBAT     ; Hellbat
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_MANTISK     ; Mantisk
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_BABY1       ; Baby Elves 1
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_ANUBIS      ; Anubis
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_HANUMACHINE ; Hanumachine
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_BLIZZACK    ; Blizzack
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_COPYX       ; Copy X
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_FOXTAR      ; Foxtar
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_CACTANK     ; Cactank
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_VOLTEEL     ; Volteel
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_KELVERIAN   ; Kelverian
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_BABY2       ; Baby Elves 2
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_FINAL       ; Final
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_INTRO)       ; Intro
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_FLIZARD)     ; Flizard
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_CHILDRE)     ; Childre
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_HELLBAT)     ; Hellbat
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_MANTISK)     ; Mantisk
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_BABY1)       ; Baby Elves 1
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_ANUBIS)      ; Anubis
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_HANUMACHINE) ; Hanumachine
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_BLIZZACK)    ; Blizzack
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_COPYX)       ; Copy X
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_FOXTAR)      ; Foxtar
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_CACTANK)     ; Cactank
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_VOLTEEL)     ; Volteel
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_KELVERIAN)   ; Kelverian
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_BABY2)       ; Baby Elves 2
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_FINAL)       ; Final
     
     ; Route 2
     
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_INTRO       ; Intro
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_FLIZARD     ; Flizard
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_CHILDRE     ; Childre
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_HELLBAT     ; Hellbat
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_MANTISK     ; Mantisk
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_BABY1       ; Baby Elves 1
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_ANUBIS_ALT1         ; Anubis
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_HANUMACHINE_ALT1    ; Hanumachine
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_BLIZZACK_ALT1       ; Blizzack
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_COPYX       ; Copy X
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_FOXTAR_ALT1         ; Foxtar
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_CACTANK     ; Cactank
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_VOLTEEL_ALT1        ; Volteel
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_KELVERIAN_ALT1      ; Kelverian
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_BABY2       ; Baby Elves 2
-    .dw REG_STAGE_SELECT_CFG+0x1C*INDEX_FINAL       ; Final 
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_INTRO)       ; Intro
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_FLIZARD)     ; Flizard
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_CHILDRE)     ; Childre
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_HELLBAT)     ; Hellbat
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_MANTISK)     ; Mantisk
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_BABY1)       ; Baby Elves 1
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_ANUBIS_ALT1)         ; Anubis
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_HANUMACHINE_ALT1)    ; Hanumachine
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_BLIZZACK_ALT1)       ; Blizzack
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_COPYX)       ; Copy X
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_FOXTAR_ALT1)         ; Foxtar
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_CACTANK)     ; Cactank
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_VOLTEEL_ALT1)        ; Volteel
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_KELVERIAN_ALT1)      ; Kelverian
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_BABY2)       ; Baby Elves 2
+    .dw REG_STAGE_SELECT_CFG+(0x1C*INDEX_FINAL)       ; Final
+    
+    ; Route 3 (custom)
+    
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_INTRO)       ; Intro
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_FLIZARD)     ; Flizard
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_CHILDRE)     ; Childre
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_HELLBAT)     ; Hellbat
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_MANTISK)     ; Mantisk
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_BABY1)       ; Baby Elves 1
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_ANUBIS)      ; Anubis
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_HANUMACHINE) ; Hanumachine
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_BLIZZACK)    ; Blizzack
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_COPYX)       ; Copy X
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_FOXTAR)      ; Foxtar
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_CACTANK)     ; Cactank
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_VOLTEEL)     ; Volteel
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_KELVERIAN)   ; Kelverian
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_BABY2)       ; Baby Elves 2
+    .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(0x1C*INDEX_FINAL)       ; Final
     
     .endarea
