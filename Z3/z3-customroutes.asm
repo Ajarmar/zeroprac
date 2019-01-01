@@ -1,6 +1,5 @@
     .gba
-    
-    ; Stage select menu x position offsets
+    .include "z3-customrouteslv2.asm"
     
     ; New code. Stage names for the stage select menu in stage index order.
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES
@@ -11,35 +10,17 @@
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*2
     .asciiz ">>"
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*3
-    .asciiz "HELLBAT SCHILT"
+    .asciiz "CYBER ELVES"
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*4
-    .asciiz "DEATHTANZ MANTISK"
+    .asciiz "E-CRYSTALS"
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*5
-    .asciiz "BABY ELVES 1"
+    .asciiz "SUBTANKS"
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*6
-    .asciiz "ANUBIS NECROMANCESS V"
+    .asciiz "WEAPONS"
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*7
-    .asciiz "HANUMACHINE"
+    .asciiz "CHIPS"
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*8
-    .asciiz "BLIZZACK STAGGROFF"
-    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*9
-    .asciiz "COPY X MK 2"
-    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*10
-    .asciiz "CUBIT FOXTAR"
-    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*11
-    .asciiz "GLACIER LE CACTANK"
-    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*12
-    .asciiz "VOLTEEL BIBLIO"
-    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*13
-    .asciiz "TRETISTA KELVERIAN"
-    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*14
-    .asciiz "BABY ELVES 2"
-    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*15
-    .asciiz "FINAL"
-    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*16
-    .asciiz "COMMANDER ROOM"
-    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*17
-    .asciiz ">"
+    .asciiz "EX SKILLS"
     .endarea
     
     ; New code. Recreation of stage select menu routine from Z2.
@@ -53,54 +34,48 @@
     ; 6. Load stage settings
     ; 7. Set stage index and game state
     ; 8. End
-    .org REG_CUSTOM_ROUTE_MENU
+    .org REG_CUSTOM_ROUTE_MENU ;0x08389680
     .area REG_CUSTOM_ROUTE_MENU_AREA
     push    {r4-r7,r14}
-    ldr     r4,=#ADDR_CUSTOM_ROUTE_MENU_STATE
-    ldr     r4,[r4]
-    cmp     r4,#0x1
-    ble     @level_not_chosen
-    ldr     r4,=#REG_CUSTOM_ROUTE_MENU_LV2+1
-    bx      r4
-@level_not_chosen:
-    sub     sp,#0x14
-    mov     r6,r0
-    ldr     r0,=#0x6260
-    add     r5,r6,r0        ; Fixed (r5 is stage index address)
+    ldr     r5,=#ADDR_CUSTOM_ROUTE_MENU_STATE
+    ldrb    r5,[r5]
+    cmp     r5,#0x1
+    ble     @@level_not_chosen
+    ldr     r5,=#REG_CUSTOM_ROUTE_MENU_LV2+1
+    bl      REG_CUSTOM_ROUTE_MENU_LV2
+    b       @@subr_end
+@@level_not_chosen:
+    ldr     r5,=#ADDR_CURSOR_POSITION
     ldrb    r4,[r5]
-    ldr     r1,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM ; Fixed (stage indexes)
-    mov     r0,r13
-    mov     r2,#0x11
-    bl      @indexes_on_stack
     ldr     r7,=#0x02001EB0 ; Fixed (input checking)
     ldrh    r1,[r7,#0x6]
-@check_for_down:
+@@check_for_down:
     mov     r0,#0x80
     and     r0,r1
     cmp     r0,#0x0
-    beq     @check_for_up
+    beq     @@check_for_up
     add     r0,r4,#0x1
     lsl     r0,r0,#0x18
     lsr     r4,r0,#0x18
-@check_for_up:
+@@check_for_up:
     mov     r0,#0x40
     and     r0,r1
     cmp     r0,#0x0
-    beq     @no_up
+    beq     @@no_up
     mov     r0,r4
     sub     r0,#0x1
     lsl     r0,r0,#0x18
     lsr     r4,r0,#0x18
-@no_up:
+@@no_up:
     mov     r0,r4
     cmp     r0,#0xFF
-    bne     @no_upwrap
+    bne     @@no_upwrap
     mov     r0,#0x10
-@no_upwrap:
+@@no_upwrap:
     cmp     r0,#0x11
-    bne     @no_downwrap
+    bne     @@no_downwrap
     mov     r0,#0x0
-@no_downwrap:
+@@no_downwrap:
     lsl     r0,r0,#0x18
     lsr     r4,r0,#0x18
     push    {r3-r7}
@@ -108,11 +83,11 @@
     ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES
     mov     r1,#0x0
     mov     r2,#0x0
-    bl      @draw_textline  ; Draw route name
+    bl      draw_textline  ; Draw route name
     ldr     r5,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
     mov     r6,#0x16        ; Size of a stage select entry "cell"
     mov     r3,#0x1         ; y offset
-@print_menu_loop:
+@@print_menu_loop:
     mov     r1,MENU_OFFSET  ; x offset
     mov     r2,r3
     sub     r7,r2,#0x1      ; 0-indexed stage number
@@ -120,10 +95,10 @@
     sub     r7,#0x1         ; 0-indexed stage index
     mul     r7,r6           ; Stage select entry offset
     add     r0,r4,r7        ; Stage select entry address
-    bl      @draw_textline
+    bl      draw_textline
     add     r3,#0x1
     cmp     r3,#0x11
-    ble     @print_menu_loop
+    ble     @@print_menu_loop
     ldr     r3,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     ldrb    r3,[r3]
     cmp     r3,#0x1
@@ -137,46 +112,17 @@
 @@cursor_chosen:
     pop     {r3-r7}
     add     r2,r4,#0x1
-    bl      @draw_textline
-    str     r4,[r5]
+    bl      draw_textline
+    strb    r4,[r5]
     ldrh    r1,[r7,#0x4]    ; Check for A input
     mov     r0,#0x1
     and     r0,r1
     cmp     r0,#0x0
     beq     @@check_for_b
-    b       @@subr_end
-    ;; A press handling should be here!!
-    mov     r1,r13
-    add     r0,r1,r4
-    ldrb    r0,[r0]
-    str     r0,[r5]
-    ldr     r2,=#REG_STAGE_SETTING_POINTERS ; Fixed, base address for stage settings
-    ldr     r1,=#ADDR_GAMESTATE
-    ldrb    r1,[r1]
-    ldr     r3,=#0x02030B5C             ; Address for storing stage select menu game state
-    strb    r1,[r3]
-    mov     r3,#0x1E
-    sub     r1,r3
-    mov     r3,#0x11
-    mul     r1,r3
-    ldr     r3,=#REG_STAGE_SELECT_ROUTES
-    add     r3,r1
-    ldrb    r1,[r3,r4]
-    sub     r1,#0x1
-    bl      @stage_settings
-    bl      reset_progress
-    bl      0x08019E94      
-    mov     r1,#0xC0
-    lsl     r1,r1,#0x2
-    str     r1,[r6]
-    mov     r1,#0x0
-    str     r1,[r6,#0x4]
-    str     r1,[r6,#0x8]
-    bl      reset_disks
-    bl      reset_volteel_rng
-    ;; A press handling should end here!!
+    ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
+    mov     r1,#0x2
+    strb    r1,[r0]
 @@subr_end:
-    add     sp,#0x14
     pop     {r4-r7}
     pop     {r0}
     bx      r0
@@ -288,7 +234,7 @@
     mov     r0,r5
     pop     {r4-r7,r15}
     
-@draw_textline: ; r0 = string to be drawn, r1 = x offset, r2 = y offset
+draw_textline: ; r0 = string to be drawn, r1 = x offset, r2 = y offset
     push    {r3-r6,r14}
     mov     r3,r0
     mov     r4,r1
@@ -392,98 +338,4 @@
     pop     r3
     bx      r3
     .pool
-    .endarea
-    
-    .org REG_CUSTOM_ROUTE_MENU_LV2
-    .area REG_CUSTOM_ROUTE_MENU_LV2_AREA
-    bx      r14
-    .endarea
-    
-    ; New code.
-    ; Cursor positions for the stages, in stage index order.
-    .org REG_STAGE_SELECT_DISPLAY
-    .area REG_STAGE_SELECT_DISPLAY_AREA
-    
-    ; Route 1
-    
-    .db 0x0         ; Intro
-    .db 0x2         ; Flizard
-    .db 0x4         ; Childre
-    .db 0x1         ; Hellbat
-    .db 0x3         ; Mantisk
-    .db 0x5         ; Baby Elves 1
-    .db 0x8         ; Anubis
-    .db 0x7         ; Hanumachine
-    .db 0x6         ; Blizzack
-    .db 0x9         ; Copy X
-    .db 0xB         ; Foxtar
-    .db 0xA         ; le Cactank
-    .db 0xD         ; Volteel
-    .db 0xC         ; Kelverian
-    .db 0xE         ; Baby Elves 2
-    .db 0xF         ; Final
-    .db 0x10        ; Commander room
-    
-    ; Route 2
-    
-    .db 0x0         ; Intro
-    .db 0x2         ; Flizard
-    .db 0x4         ; Childre
-    .db 0x1         ; Hellbat
-    .db 0x3         ; Mantisk
-    .db 0x5         ; Baby Elves 1
-    .db 0x8         ; Anubis
-    .db 0x6         ; Hanumachine
-    .db 0x7         ; Blizzack
-    .db 0x9         ; Copy X
-    .db 0xB         ; Foxtar
-    .db 0xA         ; le Cactank
-    .db 0xD         ; Volteel
-    .db 0xC         ; Kelverian
-    .db 0xE         ; Baby Elves 2
-    .db 0xF         ; Final
-    .db 0x10        ; Commander room
-    .align 2
-    
-    .endarea
-    
-    .org REG_STAGE_SELECT_ROUTES
-    .area REG_STAGE_SELECT_ROUTES_AREA
-    
-    .db 0x1         ; Intro
-    .db 0x4         ; Hellbat
-    .db 0x2         ; Flizard
-    .db 0x5         ; Mantisk
-    .db 0x3         ; Childre
-    .db 0x6         ; Baby Elves 1
-    .db 0x9         ; Blizzack
-    .db 0x8         ; Hanumachine
-    .db 0x7         ; Anubis
-    .db 0xA         ; Copy X
-    .db 0xC         ; le Cactank
-    .db 0xB         ; Foxtar
-    .db 0xE         ; Kelverian
-    .db 0xD         ; Volteel
-    .db 0xF         ; Sub Arcadia
-    .db 0x10        ; Final
-    .db 0x11        ; Commander room
-    
-    .db 0x1         ; Intro
-    .db 0x4         ; Hellbat
-    .db 0x2         ; Flizard
-    .db 0x5         ; Mantisk
-    .db 0x3         ; Childre
-    .db 0x6         ; Baby Elves 1
-    .db 0x8         ; Hanumachine
-    .db 0x9         ; Blizzack
-    .db 0x7         ; Anubis
-    .db 0xA         ; Copy X
-    .db 0xC         ; le Cactank
-    .db 0xB         ; Foxtar
-    .db 0xE         ; Kelverian
-    .db 0xD         ; Volteel
-    .db 0xF         ; Sub Arcadia
-    .db 0x10        ; Final
-    .db 0x11        ; Commander room
-    
     .endarea
