@@ -19,8 +19,16 @@
     mov     r1,#0x0
     mov     r2,#0x2
     bl      draw_textline  ; Draw >>
+    ldr     r5,=#ADDR_CURSOR_POSITION_LV2
+    ldrb    r5,[r5]
+    cmp     r5,#0x5
+    beq     @@ex_skill_menu
     ldr     r5,=#ADDR_CURSOR_POSITION_LV3
     ldrb    r4,[r5]
+    ldr     r7,=#ADDR_LV4_STATE
+    ldrb    r7,[r7]
+    cmp     r7,#0x0
+    bne     @@after_moving_cursor
     ldr     r7,=#0x02001EB0 ; Fixed (input checking)
     ldrh    r1,[r7,#0x6]
 @@check_for_down:
@@ -59,6 +67,7 @@
 @@no_downwrap:
     lsl     r0,r0,#0x18
     lsr     r4,r0,#0x18
+@@after_moving_cursor:
     ldr     r3,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     ldrb    r3,[r3]
     cmp     r3,#0x1
@@ -107,12 +116,18 @@
     add     r3,#0x1
     cmp     r3,r5
     blt     @@print_menu_loop
+@@check_for_a:
     ldr     r7,=#ADDR_KEY
     ldrh    r1,[r7,#0x4]    ; Check for A input
     mov     r0,#0x1
     and     r0,r1
     cmp     r0,#0x0
     beq     @@check_for_b
+    b       @@subr_end
+@@ex_skill_menu:
+    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_LV3_DETAILS+LV3_DETAIL_MAX*0x5
+    push    r0
+    b       @@check_for_a
 @@subr_end:
     pop     r0
     bl      REG_CUSTOM_ROUTE_MENU_LV4
@@ -124,6 +139,10 @@
     and     r0,r1
     cmp     r0,#0x0
     beq     @@subr_end
+    ldr     r0,=#ADDR_LV4_STATE
+    ldrb    r1,[r0]
+    cmp     r1,#0x0
+    bne     @@subr_end
     ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     mov     r1,#0x2
     strb    r1,[r0]
@@ -156,7 +175,7 @@
     .db 19      ; Offset for foot chip
     .org REG_CUSTOM_ROUTE_MENU_LV3_DETAILS+LV3_DETAIL_MAX*0x5
     .db 12      ; Amount of entries in "EX Skills" menu
-    .db 20
+    .db 22
     
     .endarea
     

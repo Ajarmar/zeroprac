@@ -96,6 +96,13 @@ load_checkpoint:
     ldrb    r4,[r4]
     cmp     r1,r4
     beq     @after_boss_check
+    cmp     r0,#VAL_STAGE_FOXTAR
+    bne     @@not_in_foxtar
+    cmp     r1,#0x2
+    beq     @after_boss_check
+    cmp     r1,#0x4
+    beq     @after_boss_check
+@@not_in_foxtar:
     ldr     r4,=#0x0202FE67
     ldrb    r4,[r4]
     cmp     r0,#0x1
