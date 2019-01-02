@@ -1,5 +1,6 @@
     .gba
-    
+    .include "z3-customrouteslv4.asm"
+
     MENU_OFFSET_LV3 equ 0x4
     LV3_DETAIL_MAX equ 0x4
     LV3_ENTRY_MAX equ 16
@@ -89,6 +90,7 @@
     mul     r6,r4
     ldr     r4,=#REG_CUSTOM_ROUTE_MENU_LV3_DETAILS
     add     r6,r4
+    push    r6
     ldrb    r6,[r6]
     mov     r3,#0x0         ; y offset
     mov     r4,r5                   ; First address of menu entry
@@ -112,6 +114,8 @@
     cmp     r0,#0x0
     beq     @@check_for_b
 @@subr_end:
+    pop     r0
+    bl      REG_CUSTOM_ROUTE_MENU_LV4
     pop     {r3-r7}
     pop     r0
     bx      r0
@@ -122,6 +126,9 @@
     beq     @@subr_end
     ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     mov     r1,#0x2
+    strb    r1,[r0]
+    ldr     r0,=#ADDR_CURSOR_POSITION_LV3
+    mov     r1,#0x0
     strb    r1,[r0]
     b       @@subr_end
     .pool
@@ -168,7 +175,6 @@
     .org LV3_ENTRY_CELL_2
     .dw LV3_ENTRY_CELL_3 ; pointer to next cell
     .asciiz "E-CRYSTALS: "
-    
     
     .org LV3_ENTRY_CELL_3
     .dw LV3_ENTRY_CELL_4

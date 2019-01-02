@@ -122,6 +122,12 @@
     ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     mov     r1,#0x2
     strb    r1,[r0]
+    ldr     r0,=#ADDR_CHOSEN_STAGE
+    ldr     r2,=#ADDR_CURSOR_POSITION
+    ldrb    r2,[r2]
+    ldr     r3,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
+    ldrb    r1,[r3,r2]
+    strb    r1,[r0]
 @@subr_end:
     pop     {r4-r7}
     pop     {r0}
@@ -234,10 +240,13 @@
     mov     r0,r5
     pop     {r4-r7,r15}
     
-draw_textline: ; r0 = string to be drawn, r1 = x offset, r2 = y offset
-    push    {r3-r6,r14}
+    ; r0 = string to be drawn, r1 = x offset, r2 = y offset
+    ; exiting this subroutine, r1 can be reused to continue drawing
+draw_textline: 
+    push    {r3-r7,r14}
     mov     r3,r0
     mov     r4,r1
+    mov     r7,r4
     ldr     r1,=#0x02030B70 ; Fixed (BG0 tiles)
     cmp     r2,#0x1F
     bhi     @@subr_end      ; Avoid trying to draw outside of screen
@@ -269,11 +278,13 @@ draw_textline: ; r0 = string to be drawn, r1 = x offset, r2 = y offset
     strh    r0,[r1]
     add     r3,#0x1
     add     r1,#0x2
+    add     r7,#0x1
     ldrb    r0,[r3]
     cmp     r0,#0x0         ; Check for terminating null byte
     bne     @@write_loop
 @@subr_end:
-    pop     {r3-r6}
+    mov     r1,r7
+    pop     {r3-r7}
     pop     {r0}
     bx      r0
     .pool
