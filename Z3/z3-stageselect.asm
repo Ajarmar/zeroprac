@@ -121,7 +121,7 @@
 @@continue_normal:
     mov     r1,#0x1E
     sub     r0,r0,r1
-    mov     r1,#0x11
+    mov     r1,#0x14
     mul     r0,r1
     ldr     r1,=#REG_STAGE_SELECT_ROUTES ; Fixed (stage indexes)
     add     r1,r1,r0
@@ -181,7 +181,7 @@
     ldr     r5,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
     b       @@continue_custom
 @@continue_normal:
-    mov     r6,#0x11
+    mov     r6,#0x14
     mul     r3,r6
     ldr     r5,=#REG_STAGE_SELECT_ROUTES
     add     r5,r5,r3
@@ -229,7 +229,7 @@
 @@continue_normal:
     mov     r3,#0x1E
     sub     r1,r3
-    mov     r3,#0x11
+    mov     r3,#0x14
     mul     r1,r3
     ldr     r3,=#REG_STAGE_SELECT_ROUTES
     add     r3,r1
@@ -514,6 +514,8 @@ reset_progress:
     .db 0xF         ; Final
     .db 0x10        ; Commander room
     
+    .align 4
+    
     ; Route 2
     
     .db 0x0         ; Intro
@@ -569,7 +571,7 @@ show_menu:
 @@continue_normal:
     mov     r6,#0x1E
     sub     r5,r5,r6
-    mov     r6,#0x11
+    mov     r6,#0x14
     mul     r5,r6
     ldr     r4,=#REG_STAGE_SELECT_DISPLAY
     add     r4,r5
@@ -585,7 +587,24 @@ show_menu:
     .pool
     
 @init_custom_route:
-    push    {r0-r7}
+    push    {r0-r7,r14}
+    ldr     r0,=#ADDR_SRAM_ROUTE_AREA
+    ldrb    r2,[r0]
+    ldrb    r1,[r0,#0x1]
+    lsl     r1,r1,#0x8
+    orr     r2,r1
+    ldrb    r1,[r0,#0x2]
+    lsl     r1,r1,#0x10
+    orr     r2,r1
+    ldrb    r1,[r0,#0x3]
+    lsl     r1,r1,#0x18
+    orr     r2,r1
+    ldr     r1,=#0x43415250
+    cmp     r2,r1
+    bne     @@load_from_rom
+    bl      @load_from_sram
+    b       @@subr_end
+@@load_from_rom:
     ldr     r0,=#REG_STAGE_SELECT_DISPLAY
     ldr     r1,=#ADDR_STAGE_SELECT_DISPLAY_CUSTOM
     ldmia   r0!,{r3-r6}
@@ -617,10 +636,30 @@ show_menu:
     add     r1,#0x4
     ldrh    r2,[r0]
     strh    r2,[r1]
+@@subr_end:
     pop     {r0-r7}
-    bx      r14
+    pop     r15
+    .pool
+
+@load_from_sram:
+    push    r14
+    add     r0,#0x10
+    ldr     r1,=#ADDR_STAGE_SELECT_DISPLAY_CUSTOM
+    mov     r5,#0x0
+    ldr     r6,=#498
+@@loop:
+    ldrb    r3,[r0]
+    strb    r3,[r1]
+    add     r0,#0x1
+    add     r1,#0x1
+    add     r5,#0x1
+    cmp     r5,r6
+    blt     @@loop
+@@subr_end:
+    pop     r15
     .pool
     .endarea
+    
     
     .org REG_STAGE_SELECT_ROUTES
     .area REG_STAGE_SELECT_ROUTES_AREA
@@ -642,6 +681,8 @@ show_menu:
     .db 0xF         ; Sub Arcadia
     .db 0x10        ; Final
     .db 0x11        ; Commander room
+    
+    .align 4
     
     .db 0x1         ; Intro
     .db 0x4         ; Hellbat

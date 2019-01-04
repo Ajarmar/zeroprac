@@ -1,5 +1,6 @@
     .gba
     .include "z3-customrouteslv2.asm"
+    .include "z3-customrouteslvx.asm"
     
     UNLOCK_CELL_SIZE equ 8
     ; New code. Stage names for the stage select menu in stage index order.
@@ -22,6 +23,12 @@
     .asciiz "CHIPS"
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*8
     .asciiz "EX SKILLS"
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*9
+    .asciiz "SAVE CUSTOM ROUTE TO SRAM?"
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*11
+    .asciiz "A: CONFIRM"
+    .org REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*12
+    .asciiz "B: CANCEL"
     .endarea
     
     ; New code. Recreation of stage select menu routine from Z2.
@@ -38,11 +45,58 @@
     .org REG_CUSTOM_ROUTE_MENU ;0x08389680
     .area REG_CUSTOM_ROUTE_MENU_AREA
     push    {r4-r7,r14}
+    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES
+    mov     r1,#0x0
+    mov     r2,#0x0
+    bl      draw_textline  ; Draw "Editing..."
+    ldr     r5,=#ADDR_SRAM_STATE
+    ldrb    r5,[r5]
+    cmp     r5,#0x1
+    blt     @@not_sram
+    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*9
+    mov     r1,#0x2
+    mov     r2,#0x6
+    bl      draw_textline
+    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*11
+    mov     r1,#0x2
+    mov     r2,#0x8
+    bl      draw_textline
+    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*12
+    mov     r1,#0x2
+    mov     r2,#0x9
+    bl      draw_textline
+    ldr     r7,=#ADDR_KEY
+    ldrh    r1,[r7,#0x4]    ; Check for A input
+    mov     r0,#VAL_KEY_A
+    and     r0,r1
+    cmp     r0,#0x0
+    beq     @@sram_check_for_b
+    ldr     r0,=#ADDR_SRAM_STATE
+    mov     r1,#0x0
+    strb    r1,[r0]
+    bl      @save_to_sram
+    b       @@subr_end
+@@sram_check_for_b:
+    mov     r0,#VAL_KEY_B
+    and     r0,r1
+    cmp     r0,#0x0
+    beq     @@subr_end
+    ldr     r0,=#ADDR_SRAM_STATE
+    mov     r1,#0x0
+    strb    r1,[r0]
+    b       @@subr_end
+@@not_sram:
+    ldr     r5,=#ADDR_LVX_STATE
+    ldrb    r5,[r5]
+    cmp     r5,#0x1
+    blt     @@not_in_lvx
+    bl      REG_CUSTOM_ROUTE_MENU_LVX
+    b       @@subr_end
+@@not_in_lvx:
     ldr     r5,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     ldrb    r5,[r5]
     cmp     r5,#0x1
     ble     @@level_not_chosen
-    ldr     r5,=#REG_CUSTOM_ROUTE_MENU_LV2+1
     bl      REG_CUSTOM_ROUTE_MENU_LV2
     b       @@subr_end
 @@level_not_chosen:
@@ -81,10 +135,6 @@
     lsr     r4,r0,#0x18
     push    {r3-r7}
     ldr     r4,=#REG_STAGE_SELECT_ENTRIES
-    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES
-    mov     r1,#0x0
-    mov     r2,#0x0
-    bl      draw_textline  ; Draw route name
     ldr     r5,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
     mov     r6,#0x16        ; Size of a stage select entry "cell"
     mov     r3,#0x1         ; y offset
@@ -115,20 +165,39 @@
     add     r2,r4,#0x1
     bl      draw_textline
     strb    r4,[r5]
+@@check_for_a:
     ldrh    r1,[r7,#0x4]    ; Check for A input
-    mov     r0,#0x1
+    mov     r0,#VAL_KEY_A
     and     r0,r1
     cmp     r0,#0x0
     beq     @@check_for_b
+    ldrh    r1,[r7]
+    mov     r0,#0x1
+    lsl     r0,r0,#OFFSET_KEY_SEL
+    and     r0,r1
+    cmp     r0,#0x0
+    beq     @@a_no_select
+    ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
+    ldrb    r1,[r0]
+    cmp     r1,#0x0
+    beq     @@change_pos
+    cmp     r1,#0x1
+    beq     @@confirm_change
+    b       @@subr_end
+@@a_no_select:
     ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     ldrb    r1,[r0]
     cmp     r1,#0x1
     beq     @@confirm_change
+    ldr     r2,=#ADDR_CURSOR_POSITION
+    ldrb    r2,[r2]
+    cmp     r2,#0x0
+    beq     @@subr_end
+    cmp     r2,#0x10
+    beq     @@subr_end
     mov     r1,#0x2
     strb    r1,[r0]
     ldr     r0,=#ADDR_CHOSEN_STAGE
-    ldr     r2,=#ADDR_CURSOR_POSITION
-    ldrb    r2,[r2]
     ldr     r3,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
     ldrb    r1,[r3,r2]
     strb    r1,[r0]
@@ -137,10 +206,10 @@
     pop     {r0}
     bx      r0
 @@check_for_b:
-    mov     r0,#0x2
+    mov     r0,#VAL_KEY_B
     and     r0,r1
     cmp     r0,#0x0
-    beq     @@check_for_select
+    beq     @@check_for_l
     ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     ldrb    r1,[r0]
     cmp     r1,#0x1
@@ -158,25 +227,48 @@
 @@store_menu:
     strb    r1,[r0]
     b       @@subr_end
-@@check_for_select:
+@@check_for_l:
+    mov     r0,#0x1
+    lsl     r0,r0,#OFFSET_KEY_L
+    and     r0,r1
+    cmp     r0,#0x0
+    beq     @@check_for_r
+    ldrh    r1,[r7]         
     mov     r0,#0x1
     lsl     r0,r0,#OFFSET_KEY_SEL
     and     r0,r1
     cmp     r0,#0x0
     beq     @@subr_end
-    ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
-    ldrb    r1,[r0]
-    cmp     r1,#0x0
-    beq     @@change_pos
-    cmp     r1,#0x1
-    beq     @@confirm_change
+    ldr     r0,=#ADDR_LVX_STATE
+    mov     r1,#0x1
+    strb    r1,[r0]
+    b       @@subr_end
+@@check_for_r:
+    mov     r0,#0x1
+    lsl     r0,r0,#OFFSET_KEY_R
+    and     r0,r1
+    cmp     r0,#0x0
+    beq     @@subr_end
+    ldrh    r1,[r7]         
+    mov     r0,#0x1
+    lsl     r0,r0,#OFFSET_KEY_SEL
+    and     r0,r1
+    cmp     r0,#0x0
+    beq     @@subr_end
+    ldr     r0,=#ADDR_SRAM_STATE
+    mov     r1,#0x1
+    strb    r1,[r0]
     b       @@subr_end
 @@change_pos:
     ldr     r1,=#ADDR_CURSOR_POSITION
     ldrb    r1,[r1]
     cmp     r1,#0x0
     beq     @@subr_end
-    cmp     r1,#0xF
+    cmp     r1,#0x5
+    beq     @@subr_end
+    cmp     r1,#0x9
+    beq     @@subr_end
+    cmp     r1,#0xE
     bge     @@subr_end
     mov     r2,#0x1
     strb    r2,[r0]
@@ -188,7 +280,11 @@
     ldrb    r1,[r1]
     cmp     r1,#0x0
     beq     @@subr_end
-    cmp     r1,#0xF
+    cmp     r1,#0x5
+    beq     @@subr_end
+    cmp     r1,#0x9
+    beq     @@subr_end
+    cmp     r1,#0xE
     bge     @@subr_end
     ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     mov     r1,#0x0
@@ -324,6 +420,37 @@ draw_textline:
     pop     {r3-r7}
     pop     {r0}
     bx      r0
+    .pool
+    
+@save_to_sram:
+    push    {r3-r7,r14}
+    ldr     r3,=#ADDR_STAGE_SELECT_DISPLAY_CUSTOM
+    ldr     r4,=#ADDR_SRAM_ROUTE_AREA
+    mov     r5,#0x0
+    ldr     r6,=#498
+    mov     r0,#0x50    ; P
+    strb    r0,[r4]
+    add     r4,#0x1
+    mov     r0,#0x52    ; R
+    strb    r0,[r4]
+    add     r4,#0x1
+    mov     r0,#0x41    ; A
+    strb    r0,[r4]
+    add     r4,#0x1
+    mov     r0,#0x43    ; C
+    strb    r0,[r4]
+    add     r4,#0xD
+@@loop:
+    ldrb    r0,[r3]
+    strb    r0,[r4]
+    add     r3,#0x1
+    add     r4,#0x1
+    add     r5,#0x1
+    cmp     r5,r6
+    blt     @@loop
+@@subr_end:
+    pop     {r3-r7}
+    pop     r15
     .pool
     .endarea
     

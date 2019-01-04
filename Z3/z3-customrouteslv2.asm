@@ -6,14 +6,10 @@
     .org REG_CUSTOM_ROUTE_MENU_LV2
     .area REG_CUSTOM_ROUTE_MENU_LV2_AREA
     push    {r3-r7,r14}
-    ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES
-    mov     r1,#0x0
-    mov     r2,#0x0
-    bl      draw_textline  ; Draw "Editing..."
     ldr     r0,=#REG_CUSTOM_ROUTE_MENU_ENTRIES+0x16*1
     mov     r1,#0x0
     mov     r2,#0x1
-    bl      draw_textline
+    bl      draw_textline   ; Draw ">"
     ldr     r4,=#ADDR_CURSOR_POSITION
     ldrb    r4,[r4]
     ldr     r5,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
