@@ -289,6 +289,9 @@
     cmp     r0,#0x0
     beq     @@subr_end
     ldr     r0,=#ADDR_GAMESTATE
+    ldr     r2,=#ADDR_STORED_GAMESTATE
+    ldrb    r3,[r0]
+    strb    r3,[r2]
     mov     r1,#0x21
     strb    r1,[r0]
     b       @@subr_end

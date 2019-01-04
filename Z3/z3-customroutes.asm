@@ -1,6 +1,7 @@
     .gba
     .include "z3-customrouteslv2.asm"
     
+    UNLOCK_CELL_SIZE equ 8
     ; New code. Stage names for the stage select menu in stage index order.
     .org REG_CUSTOM_ROUTE_MENU_ENTRIES
     .area REG_CUSTOM_ROUTE_MENU_ENTRIES_AREA
@@ -120,6 +121,9 @@
     cmp     r0,#0x0
     beq     @@check_for_b
     ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
+    ldrb    r1,[r0]
+    cmp     r1,#0x1
+    beq     @@confirm_change
     mov     r1,#0x2
     strb    r1,[r0]
     ldr     r0,=#ADDR_CHOSEN_STAGE
@@ -137,6 +141,14 @@
     and     r0,r1
     cmp     r0,#0x0
     beq     @@check_for_select
+    ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
+    ldrb    r1,[r0]
+    cmp     r1,#0x1
+    bne     @@exit_menu
+    mov     r1,#0x0
+    strb    r1,[r0]
+    b       @@subr_end
+@@exit_menu:
     ldr     r0,=#ADDR_GAMESTATE
     ldr     r1,=#ADDR_STORED_GAMESTATE
     ldrb    r1,[r1]
@@ -160,14 +172,25 @@
     beq     @@confirm_change
     b       @@subr_end
 @@change_pos:
+    ldr     r1,=#ADDR_CURSOR_POSITION
+    ldrb    r1,[r1]
+    cmp     r1,#0x0
+    beq     @@subr_end
+    cmp     r1,#0xF
+    bge     @@subr_end
     mov     r2,#0x1
     strb    r2,[r0]
     ldr     r0,=#ADDR_CHANGING_ORDER
-    ldr     r1,=#ADDR_CURSOR_POSITION
-    ldrb    r1,[r1]
     strb    r1,[r0]
     b       @@subr_end
 @@confirm_change:
+    ldr     r1,=#ADDR_CURSOR_POSITION
+    ldrb    r1,[r1]
+    cmp     r1,#0x0
+    beq     @@subr_end
+    cmp     r1,#0xF
+    bge     @@subr_end
+    ldr     r0,=#ADDR_CUSTOM_ROUTE_MENU_STATE
     mov     r1,#0x0
     strb    r1,[r0]
     ldr     r0,=#ADDR_STAGE_SELECT_ROUTES_CUSTOM
@@ -179,6 +202,15 @@
     ldrb    r4,[r0,r2]
     strb    r4,[r0,r1]
     strb    r3,[r0,r2]
+    push    r0
+    ldr     r0,=#ADDR_CHANGING_ORDER
+    cmp     r2,r1
+    blt     @@store_r3
+    strb    r4,[r0]
+    b       @@store_display_order
+@@store_r3:
+    strb    r3,[r0]
+@@store_display_order:
     ldr     r0,=#ADDR_STAGE_SELECT_DISPLAY_CUSTOM
     sub     r3,r3,#0x1
     sub     r4,r4,#0x1
@@ -186,59 +218,64 @@
     ldrb    r2,[r0,r4]
     strb    r2,[r0,r3]
     strb    r1,[r0,r4]
+    pop     r0
+    mov     r3,#0x2
+@@route_unlocks:
+    mov     r1,#0x0
+    ldr     r2,=#0x00010101
+    mov     r4,#0x1
+@@route_unlock_loop:
+    ldrb    r5,[r0,r4]
+    cmp     r3,r5
+    beq     @@loop_done
+    sub     r5,#0x2
+    ldr     r7,=#REG_CUSTOM_ROUTE_MENU_STAGE_UNLOCKS
+    mov     r6,#UNLOCK_CELL_SIZE
+    mul     r6,r5
+    add     r7,r6
+    ldr     r5,[r7]
+    ldr     r6,[r7,#0x4]
+    orr     r1,r5
+    orr     r2,r6
+    add     r4,#0x1
+    b       @@route_unlock_loop
+@@loop_done:
+    mov     r5,#28
+    ldr     r6,=#ADDR_STORED_CUSTOM_ROUTE_CFG
+    sub     r4,r3,#0x1
+    mul     r5,r4
+    add     r6,r5
+    ldrb    r7,[r6,#2]
+    cmp     r7,#0x34
+    beq     @@clokkle_is_here
+@@check_elf_2:
+    ldrb    r7,[r6,#3]
+    cmp     r7,#0x34
+    bne     @@after_clokkle_check
+@@clokkle_is_here:
+    mov     r7,#0x4
+    lsl     r7,r7,#0x8
+    orr     r1,r7
+@@after_clokkle_check:
+    strh    r1,[r6]
+    lsr     r1,r1,#0x10
+    strh    r1,[r6,#22]
+    strb    r2,[r6,#25]
+    lsr     r2,r2,#0x8
+    strh    r2,[r6,#26]
+    ldr     r4,=#ADDR_CHANGING_ORDER
+    ldrb    r4,[r4]
+    cmp     r3,r4
+    bne     @@continue
+    ldrh    r4,[r6,#20]
+    and     r4,r1
+    strh    r4,[r6,#20]
+@@continue:
+    add     r3,#0x1
+    cmp     r3,#0x10
+    blt     @@route_unlocks
     b       @@subr_end
     .pool
-    
-@indexes_on_stack: ; r0 = sp, r1 = stage index list, r2 = 0x11
-    push    {r4-r7,r14}
-    mov     r5,r0
-    mov     r4,r5
-    mov     r3,r1
-    cmp     r2,#0xF          ; Probably unnecessary
-    bls     @@hmm
-    mov     r0,r3
-    orr     r0,r5
-    mov     r1,#0x3
-    and     r0,r1
-    cmp     r0,#0x0
-    bne     @@hmm
-    mov     r1,r5
-@@move_stuff:
-    ldmia   r3!,{r0,r6,r7}
-    stmia   r1!,{r0,r6,r7}
-    ldmia   r3!,{r0}
-    stmia   r1!,{r0}
-    sub     r2,#0x10
-    cmp     r2,#0xF         ; Probably unnecessary
-    bhi     @@move_stuff
-    cmp     r2,#0x3
-    bls     @@something
-@@move_a_word:
-    ldmia   r3!,{r0}
-    stmia   r1!,{r0}
-    sub     r2,#0x4
-    cmp     r2,#0x3
-    bhi     @@move_a_word
-@@something:
-    mov     r4,r1
-@@hmm:
-    sub     r2,#0x1
-    mov     r0,#0x1
-    neg     r0,r0
-    cmp     r2,r0
-    beq     @@subr_end
-    mov     r1,r0
-@@move_a_byte:
-    ldrb    r0,[r3]
-    strb    r0,[r4]
-    add     r3,#0x1
-    add     r4,#0x1
-    sub     r2,#0x1
-    cmp     r2,r1
-    bne     @@move_a_byte
-@@subr_end:
-    mov     r0,r5
-    pop     {r4-r7,r15}
     
     ; r0 = string to be drawn, r1 = x offset, r2 = y offset
     ; exiting this subroutine, r1 can be reused to continue drawing
@@ -288,65 +325,136 @@ draw_textline:
     pop     {r0}
     bx      r0
     .pool
+    .endarea
     
-@stage_settings:
-    push    {r0,r4-r7,r14}
-    ldr     r3,=#0x02036F71     ; Rank address
-    mov     r6,r0
-    cmp     r6,#0x11            ; If the chosen stage is commander room,
-    beq     @@subr_end          ; don't load any settings
-    cmp     r6,#0x1             ; If the chosen stage is intro
-    beq     @@in_intro
-    mov     r7,#0x5             ; A rank
-    b       @@store_rank
-@@in_intro:
-    mov     r7,#0x0             ; F rank
-@@store_rank:
-    strb    r7,[r3]
-    ; bl      set_game_progress
-    ;sub     r0,1                ; Subtract stage index by 1
-    mov     r3,0x4
-    mul     r1,r3               ; Multiply by 0x1C
-    add     r2,r2,r1            ; Add as offset to base address
-    ldr     r1,=#ADDR_GAMESTATE
-    ldrb    r1,[r1]
-    mov     r3,#0x1E
-    sub     r1,r3
-    mov     r3,#0x40
-    mul     r1,r3
-    add     r0,r2,r1
-    ldr     r0,[r0]
-    ldr     r1,=#0x02036EF8     ; Biraid address
-    ldrb    r2,[r0]
-    strb    r2,[r1]
-    add     r0,1
-    add     r1,0x14             ; Clokkle address
-    ldrb    r2,[r0]
-    strb    r2,[r1]
-    add     r0,1
-    ldr     r1,=#0x02036FC0     ; "Saved gameplay settings" section to write to
-    ldmia   r0!,{r2-r7}
-    stmia   r1!,{r2-r7}
-    ldrh    r2,[r0]
-    strh    r2,[r1]
-    add     r1,4
-    ldr     r3,=#0x02037D30     ; Read from control settings
-    ldmia   r3!,{r4-r5}         ; Load 8 bytes
-    stmia   r1!,{r4-r5}         ; Store 8 bytes
-    ldrh    r2,[r3]             ; Load another 2 bytes
-    strh    r2,[r1]             ; Store another 2 bytes
-    ; ldr     r1,=#0x02036BBE     ; Game progress values here
-    ; ldrh    r2,[r0]             ; Load total points
-    ; strh    r2,[r1]             ; Store total points
-    ; ldrb    r2,[r0,#0x2]        ; Load stages beaten
-    ; strb    r2,[r1,#0x6]        ; Store
-    ; strb    r2,[r1,#0x7]        ; Store, offset by 1
-    ; ldrh    r2,[r0,#0x4]        ; Load specific stages beaten
-    ; strh    r2,[r1,#0xA]        ; Store
-    ; strh    r2,[r1,#0xE]        ; Store, offset by 4
-@@subr_end:
-    pop     {r0,r4-r7}
-    pop     r3
-    bx      r3
-    .pool
+    ; Order: Biraid, Clokkle, EX skills, chips
+    ; Stages ordered by index
+    .org REG_CUSTOM_ROUTE_MENU_STAGE_UNLOCKS
+    .area REG_CUSTOM_ROUTE_MENU_STAGE_UNLOCKS_AREA
+    ; Flizard
+    .db 0
+    .db ELF_EXISTS
+    .dh EX_BURST
+    .db 0
+    .db UNLBODY_FLAME
+    .db 0
+    .db 0
+    
+    ; Childre
+    .db 0
+    .db 0
+    .dh EX_THROW
+    .db 0
+    .db UNLBODY_ICE
+    .db 0
+    .db 0
+    
+    ; Hellbat
+    .db ELF_EXISTS
+    .db 0
+    .dh EX_SMASH
+    .db 0
+    .db UNLBODY_THUNDER
+    .db 0
+    .db 0
+    
+    ; Mantisk
+    .db 0
+    .db 0
+    .dh EX_1000
+    .db 0
+    .db UNLBODY_LIGHT
+    .db 0
+    .db 0
+    
+    ; Baby Elves 1
+    .db 0
+    .db 0
+    .dh 0
+    .db 0
+    .db 0
+    .db 0
+    .db 0
+    
+    ; Anubis
+    .db 0
+    .db 0
+    .dh EX_SWEEP
+    .db 0
+    .db 0
+    .db 0
+    .db 0
+    
+    ; Hanumachine
+    .db 0
+    .db 0
+    .dh EX_SPLIT
+    .db 0
+    .db 0
+    .db 0
+    .db 0
+    
+    ; Blizzack
+    .db 0
+    .db 0
+    .dh EX_BLIZZ
+    .db 0
+    .db 0
+    .db 0
+    .db 0
+    
+    ; Copy X
+    .db 0
+    .db 0
+    .dh EX_LASER
+    .db 0
+    .db 0
+    .db UNLFOOT_QUICK
+    .db 0
+    
+    ; Foxtar
+    .db 0
+    .db 0
+    .dh EX_SOUL
+    .db 0
+    .db 0
+    .db UNLFOOT_DBLJUMP
+    .db 0
+    
+    ; Cactank
+    .db 0
+    .db 0
+    .dh EX_ORBIT
+    .db UNLHEAD_QKCHARGE
+    .db 0
+    .db UNLFOOT_SPIKE
+    .db 0
+    
+    ; Volteel
+    .db 0
+    .db 0
+    .dh EX_VSHOT
+    .db 0
+    .db 0
+    .db UNLFOOT_SHADOW
+    .db 0
+    
+    ; Kelverian
+    .db 0
+    .db 0
+    .dh EX_GALE
+    .db 0
+    .db UNLBODY_ABSORBER
+    .db 0
+    .db 0
+    
+    ; Baby Elves 2
+    .db 0
+    .db 0
+    .dh 0
+    .db 0
+    .db 0
+    .db 0
+    .db 0
+    
     .endarea

@@ -33,6 +33,8 @@
     
     ; Equipped head chip
     HEAD_NEUTRAL equ 0
+    HEAD_AUTORECOVER equ 1
+    HEAD_AUTOCHARGE equ 2
     HEAD_QKCHARGE equ 3
     
     ; Unlocked head chips
