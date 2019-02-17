@@ -20,7 +20,7 @@ There are two ways to build the practice ROMs.
 You will need a Rockman Zero 2/Rockman Zero 3 ROM and an IPS patcher such as [Lunar IPS](https://www.romhacking.net/utilities/240/). Note that Lunar IPS will overwrite your ROM when patching it, so make a copy of the ROM before patching if you want to keep it.
 
 
-1. Download the IPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2.ips) or [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v1_2.ips)
+1. Download the IPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2.ips) or [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v2.ips)
 2. Open the IPS patch with Lunar IPS, and then choose your original ROM file.
 
 The ROM is now the practice hack.
@@ -70,7 +70,12 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, 
 - Holding Select and pressing Start opens the stage select menu.
     - Choose a stage with up/down, and press A to enter the stage.
     - Press B to exit the menu.
-    - Press L to switch between routes (currently available: Blizzack first/Reflect Laser in Foxtar, and Hanumachine first/No Reflect Laser in Foxtar)
+    - Press L to switch between routes (currently available: Blizzack first/Reflect Laser in Foxtar, Hanumachine first/No Reflect Laser in Foxtar, and Custom)
+    - Press R to edit custom route.
+        - Press Select+A to select a stage to move, and then A to confirm which stage you want to switch it with. Intro/Baby Elves 1/Copy X/Baby Elves 2/Final/Commander Room cannot be moved.
+        - Press Select+L to open a menu with special options that affect every stage except intro.
+        - Press Select+R to save your custom route to SRAM, which will be loaded when you start the game.
+        - Press A to edit the currently selected stage. Intro/Commander Room cannot be edited.
 - Hold Select and press Up to switch between A rank and B rank.
 - Hold Select and press L to reload latest checkpoint. Also works on bosses (the beginning of a boss fight is a checkpoint).
     - Hold Select+Left and press L to load previous checkpoint, hold Select+Right and press L to load next checkpoint.
@@ -79,4 +84,3 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, 
 
 - Tips:
     - When you enter/skip a cutscene, your weapon charges are stored and will be loaded whenever you load a checkpoint. If you want your weapons to be charged at the beginning of a boss fight, go to the checkpoint just before the boss, enter the boss room normally with your weapons charged and skip the cutscene. When reloading the checkpoint, your weapons will be charged in the same way that they were when you skipped the cutscene. If you want to get rid of your stored charge, just enter/skip a cutscene without your weapons charged.
-    - To start a stage with different equipment than what you're given, you can load the stage, change your equipment normally and then reload the checkpoint to store your equipment status.
