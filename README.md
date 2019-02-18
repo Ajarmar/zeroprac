@@ -96,4 +96,5 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, 
     - Press L to switch between routes (currently available: No Junk, Junk **Work in Progress**)
 - Hold Select and press L to reload latest checkpoint.
     - Hold Select+Left and press L to load previous checkpoint, hold Select+Right and press L to load next checkpoint. **Work in progress, but mostly works**
+    - Hold Select+Down (plus Left/Right if you want) and press L to load checkpoint without loading changes you've made to your equipment.
 - There is a timer showing the stage time. It displays minutes:seconds:frames. When you load a checkpoint, it will go back to 0.
