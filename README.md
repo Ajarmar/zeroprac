@@ -23,7 +23,7 @@ You will need a Rockman Zero 2/Rockman Zero 3/Rockman Zero 4 ROM and an IPS patc
 
 
 1. Download the IPS/BPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2.ips), [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v2.ips) or [Zero 4](https://github.com/Ajarmar/zeroprac/raw/master/Z4/bps/z4prac_v1.bps)
-2. Open the IPS patch with Lunar IPS, and then choose your original ROM file.
+2. Open the IPS/BPS patch with Lunar IPS/Floating IPS, and then choose your original ROM file.
 
 The ROM is now the practice hack.
 
