@@ -462,6 +462,13 @@ reset_disks:
     stmia   r0!,{r4-r7}
     stmia   r0!,{r4-r7}
     stmia   r0!,{r4-r7}
+    ldr     r0,=#0x0203DC54
+    mvn     r4,r4
+    str     r4,[r0]
+    str     r4,[r0,#0x4]
+    lsl     r4,r4,#0x10
+    lsr     r4,r4,#0x10
+    str     r4,[r0,#0x8]
     bx      r14
     
 reset_volteel_rng:

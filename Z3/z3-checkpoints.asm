@@ -14,6 +14,15 @@ load_checkpoint:
     ldr     r4,=#0x02036FEC     ; Zero's saved health
     mov     r5,#0x10
     strb    r5,[r4]
+    mov     r2,#0x0
+    mov     r3,#0x0
+    mov     r4,#0x0
+    mov     r5,#0x0
+    mov     r6,#0x0
+    mov     r7,#0x0
+    ldr     r0,=#0x0202FDE8
+    stmia   r0!,{r2-r7}         ; Store 24 bytes
+    stmia   r0!,{r2-r6}         ; Store 20 bytes
     ldr     r4,=#0x02001EB0
     ldrh    r5,[r4]
     mov     r6,#0x80
