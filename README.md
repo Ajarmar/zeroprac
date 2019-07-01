@@ -5,9 +5,11 @@ ROM hacks of the Mega Man Zero games for the Game Boy Advance.
 Currently available: 
 * Rockman Zero 2
 * Rockman Zero 3
+* Rockman Zero 4
 
 Up next:
-* Rockman Zero 4
+* Rockman Zero 1
+* More features for Zero 2/3/4
 
 Authors: Ajarmar ([@Ajarmar_](http://twitter.com/Ajarmar_)), cleartonic ([@cleartonic](http://twitter.com/cleartonic))
 
@@ -15,13 +17,13 @@ Authors: Ajarmar ([@Ajarmar_](http://twitter.com/Ajarmar_)), cleartonic ([@clear
 
 There are two ways to build the practice ROMs.
 
-### IPS Patch (recommended)
+### IPS/BPS Patch (recommended)
 
-You will need a Rockman Zero 2/Rockman Zero 3 ROM and an IPS patcher such as [Lunar IPS](https://www.romhacking.net/utilities/240/). Note that Lunar IPS will overwrite your ROM when patching it, so make a copy of the ROM before patching if you want to keep it.
+You will need a Rockman Zero 2/Rockman Zero 3/Rockman Zero 4 ROM and an IPS patcher such as [Lunar IPS](https://www.romhacking.net/utilities/240/) or [Floating IPS](https://www.romhacking.net/utilities/1040/). Note that Lunar IPS will overwrite your ROM when patching it, so make a copy of the ROM before patching if you want to keep it. **For Zero 4, you must use Floating IPS since it uses a BPS file instead of an IPS file.**
 
 
-1. Download the IPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2.ips) or [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v2.ips)
-2. Open the IPS patch with Lunar IPS, and then choose your original ROM file.
+1. Download the IPS/BPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2.ips), [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v2.ips) or [Zero 4](https://github.com/Ajarmar/zeroprac/raw/master/Z4/bps/z4prac_v1.bps)
+2. Open the IPS/BPS patch with Lunar IPS/Floating IPS, and then choose your original ROM file.
 
 The ROM is now the practice hack.
 
@@ -84,3 +86,15 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, 
 
 - Tips:
     - When you enter/skip a cutscene, your weapon charges are stored and will be loaded whenever you load a checkpoint. If you want your weapons to be charged at the beginning of a boss fight, go to the checkpoint just before the boss, enter the boss room normally with your weapons charged and skip the cutscene. When reloading the checkpoint, your weapons will be charged in the same way that they were when you skipped the cutscene. If you want to get rid of your stored charge, just enter/skip a cutscene without your weapons charged.
+    
+### Zero 4
+
+- Infinite lives.
+- Holding Select and pressing Start opens the stage select menu.
+    - Choose a stage with up/down, and press A to enter the stage.
+    - Press B to exit the menu.
+    - Press L to switch between routes (currently available: No Junk, Junk **Work in Progress**)
+- Hold Select and press L to reload latest checkpoint.
+    - Hold Select+Left and press L to load previous checkpoint, hold Select+Right and press L to load next checkpoint. **Work in progress, but mostly works**
+    - Hold Select+Down (plus Left/Right if you want) and press L to load checkpoint without loading changes you've made to your equipment.
+- There is a timer showing the stage time. It displays minutes:seconds:frames. When you load a checkpoint, it will go back to 0.
