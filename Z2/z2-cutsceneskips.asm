@@ -93,8 +93,8 @@ not_intro:
     ; Allows text boxes to be skipped. By holding start, the current text box 
     ; will be skipped to the end immediately, and the remaining text boxes in
     ; the current set will be skipped. Text boxes with prompts are not skippable.
-    .area REG_TEXTBOX_SKIP_AREA
     .org REG_TEXTBOX_SKIP
+    .area REG_TEXTBOX_SKIP_AREA
     push    {r4-r6}
     ldr     r4,=#0x0202F660
     ldrb    r5,[r4]
@@ -124,6 +124,7 @@ not_intro:
     ; If B is held, skips setting RNG to the stage index value
     ; when loading a stage/checkpoint.
     .org REG_SKIP_RNG
+    .area REG_SKIP_RNG_AREA
     push    {r4-r6}
     ldr     r4,=#0x02000D10
     ldrh    r5,[r4]
@@ -138,3 +139,4 @@ not_intro:
     pop     {r4-r6}
     bx      r0
     .pool
+    .endarea

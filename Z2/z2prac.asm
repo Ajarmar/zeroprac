@@ -14,8 +14,10 @@
     .gba
     .open "Rockman Zero 2 (Japan).gba", "z2prac.gba", 0x08000000
     .include "z2-regions.asm"
+    .include "z2-constants.asm"
     .include "z2-stageselect.asm"
     .include "z2-cutsceneskips.asm"
+    .include "z2-timer.asm"
     .include "z2-savestates.asm"
     
     .org 0x0800078C
@@ -67,6 +69,7 @@
     cmp     r2,#0x0
     bne     @subr_end                  ; Change to save state subroutine
 @subr_end:
+    bl      timer
     pop     {r5-r7}
     mov     r8,r5
     mov     r9,r6
