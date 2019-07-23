@@ -81,6 +81,9 @@
     
 @load_checkpoint:
     bl      @check_state
+    ldr     r4,=#ADDR_STAGETIME
+    mov     r5,#0x0
+    str     r5,[r4]
     ldr     r4,=#0x0202F8E1
     mov     r5,#0x3
     strb    r5,[r4]
