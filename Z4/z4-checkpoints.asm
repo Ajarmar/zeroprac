@@ -2,7 +2,6 @@
     .org REG_CHECKPOINTS
     .area REG_CHECKPOINTS_AREA
     .area REG_CHECKPOINTS_INSTR_AREA
-    ; 036FE8 big important for charge (???)
 load_checkpoint:
     push    r14
     ldr     r4,=#ADDR_STAGETIME     ; Stage timer
@@ -111,7 +110,7 @@ load_checkpoint:
     ldr     r0,=#0x3E0
     strh    r0,[r1]
     b       @really_store_checkpoint
-@in_randam:
+@in_randam:             ;; Subroutine at 0x0802565C!!! Unbroke 0x08027634
     cmp     r2,#0x1
     beq     @cross_forward
     cmp     r2,#0x2
@@ -120,74 +119,91 @@ load_checkpoint:
 @cross_forward:
     cmp     r5,#0x3
     bne     @really_store_checkpoint
-    ldr     r1,=#ADDR_CHECKPOINT_CROSSSTATION
-    ldrb    r0,[r1]
-    cmp     r0,#0x4
+    add     r5,1                        ; Adjust so that you go to 4 instead of 3 at the end
+    ldr     r1,=#ADDR_STAGEPROGRESS
+    ldrb    r0,[r1,#0x1]
+    cmp     r0,#0x3C
     bge     @@go_store
-    sub     r5,1
-    ldr     r4,=#ADDR_STAGEPROGRESS
-    ldrb    r6,[r4,#0x1]
-    cmp     r0,#0x1
-    beq     @@forward_to_l
-    cmp     r0,#0x3
-    beq     @@forward_to_d
-    cmp     r0,#0x2
-    beq     @@forward_to_r
-    mov     r0,#0x1
+    sub     r5,2                        ; Sub by 2 to go back to 2
+    mov     r4,#VAL_CROSSPROGRESS_D
+    and     r4,r0
+    cmp     r4,#0x0
+    bne     @@forward_to_r
+    mov     r4,#VAL_CROSSPROGRESS_L
+    and     r4,r0
+    cmp     r4,#0x0
+    bne     @@forward_to_d
+    mov     r4,#VAL_CROSSPROGRESS_U
+    and     r4,r0
+    cmp     r4,#0x0
+    bne     @@forward_to_l
+    mov     r4,#VAL_CROSS_U
     mov     r2,#0x4
     b       @@store_progress
-@@forward_to_l:
-    mov     r0,#0x3
-    mov     r2,#0x10
+@@forward_to_r:
+    mov     r4,#VAL_CROSS_R
+    mov     r2,#0x20
     b       @@store_progress
 @@forward_to_d:
-    mov     r0,#0x2
+    mov     r4,#VAL_CROSS_D
     mov     r2,#0x8
     b       @@store_progress
-@@forward_to_r:
-    mov     r0,#0x4
-    mov     r2,#0x20
+@@forward_to_l:
+    mov     r4,#VAL_CROSS_L
+    mov     r2,#0x10
 @@store_progress:
-    orr     r6,r2
-    strb    r6,[r4,#0x1]
-    strb    r0,[r1]
+    orr     r0,r2
+    strb    r0,[r1,#0x1]
+    ldr     r1,=#ADDR_CROSS_LATEST
+    strb    r4,[r1]
 @@go_store:
     b       @really_store_checkpoint
 @cross_backward:
     cmp     r5,#0x1
-    bne     @really_store_checkpoint
-    ldr     r1,=#ADDR_CHECKPOINT_CROSSSTATION
-    ldrb    r0,[r1]
-    cmp     r0,#0x0
-    beq     @@go_store
+    bne     @@check_backward_from_boss
+    ldr     r1,=#ADDR_STAGEPROGRESS
+    ldrb    r0,[r1,#0x1]
+    cmp     r0,#0x3                     ; Check for progress in cross station
+    ble     @@go_store
     add     r5,1
-    ldr     r4,=#ADDR_STAGEPROGRESS
-    ldrb    r6,[r4,#0x1]
-    cmp     r0,#0x4
-    beq     @@backward_to_d
-    cmp     r0,#0x2
-    beq     @@backward_to_l
-    cmp     r0,#0x3
-    beq     @@backward_to_u
-    mov     r0,#0x0
+    mov     r4,#VAL_CROSSPROGRESS_R
+    and     r4,r0
+    cmp     r4,#0x0
+    bne     @@backward_to_d
+    mov     r4,#VAL_CROSSPROGRESS_D
+    and     r4,r0
+    cmp     r4,#0x0
+    bne     @@backward_to_l
+    mov     r4,#VAL_CROSSPROGRESS_L
+    and     r4,r0
+    cmp     r4,#0x0
+    bne     @@backward_to_u
+    mov     r4,#0x0
     mov     r2,#0xFB
+    sub     r5,1                        ; Sub by 1 to go back to 1
     b       @@store_progress
 @@backward_to_d:
-    mov     r0,#0x2
+    mov     r4,#VAL_CROSS_D
     mov     r2,#0xDF
     b       @@store_progress
 @@backward_to_l:
-    mov     r0,#0x3
+    mov     r4,#VAL_CROSS_L
     mov     r2,#0xF7
     b       @@store_progress
 @@backward_to_u:
-    mov     r0,#0x1
+    mov     r4,#VAL_CROSS_U
     mov     r2,#0xEF
 @@store_progress:
-    and     r6,r2
-    strb    r6,[r4,#0x1]
-    strb    r0,[r1]
+    and     r0,r2
+    strb    r0,[r1,#0x1]
+    ldr     r1,=#ADDR_CROSS_LATEST
+    strb    r4,[r1]
 @@go_store:
+    b       @really_store_checkpoint
+@@check_backward_from_boss:
+    cmp     r5,#0x3
+    bne     @@go_store
+    sub     r5,1
     b       @really_store_checkpoint
 @in_final:
     cmp     r5,#0x7
@@ -213,7 +229,6 @@ load_checkpoint:
     ldrb    r4,[r4]
     cmp     r1,r4
     beq     @@goto_after_boss_check
-@@not_in_foxtar:
     ldr     r4,=#0x0202E917 ; non-zero when not in control
     ldrb    r4,[r4]
     cmp     r4,#0x0
@@ -231,6 +246,92 @@ load_checkpoint:
 @@goto_after_boss_check:
     b       @after_boss_check
     
+remove_cross_blocks:
+    ldr     r0,=#ADDR_STAGEINDEX
+    ldrb    r0,[r0]
+    cmp     r0,#0xE
+    bne     @@subr_end              ; If not in cross station, end
+    ldr     r0,=#ADDR_STAGEPROGRESS
+    ldrb    r0,[r0,#0x1]
+    mov     r1,#0x8
+    and     r0,r1
+    cmp     r0,#0x0
+    beq     @@subr_end              ; If downward wing has not been cleared, end
+    mov     r2,#0x0
+    ldr     r3,=#REG_CHECKPOINTS_CROSS_BLOCKS
+    ldr     r0,=#0x0201C56C         ; Block 1
+    strh    r2,[r0,#0x2]
+    str     r2,[r0,#0x4]
+    ldr     r0,=#0x0201C8B4
+    strh    r2,[r0,#0x2]
+    str     r2,[r0,#0x4]
+    ldr     r0,=#0x0201CBFC
+    ldrh    r1,[r3]
+    strh    r1,[r0,#0x2]
+    ldr     r1,[r3,#0x4]
+    str     r1,[r0,#0x4]
+    ldr     r0,=#0x0201CF44         ; Block 2
+    ldr     r1,[r3,#0x8]
+    str     r1,[r0]
+    ldrh    r1,[r3,#0xC]
+    strh    r1,[r0,#0x4]
+    ldr     r0,=#0x0201D28C
+    ldr     r1,[r3,#0x10]
+    str     r1,[r0]
+    ldrh    r1,[r3,#0x14]
+    strh    r1,[r0,#0x4]
+    ldr     r0,=#0x0201D5D4
+    ldr     r1,[r3,#0x18]
+    str     r1,[r0]
+    ldrh    r1,[r3,#0x1C]
+    strh    r1,[r0,#0x4]
+    ldr     r0,=#0x0201D91C         ; Block 3
+    strh    r2,[r0,#0x2]
+    str     r2,[r0,#0x4]
+    ldr     r0,=#0x0201DC64
+    strh    r2,[r0,#0x2]
+    str     r2,[r0,#0x4]
+    ldr     r0,=#0x0201DFAC
+    strh    r2,[r0,#0x2]
+    str     r2,[r0,#0x4]
+    ldr     r0,=#0x0201ECCC         ; Block 4
+    strh    r2,[r0,#0x2]
+    str     r2,[r0,#0x4]
+    ldr     r0,=#0x0201F014
+    strh    r2,[r0,#0x2]
+    str     r2,[r0,#0x4]
+    ldr     r0,=#0x0201F35C
+    strh    r2,[r0,#0x2]
+    str     r2,[r0,#0x4]
+    ldr     r0,=#0x0201F6A4         ; Block 5
+    ldr     r1,[r3,#0x20]
+    str     r1,[r0]
+    strh    r2,[r0,#0x4]
+    ldr     r0,=#0x0201F9EC
+    ldr     r1,[r3,#0x24]
+    str     r1,[r0]
+    ldrh    r1,[r3,#0x28]
+    strh    r1,[r0,#0x4]
+    ldr     r0,=#0x0201FD34
+    ldr     r1,[r3,#0x2C]
+    str     r1,[r0]
+    ldrh    r1,[r3,#0x30]
+    strh    r1,[r0,#0x4]
+    ldr     r0,=#0x0202007C         ; Block 6
+    ldrh    r1,[r3,#0x34]
+    strh    r1,[r0,#0x2]
+    ldr     r1,[r3,#0x38]
+    str     r1,[r0,#0x4]
+    ldr     r0,=#0x020203C4
+    ldrh    r1,[r3,#0x3C]
+    strh    r1,[r0,#0x2]
+    ldr     r1,[r3,#0x40]
+    str     r1,[r0,#0x4]
+    ldr     r0,=#0x0202070C
+    strh    r2,[r0,#0x2]
+    str     r2,[r0,#0x4]
+@@subr_end:
+    bx      r14
     .pool
     .endarea
         
@@ -445,6 +546,51 @@ load_checkpoint:
     .org REG_CHECKPOINTS_MINIBOSS
     .area REG_CHECKPOINTS_MINIBOSS_AREA
     .db 0,0,3,3,3,0,3,0,3,3,0,0,0,0,0,0
+    .endarea
+    
+    .org REG_CHECKPOINTS_CROSS_BLOCKS
+    .area REG_CHECKPOINTS_CROSS_BLOCKS_AREA
+    ; Block 1: 0 x 12,
+    .dh 0x633
+    .align 4
+    .dw 0x06330634
+    ; Block 2
+    .align 4
+    .dw 0x06370636
+    .align 4
+    .dh 0x638
+    .align 4
+    .dw 0x063B063A
+    .align 4
+    .dh 0x63C
+    .align 4
+    .dw 0x0633063E
+    .align 4
+    .dh 0x634
+    ; Block 3: 0 x 18
+    ; Block 4: 0 x 18
+    ; Block 5
+    .align 4
+    .dw 0x000005B6
+    ; 0 x 2,
+    .align 4
+    .dw 0x06330632
+    .align 4
+    .dh 0x634
+    .align 4
+    .dw 0x06370636
+    .align 4
+    .dh 0x638
+    ; Block 6
+    .align 4
+    .dh 0x63B
+    .align 4
+    .dw 0x0640063C
+    .align 4
+    .dh 0x633
+    .align 4
+    .dw 0x06330634
+    ; 0 x 6
     .endarea
     
     .endarea

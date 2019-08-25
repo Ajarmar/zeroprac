@@ -65,6 +65,7 @@
 main_end:
     bl      timer
     bl      @maintain_lives
+    bl      remove_cross_blocks
     pop     {r5-r7}
     mov     r8,r5
     mov     r9,r6
