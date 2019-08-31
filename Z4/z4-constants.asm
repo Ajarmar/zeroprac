@@ -1,5 +1,6 @@
     ADDR_KEY equ 0x02000760
     ADDR_WEATHER equ 0x0202CAC0
+    ADDR_STAGEPROGRESS_GENBLEM equ 0x0202E8B9
     ADDR_STAGEPROGRESS equ 0x0202E8BC
     ADDR_STAGETIME equ 0x0202E8E8
     ADDR_STAGEINDEX equ 0x0202E910
@@ -13,6 +14,7 @@
     ADDR_BG0_TILES equ 0x0202F620
     ADDR_CURSOR_POSITION equ 0x02035870 ; also stage index
     ADDR_PARTS equ 0x020358C8 ; CB+½ = gangagun, CC = c-hopper, D1 = gyro cannon H, D7+½ = faital
+    ; Last: 0x020358E1 (only lower half) - 51 total
     ADDR_CHIPS equ 0x02035900
     ; 35900 & 35904 chips
     ADDR_LIVES equ 0x02035910

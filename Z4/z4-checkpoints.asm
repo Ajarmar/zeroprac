@@ -13,6 +13,10 @@ load_checkpoint:
     ldr     r4,=#ADDR_SAVEDHEALTH     ; Zero's saved health
     mov     r5,#0x10
     strb    r5,[r4]
+    ldr     r4,=#ADDR_SUBTANKS
+    mov     r5,#0x20
+    strb    r5,[r4]
+    strb    r5,[r4,#0x1]
     ldr     r4,=#ADDR_KEY
     ldrh    r5,[r4]
     mov     r6,#VAL_KEY_DOWN
@@ -81,6 +85,8 @@ load_checkpoint:
     ldrb    r5,[r6]
     ldr     r0,=#ADDR_STAGEINDEX
     ldrb    r0,[r0]
+    cmp     r0,#0x3
+    beq     @in_genblem
     cmp     r0,#0xB
     beq     @in_craft1
     cmp     r0,#0xE
@@ -103,6 +109,13 @@ load_checkpoint:
 @checkpoints_end:
     pop     r0
     bx      r0
+@in_genblem:
+    cmp     r5,#0x4
+    bgt     @really_store_checkpoint
+    ldr     r1,=#ADDR_STAGEPROGRESS_GENBLEM
+    mov     r0,#0x0
+    strb    r0,[r1]
+    b       @really_store_checkpoint
 @in_craft1:
     cmp     r5,#0x3
     blt     @really_store_checkpoint
