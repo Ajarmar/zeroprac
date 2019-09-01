@@ -220,7 +220,17 @@ load_checkpoint:
     b       @really_store_checkpoint
 @in_final:
     cmp     r5,#0x7
+    beq     @check_if_weil_2
+    cmp     r5,#0x4
     bne     @really_store_checkpoint
+    ldr     r1,=#ADDR_BOSS_RUSH_INDEX
+    ldrh    r0,[r1]
+    cmp     r0,#0x0
+    bne     @really_store_checkpoint
+    ldr     r0,=#0x0620
+    strh    r0,[r1]
+    b       @really_store_checkpoint
+@check_if_weil_2:
     ldr     r1,=#0x02036654             ; x position
     ldr     r1,[r1]
     ldr     r0,=#0xE0000
@@ -552,7 +562,7 @@ remove_cross_blocks:
     .align 0x10
     
     ; Final
-    .db 0,2,3,5,5,6,7,8,8,8,8
+    .db 0,2,3,4,5,6,7,8,8,8,8
     .endarea
     
     ; Miniboss values
