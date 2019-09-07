@@ -87,12 +87,16 @@ load_checkpoint:
     ldrb    r0,[r0]
     cmp     r0,#0x3
     beq     @in_genblem
+    cmp     r0,#0x8
+    beq     @in_fenri
+    cmp     r0,#0x9
+    beq     @in_mino
     cmp     r0,#0xB
     beq     @in_craft1
     cmp     r0,#0xE
     beq     @in_randam
     cmp     r0,#0x10
-    beq     @in_final
+    beq     @goto_in_final
 @really_store_checkpoint:
     strb    r5,[r3,#0x2]
     ; cmp     r5,#0xB
@@ -116,6 +120,46 @@ load_checkpoint:
     mov     r0,#0x0
     strb    r0,[r1]
     b       @really_store_checkpoint
+@in_fenri:
+    cmp     r2,#0x2
+    beq     @really_store_checkpoint        ; If going backwards, return
+    cmp     r2,#0x1
+    beq     @@going_forward
+    cmp     r5,#0x2
+    bne     @really_store_checkpoint        ; If reloading current and != checkpoint 2, return
+    b       @@check_position
+@@going_forward:
+    cmp     r5,#0x3
+    bne     @really_store_checkpoint        ; If going forward and != checkpoint 3, return
+@@check_position:
+    ldr     r0,=#ADDR_ZERO_XPOS
+    ldr     r0,[r0]
+    ldr     r1,=#0x000671FF
+    cmp     r0,r1
+    bgt     @@increment_checkpoint
+    ldr     r1,=#0x0004977F
+    cmp     r0,r1
+    ble     @really_store_checkpoint
+    ldr     r0,=#ADDR_ZERO_YPOS
+    ldr     r0,[r0]
+    ldr     r1,=#0x00041E00
+    cmp     r0,r1
+    blt     @really_store_checkpoint
+    ldr     r0,=#ADDR_SUB_CHECKPOINT
+    mov     r1,#0x0
+    strb    r1,[r0]
+@@increment_checkpoint:
+    add     r5,1
+    b       @really_store_checkpoint
+@goto_in_final:
+    b       @in_final
+@in_mino:
+    mov     r0,#0x0
+    ldr     r1,=#ADDR_MAGNETISM
+    str     r0,[r1]
+    ldr     r1,=#ADDR_MAGNETISM_SAVED
+    str     r0,[r1]
+    b       @really_store_checkpoint
 @in_craft1:
     cmp     r5,#0x3
     blt     @really_store_checkpoint
@@ -123,7 +167,7 @@ load_checkpoint:
     ldr     r0,=#0x3E0
     strh    r0,[r1]
     b       @really_store_checkpoint
-@in_randam:             ;; Subroutine at 0x0802565C!!! Unbroke 0x08027634
+@in_randam:             ;; Subroutine at 0x0802565C!!!
     cmp     r2,#0x1
     beq     @cross_forward
     cmp     r2,#0x2
@@ -217,25 +261,26 @@ load_checkpoint:
     cmp     r5,#0x3
     bne     @@go_store
     sub     r5,1
+@really_store_checkpoint_2:
     b       @really_store_checkpoint
 @in_final:
     cmp     r5,#0x7
     beq     @check_if_weil_2
     cmp     r5,#0x4
-    bne     @really_store_checkpoint
-    ldr     r1,=#ADDR_BOSS_RUSH_INDEX
+    bne     @really_store_checkpoint_2
+    ldr     r1,=#ADDR_SUB_CHECKPOINT
     ldrh    r0,[r1]
     cmp     r0,#0x0
-    bne     @really_store_checkpoint
+    bne     @really_store_checkpoint_2
     ldr     r0,=#0x0620
     strh    r0,[r1]
     b       @really_store_checkpoint
 @check_if_weil_2:
-    ldr     r1,=#0x02036654             ; x position
+    ldr     r1,=#ADDR_ZERO_XPOS
     ldr     r1,[r1]
     ldr     r0,=#0xE0000
     cmp     r1,r0
-    blt     @really_store_checkpoint
+    blt     @really_store_checkpoint_2
     add     r5,1
     b       @really_store_checkpoint
     .pool
