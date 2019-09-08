@@ -7,10 +7,6 @@ Currently available:
 * Rockman Zero 3
 * Rockman Zero 4
 
-Up next:
-* Rockman Zero 1
-* More features for Zero 2/3/4
-
 Developers:
 
 * [Ajarmar](http://twitter.com/Ajarmar_) (main developer)
