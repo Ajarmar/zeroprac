@@ -11,7 +11,11 @@ Up next:
 * Rockman Zero 1
 * More features for Zero 2/3/4
 
-Authors: Ajarmar ([@Ajarmar_](http://twitter.com/Ajarmar_)), cleartonic ([@cleartonic](http://twitter.com/cleartonic))
+Developers:
+
+* [Ajarmar](http://twitter.com/Ajarmar_) (main developer)
+* [cleartonic](http://twitter.com/cleartonic) (original concept, work on early versions)
+* [Krankdud](http://twitter.com/Krankdud) (Zero 2 Hard Mode functionality)
 
 ## Building the practice ROM
 
