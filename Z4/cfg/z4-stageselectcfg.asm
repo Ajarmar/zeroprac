@@ -39,12 +39,52 @@
     EQUEX_PEGASOLTA equ EX_TIMESTOPPER + EX_SKYCHASER + EX_FLAMEFANG + EX_ICEBLADE
     EQUEX_FINAL equ EX_SKYCHASER + EX_FLAMEFANG + EX_ICEBLADE + EX_ICEJAVELIN
     
+    UNLEX_J_GENBLEM equ EX_TIMESTOPPER
+    UNLEX_J_FENRI equ EX_TIMESTOPPER + EX_FLAMEFANG
+    UNLEX_J_TITANION equ EX_TIMESTOPPER + EX_FLAMEFANG + EX_ICEBLADE
+    UNLEX_J_KRAKEN equ EX_TIMESTOPPER + EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER
+    UNLEX_J_PEGASOLTA equ EX_TIMESTOPPER + EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER + EX_ICEJAVELIN
+    UNLEX_J_FINAL equ EX_TIMESTOPPER + EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER + EX_ICEJAVELIN + EX_TRACTORSHOT
+    
+    EQUEX_J_FENRI equ EX_TIMESTOPPER
+    EQUEX_J_TITANION equ EX_TIMESTOPPER + EX_FLAMEFANG
+    EQUEX_J_JAIL equ EX_FLAMEFANG + EX_ICEBLADE
+    EQUEX_J_KRAKEN equ EX_TIMESTOPPER + EX_FLAMEFANG + EX_ICEBLADE
+    EQUEX_J_PEGASOLTA equ EX_TIMESTOPPER + EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER
+    EQUEX_J_MINO equ EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER + EX_ICEJAVELIN
+    
+    
     ELF_NONE equ 0xFF
     ELF_CROIRE equ 0x3
     
     ; Halfword aligned, but not word aligned - put weather somewhere else
     ; Somehow solve parts for junk route
     ; 36 bytes total
+    
+    ; Part data structure:
+    ; POINTER -> SECTION_SIZE (1byte), ENTRY (2byte), ENTRY, ..., ENTRY, SECTION_SIZE, ENTRY ...
+    ; POINTER: Static pointer, same for all within a route
+    ; SECTION_SIZE: Provided from stage select cfg, corresponds to amount of different parts (entries)
+    ; ENTRY: Part index (1byte), count (1byte)
+    ; Algorithm: get(route_index,stage_index)
+    ; offset = mul route_index, 4
+    ; pointer = add base_addr, offset
+    ; i = 0
+    ; while i != stage_index
+    ;   size = ldrb pointer
+    ;   pointer = add pointer, 1
+    ;   skip = mul size, 2
+    ;   pointer = add pointer, skip
+    ; end while
+    ; relevant_size = ldrb pointer
+    ; pointer = add pointer, 1
+    ; j = 0
+    ; while j < relevant_size
+    ;   part_index = ldrb pointer
+    ;   part_count = ldrb pointer,1
+    ;   store at a good location
+    ;   pointer = add pointer, 2
+    ; end while
     
     .org REG_STAGE_SELECT_CFG
     .area REG_STAGE_SELECT_CFG_AREA
