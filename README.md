@@ -7,11 +7,11 @@ Currently available:
 * Rockman Zero 3
 * Rockman Zero 4
 
-Up next:
-* Rockman Zero 1
-* More features for Zero 2/3/4
+Developers:
 
-Authors: Ajarmar ([@Ajarmar_](http://twitter.com/Ajarmar_)), cleartonic ([@cleartonic](http://twitter.com/cleartonic))
+* [Ajarmar](http://twitter.com/Ajarmar_) (main developer)
+* [cleartonic](http://twitter.com/cleartonic) (original concept, work on early versions)
+* [Krankdud](http://twitter.com/Krankdud) (Zero 2 Hard Mode functionality)
 
 ## Building the practice ROM
 
@@ -19,36 +19,31 @@ There are two ways to build the practice ROMs.
 
 ### IPS/BPS Patch (recommended)
 
-You will need a Rockman Zero 2/Rockman Zero 3/Rockman Zero 4 ROM and an IPS patcher such as [Lunar IPS](https://www.romhacking.net/utilities/240/) or [Floating IPS](https://www.romhacking.net/utilities/1040/). Note that Lunar IPS will overwrite your ROM when patching it, so make a copy of the ROM before patching if you want to keep it. **For Zero 4, you must use Floating IPS since it uses a BPS file instead of an IPS file.**
+You will need a Rockman Zero 2/Rockman Zero 3/Rockman Zero 4 ROM and an IPS/BPS patcher - [Floating IPS](https://www.romhacking.net/utilities/1040/) is recommended.
 
 
 1. Download the IPS/BPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2_1.ips), [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v2.ips) or [Zero 4](https://github.com/Ajarmar/zeroprac/raw/master/Z4/bps/z4prac_v1_1.bps)
-2. Open the IPS/BPS patch with Lunar IPS/Floating IPS, and then choose your original ROM file.
+2. Open Floating IPS and press "Apply Patch".
+3. Choose the IPS/BPS patch you want to use, then your original ROM file, and then specify the name and directory for the practice hack.
 
-The ROM is now the practice hack.
+The practice hack will be created in the directory you specified, with the name you specified.
 
 ### Assembling with ARMIPS
 
-You will need a Rockman Zero 2/Rockman Zero 3 ROM and [ARMIPS](https://github.com/Kingcom/armips/releases/tag/v0.10.0). The following instructions are for Windows, but I think ARMIPS will work on other operating systems as well - although you will have to [build it from source](https://github.com/Kingcom/armips#22-building-from-source).
+You will need a Rockman Zero 2/Rockman Zero 3/Rockman Zero 4 ROM and [ARMIPS](https://github.com/Kingcom/armips/releases/tag/v0.10.0). The following instructions are for Windows, but I think ARMIPS will work on other operating systems as well - although you will have to [build it from source](https://github.com/Kingcom/armips#22-building-from-source).
 
 1. Clone or download this repository. For easier assembling, put the zeroprac folder in the folder where you have ARMIPS.
-2. Put your Rockman Zero 2/Rockman Zero 3 ROM in the Z2/Z3 folder. The ROM must be named "Rockman Zero 2 (Japan).gba" / "Rockman Zero 3 (Japan).gba".
+2. Put your Rockman Zero 2/Rockman Zero 3/Rockman Zero 4 ROM in the Z2/Z3/Z4 folder. The ROM must be named "Rockman Zero 2 (Japan).gba" / "Rockman Zero 3 (Japan).gba" / "Rockman Zero 4 (Japan).gba".
 3. Open a cmd window in the folder where you have ARMIPS. (Shift + Right click in the folder -> "Open command window here")
-4. Assemble with the following command:
+4. Assemble with the following command, replacing x with the number of the game (2/3/4):
 
-* Z2
 ```
-armips z2prac.asm -root zeroprac/Z2
-```
-
-* Z3
-```
-armips z3prac.asm -root zeroprac/Z3
+armips zxprac.asm -root zeroprac/Zx
 ```
 
-If you don't put the zeroprac folder in the folder where you have ARMIPS, put the whole filepath to the Z2/Z3 folder instead of "zeroprac/Z2" / "zeroprac/Z3".
+If you don't put the zeroprac folder in the folder where you have ARMIPS, put the whole filepath to the Z2/Z3/Z4 folder after "-root".
 
-There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, which is the practice hack.
+There will be a new ROM called "z2prac.gba" / "z3prac.gba" / "z4prac.gba" in the Z2/Z3/Z4 folder, which is the practice hack.
 
 ## Features
 
@@ -95,6 +90,6 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" in the Z2/Z3 folder, 
     - Press B to exit the menu.
     - Press L to switch between routes (currently available: No Junk, Junk **Work in Progress**)
 - Hold Select and press L to reload latest checkpoint.
-    - Hold Select+Left and press L to load previous checkpoint, hold Select+Right and press L to load next checkpoint. **Work in progress, but mostly works**
+    - Hold Select+Left and press L to load previous checkpoint, hold Select+Right and press L to load next checkpoint.
     - Hold Select+Down (plus Left/Right if you want) and press L to load checkpoint without loading changes you've made to your equipment.
 - There is a timer showing the stage time. It displays minutes:seconds:frames. When you load a checkpoint, it will go back to 0.
