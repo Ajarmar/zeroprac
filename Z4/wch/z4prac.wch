@@ -1,0 +1,6 @@
+SystemID GBA
+02E8BC	w	h	0	EWRAM	progress craft/randam
+02E910	b	h	0	EWRAM	stage index
+02E912	b	h	0	EWRAM	chkpnt index
+0366EC	d	h	0	EWRAM	magnetism
+
