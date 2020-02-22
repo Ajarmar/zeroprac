@@ -1,17 +1,16 @@
-local lu = require("luaunit")
-
 local socket = require("socket")
 local listen_port = 10002
 
-package.loaded["z2-util"] = nil
-local util = require("z2-util")
+package.loaded["action"] = nil
+local action = require("lua\\action")
 
-package.loaded["intro-cutscene-skip"] = nil
-require("intro-cutscene-skip")
+package.loaded["util"] = nil
+local util = require("lua\\util")
 
---_G["print"] = nil
---console.writeline(intro_cutscene_skip)
-console.writeline(util)
+package.loaded["z2_macro"] = nil
+local macro = require("lua\\z2_macro")
+
+console.writeline(macro)
 
 local server = socket.udp()
 if (server == nil) then
@@ -34,7 +33,6 @@ ret, err = server:setpeername(remote_host, remote_port)
 if (ret == nil) then
     console.writeline(err)
 end
-
 
 
 client.unpause()
@@ -64,8 +62,10 @@ while not done do
         args = util.split(t["args"],"[%w_]+")
     end
 
-    if t["lib"] == "util" then
-        util[t["func"]](args)
+    if t["lib"] == "action" then
+        action[t["func"]](args)
+    elseif t["lib"] == "macro" then
+        macro[t["func"]](args)
     end
 end
 server:close()
