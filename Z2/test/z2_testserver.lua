@@ -10,8 +10,6 @@ local util = require("lua\\util")
 package.loaded["z2_macro"] = nil
 local macro = require("lua\\z2_macro")
 
-console.writeline(macro)
-
 local server = socket.udp()
 if (server == nil) then
     console.writeline("Could not create server socket.")
@@ -39,11 +37,6 @@ client.unpause()
 
 done = false
 
---util.z2_start()
---intro_cutscene_skip.test1()
---TestIntroCutsceneSkip.test1()
---lu.LuaUnit.run("TestIntroCutsceneSkip")
-
 while not done do
     msg = server:receive()
 
@@ -57,6 +50,7 @@ while not done do
         done = true
         break
     end
+
     local args
     if t["args"] ~= nil then
         args = util.split(t["args"],"[%w_]+")
