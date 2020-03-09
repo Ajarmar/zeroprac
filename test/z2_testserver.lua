@@ -8,7 +8,7 @@ package.loaded["util"] = nil
 local util = require("lua\\util")
 
 package.loaded["z2_macro"] = nil
-local macro = require("lua\\z2_macro")
+local macro = require("lua\\z2\\macro")
 
 local server = socket.udp()
 if (server == nil) then

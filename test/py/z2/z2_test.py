@@ -2,7 +2,7 @@ from py.testclient import TestClient
 
 import unittest
 
-class Z2TestClient(unittest.TestCase):
+class Z2Test(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
