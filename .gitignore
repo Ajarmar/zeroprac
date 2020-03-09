@@ -4,3 +4,6 @@
 flips.exe
 *.bat
 flipscfg.bin
+
+# vscode stuff
+settings.json
