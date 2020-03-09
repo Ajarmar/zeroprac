@@ -1,5 +1,5 @@
 local socket = require("socket")
-local listen_port = 10002
+local listen_port = 20202
 
 package.loaded["action"] = nil
 local action = require("lua\\action")
@@ -32,6 +32,7 @@ if (ret == nil) then
     console.writeline(err)
 end
 
+server:send("hey")
 
 client.unpause()
 
