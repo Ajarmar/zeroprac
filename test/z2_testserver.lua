@@ -1,13 +1,13 @@
 local socket = require("socket")
 local listen_port = 20202
 
-package.loaded["action"] = nil
+package.loaded["lua\\action"] = nil
 local action = require("lua\\action")
 
-package.loaded["util"] = nil
+package.loaded["lua\\util"] = nil
 local util = require("lua\\util")
 
-package.loaded["z2_macro"] = nil
+package.loaded["lua\\z2\\macro"] = nil
 local macro = require("lua\\z2\\macro")
 
 local server = socket.udp()
@@ -43,7 +43,7 @@ while not done do
 
     console.writeline(msg)
 
-    local t = util.split_kv(msg,"([%w_]+)=([%w_]+)")
+    local t = util.split_kv(msg,"([%w_]+)=([%w_\.]+)")
 
     console.writeline(t)
 
@@ -54,13 +54,16 @@ while not done do
 
     local args
     if t["args"] ~= nil then
-        args = util.split(t["args"],"[%w_]+")
+        args = util.split(t["args"],"[%w_\.]+")
     end
 
     if t["lib"] == "action" then
         action[t["func"]](args)
     elseif t["lib"] == "macro" then
         macro[t["func"]](args)
+    elseif t["lib"] == "get_action" then
+        local res = action[t["func"]](args)
+        server:send(string.format("%x",res))
     end
 end
 server:close()

@@ -20,7 +20,14 @@ end
 
 function lib.start()
     client.unpause()
-    client.reboot_core()
+    -- Soft reset instead of rebooting core to avoid breaking Bizhawk
+    -- See https://github.com/TASVideos/BizHawk/issues/1716
+    while emu.islagged() do
+        wait(1)
+    end
+    wait(1)
+    press("....SsBA...")
+    --client.reboot_core()
     wait(5)
     press("....S......")
     wait(30)
