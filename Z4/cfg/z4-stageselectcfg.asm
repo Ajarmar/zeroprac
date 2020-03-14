@@ -12,10 +12,24 @@
     
     CHIP_NONE equ 0xFF
     
-    UNLFOOT_DBLJUMP equ 0x00002200
-    
+    ; Unlocked chips
+
+    UNLHEAD_JUNK equ 0x00220000     ; Part 1
+
+    UNLBODY_JUNK equ 0x00000088     ; Part 2
+
+    UNLFOOT_DBLJUMP equ 0x00002200  ; Part 2
+    UNLFOOT_JUNK equ 0x00440000     ; Part 2
+
+    ; Equipped chips
+
+    HEAD_JUNK equ 0x9
+
+    BODY_JUNK equ 0x13
+
     FOOT_DBLJUMP equ 0x15
-    
+    FOOT_JUNK equ 0x1A
+
     EX_TIMESTOPPER equ 0x1
     EX_TRACTORSHOT equ 0x2
     EX_BURNINGSHOT equ 0x4
@@ -53,6 +67,10 @@
     EQUEX_J_PEGASOLTA equ EX_TIMESTOPPER + EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER
     EQUEX_J_MINO equ EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER + EX_ICEJAVELIN
     
+    UNLEX_NGPLUS equ EX_TIMESTOPPER + EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER + EX_ICEJAVELIN + EX_TRACTORSHOT + EX_BURNINGSHOT
+
+    EQUEX_NGPLUS_1 equ EX_TIMESTOPPER + EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER
+    EQUEX_NGPLUS_2 equ EX_ICEJAVELIN + EX_FLAMEFANG + EX_ICEBLADE + EX_SKYCHASER
     
     ELF_NONE equ 0xFF
     ELF_CROIRE equ 0x3
@@ -491,6 +509,114 @@
     .db     7                               ; Cyber elf capacity
     .db     ELF_CROIRE                      ; Cyber elf name
     
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; NG+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    ; Intro NG+
+    INDEX_INTRO_NGPLUS equ (INDEX_FINAL+1)
+    .db     0                               ; Gangagun parts
+    .db     0                               ; C-Hopper parts
+    .db     0                               ; Gyro Cannon H parts
+    .db     0                               ; Faital parts
+    .dw     UNLHEAD_JUNK                                    ; Unlocked chips, part 1
+    .dw     UNLBODY_JUNK + UNLFOOT_JUNK + UNLFOOT_DBLJUMP   ; Unlocked chips, part 2
+    
+    .dh     0                               ; E-crystals
+    .db     32,32,SUBT_NONE,SUBT_NONE       ; Subtanks
+    .db     WEP_BUSTER                      ; Main weapon
+    .db     WEP_KNUCKLE                     ; Sub weapon
+    .dh     0                               ; Knuckle equipment things
+    .db     CHIP_NONE,CHIP_NONE,CHIP_NONE   ; Equipped chips
+    .db     0                               ; Hard/ultimate mode flag
+    .dh     0                               ; Equipped EX skills
+    .dh     UNLEX_NGPLUS                    ; Unlocked EX skills
+    
+    .db     0                               ; Cyber elf level
+    .db     0                               ; Nurse level
+    .db     0                               ; Animal level
+    .db     0                               ; Hacker level
+    .db     8                               ; Cyber elf capacity
+    .db     ELF_CROIRE                      ; Cyber elf name
+
+    ; NG+ Setup 1
+    INDEX_NGPLUS_BUSTER1 equ (INDEX_INTRO_NGPLUS+1)
+    .db     0                               ; Gangagun parts
+    .db     0                               ; C-Hopper parts
+    .db     0                               ; Gyro Cannon H parts
+    .db     0                               ; Faital parts
+    .dw     UNLHEAD_JUNK                                    ; Unlocked chips, part 1
+    .dw     UNLBODY_JUNK + UNLFOOT_JUNK + UNLFOOT_DBLJUMP   ; Unlocked chips, part 2
+    
+    .dh     0                               ; E-crystals
+    .db     32,32,SUBT_NONE,SUBT_NONE       ; Subtanks
+    .db     WEP_BUSTER                      ; Main weapon
+    .db     WEP_SABER                       ; Sub weapon
+    .dh     0                               ; Knuckle equipment things
+    .db     HEAD_JUNK,BODY_JUNK,FOOT_JUNK   ; Equipped chips
+    .db     0                               ; Hard/ultimate mode flag
+    .dh     EQUEX_NGPLUS_1                  ; Equipped EX skills
+    .dh     UNLEX_NGPLUS                    ; Unlocked EX skills
+    
+    .db     0                               ; Cyber elf level
+    .db     0                               ; Nurse level
+    .db     0                               ; Animal level
+    .db     0                               ; Hacker level
+    .db     8                               ; Cyber elf capacity
+    .db     ELF_CROIRE                      ; Cyber elf name
+
+    ; NG+ Setup 2
+    INDEX_NGPLUS_BUSTER2 equ (INDEX_NGPLUS_BUSTER1+1)
+    .db     0                               ; Gangagun parts
+    .db     0                               ; C-Hopper parts
+    .db     0                               ; Gyro Cannon H parts
+    .db     0                               ; Faital parts
+    .dw     UNLHEAD_JUNK                                    ; Unlocked chips, part 1
+    .dw     UNLBODY_JUNK + UNLFOOT_JUNK + UNLFOOT_DBLJUMP   ; Unlocked chips, part 2
+    
+    .dh     0                               ; E-crystals
+    .db     32,32,SUBT_NONE,SUBT_NONE       ; Subtanks
+    .db     WEP_BUSTER                      ; Main weapon
+    .db     WEP_SABER                       ; Sub weapon
+    .dh     0                               ; Knuckle equipment things
+    .db     HEAD_JUNK,BODY_JUNK,FOOT_JUNK   ; Equipped chips
+    .db     0                               ; Hard/ultimate mode flag
+    .dh     EQUEX_NGPLUS_2                  ; Equipped EX skills
+    .dh     UNLEX_NGPLUS                    ; Unlocked EX skills
+    
+    .db     0                               ; Cyber elf level
+    .db     0                               ; Nurse level
+    .db     0                               ; Animal level
+    .db     0                               ; Hacker level
+    .db     8                               ; Cyber elf capacity
+    .db     ELF_CROIRE                      ; Cyber elf name
+
+    ; NG+ Setup 2
+    INDEX_NGPLUS_KNUCKLE2 equ (INDEX_NGPLUS_BUSTER2+1)
+    .db     0                               ; Gangagun parts
+    .db     0                               ; C-Hopper parts
+    .db     0                               ; Gyro Cannon H parts
+    .db     0                               ; Faital parts
+    .dw     UNLHEAD_JUNK                                    ; Unlocked chips, part 1
+    .dw     UNLBODY_JUNK + UNLFOOT_JUNK + UNLFOOT_DBLJUMP   ; Unlocked chips, part 2
+    
+    .dh     0                               ; E-crystals
+    .db     32,32,SUBT_NONE,SUBT_NONE       ; Subtanks
+    .db     WEP_KNUCKLE                     ; Main weapon
+    .db     WEP_SABER                       ; Sub weapon
+    .dh     0                               ; Knuckle equipment things
+    .db     HEAD_JUNK,BODY_JUNK,FOOT_JUNK   ; Equipped chips
+    .db     0                               ; Hard/ultimate mode flag
+    .dh     EQUEX_NGPLUS_2                  ; Equipped EX skills
+    .dh     UNLEX_NGPLUS                    ; Unlocked EX skills
+    
+    .db     0                               ; Cyber elf level
+    .db     0                               ; Nurse level
+    .db     0                               ; Animal level
+    .db     0                               ; Hacker level
+    .db     8                               ; Cyber elf capacity
+    .db     ELF_CROIRE                      ; Cyber elf name
+
     .endarea
     
     .org REG_STAGE_SETTING_POINTERS
@@ -498,7 +624,7 @@
     
     ; Pointers in stage index order
     
-    ; Route 1
+    ; Route 1 (No Junk)
     
     .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_INTRO)    
     .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_INTRO2)   
@@ -517,7 +643,7 @@
     .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_CYBALL)
     .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_FINAL)
     
-    ; Route 2
+    ; Route 2 (Junk)
     
     .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_INTRO)    
     .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_INTRO2)   
@@ -535,8 +661,27 @@
     .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_RANDAM) 
     .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_CYBALL) 
     .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_FINAL)  
+
+    ; Route 3 (NG+)
     
-    ; Route 3 (custom)
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_INTRO_NGPLUS)    
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER1)   
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER1)  
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER1)   
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER1)
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_KNUCKLE2) 
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER1) 
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER1) 
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER2)  
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER2) 
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER2) 
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER2)   
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_BUSTER1) 
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_KNUCKLE2) 
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_KNUCKLE2) 
+    .dw REG_STAGE_SELECT_CFG+(SETTINGS_SIZE*INDEX_NGPLUS_KNUCKLE2)  
+    
+    ; Route 4 (custom)
     
     ; .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(SETTINGS_SIZE*INDEX_INTRO)       ; Intro
     ; .dw ADDR_STORED_CUSTOM_ROUTE_CFG+(SETTINGS_SIZE*INDEX_FLIZARD)     ; Flizard

@@ -4,9 +4,11 @@
     ; Stage select menu x position offsets
     MENU_OFFSET equ 8
     CURSOR_OFFSET equ 7
+
     GAMESTATE_MENU equ 0x28
     GAMESTATE_MENU_2 equ (GAMESTATE_MENU+1)
     GAMESTATE_MENU_3 equ (GAMESTATE_MENU_2+1)
+    GAMESTATE_MENU_4 equ (GAMESTATE_MENU_3+1)
     
     WEATHER_GENBLEM_HARD equ 0x10
     WEATHER_GENBLEM_EASY equ 0x3
@@ -78,6 +80,7 @@
     .dw 0x08117E61 ; 27
     .dw REG_STAGE_SELECT_MENU+1 ; 28
     .dw REG_STAGE_SELECT_MENU+1 ; 29
+    .dw REG_STAGE_SELECT_MENU+1 ; 2A
     ; Stage select subroutine here
     .endarea
     
@@ -291,7 +294,7 @@
     beq     @@check_for_r
     ldr     r0,=#ADDR_GAMESTATE
     ldrb    r1,[r0]
-    cmp     r1,#GAMESTATE_MENU_2
+    cmp     r1,#GAMESTATE_MENU_3
     bne     @@gamestate_nowrap
     mov     r1,#GAMESTATE_MENU
     b       @@store_changed_gamestate
@@ -439,10 +442,16 @@
     cmp     r6,#0xA
     bgt     @@no_weather
     sub     r6,3
+    ldr     r4,=#ADDR_GAMESTATE
+    ldrb    r4,[r4]
+    sub     r4,#GAMESTATE_MENU
+    mov     r5,#0x8
+    mul     r4,r5
     ldr     r5,=#REG_STAGE_SETTING_WEATHER
+    add     r5,r4,r5
     add     r4,r5,r6
     ldrb    r4,[r4]
-    add     r5,#0x8
+    ldr     r5,=#REG_WEATHER_VALUES
     mov     r3,#0x2
     mul     r3,r6
     add     r5,r5,r3
@@ -563,6 +572,27 @@
     .db 0x4         ; Fenri
     .db 0xB         ; Mino
     .db 0x2         ; Popla
+    .db 0x6         ; Craft 1
+    .db 0x7         ; HELL THE GIANT
+    .db 0xC         ; Craft 2
+    .db 0xD         ; Randam
+    .db 0xE         ; Cyball
+    .db 0xF         ; Final
+    .db 0x10        ; Commander room
+    .align 4
+
+    ; Route 3
+    
+    .db 0x0         ; Intro
+    .db 0x1         ; Intro 2
+    .db 0x3         ; Genblem
+    .db 0x2         ; Kraken
+    .db 0x4         ; Pegasolta
+    .db 0x9         ; Mandrago
+    .db 0xA         ; Titanion
+    .db 0xB         ; Fenri
+    .db 0x5         ; Mino
+    .db 0x8         ; Popla
     .db 0x6         ; Craft 1
     .db 0x7         ; HELL THE GIANT
     .db 0xC         ; Craft 2
@@ -734,6 +764,25 @@ show_menu:
     .db 0xF         ; Cyball
     .db 0x10        ; Final
     .db 0x11        ; Commander room
+    .align 4
+    
+    .db 0x1         ; Intro
+    .db 0x2         ; Intro 2
+    .db 0x4         ; Kraken
+    .db 0x3         ; Genblem
+    .db 0x5         ; Pegasolta
+    .db 0x9         ; Mino
+    .db 0xB         ; Craft 1
+    .db 0xC         ; HELL THE GIANT
+    .db 0xA         ; Popla
+    .db 0x6         ; Mandrago
+    .db 0x7         ; Titanion
+    .db 0x8         ; Fenri
+    .db 0xD         ; Craft 2
+    .db 0xE         ; Randam
+    .db 0xF         ; Cyball
+    .db 0x10        ; Final
+    .db 0x11        ; Commander room
     
     .endarea
     
@@ -744,6 +793,8 @@ show_menu:
     .org REG_STAGE_SELECT_ROUTE_NAMES+0x20*1
     .asciiz "JUNK"
     .org REG_STAGE_SELECT_ROUTE_NAMES+0x20*2
+    .asciiz "NG+"
+    .org REG_STAGE_SELECT_ROUTE_NAMES+0x20*3
     .asciiz "CUSTOM"
     
     .endarea
@@ -751,7 +802,17 @@ show_menu:
     .org REG_STAGE_SETTING_WEATHER
     .area REG_STAGE_SETTING_WEATHER_AREA
     
+    ; No Junk
     .db 0,0,1,0,1,0,0,0
+    ; Junk (TODO)
+    .db 0,0,0,0,0,0,0,0
+    ; NG+
+    .db 1,0,1,1,1,1,0,1
+
+    .endarea
+
+    .org REG_WEATHER_VALUES
+    .area REG_WEATHER_VALUES_AREA
     
     .db WEATHER_GENBLEM_HARD
     .db WEATHER_GENBLEM_EASY
