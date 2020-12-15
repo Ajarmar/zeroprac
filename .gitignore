@@ -2,7 +2,6 @@
 *.swp
 *.sav
 flips.exe
-*.bat
 flipscfg.bin
 
 # vscode stuff
