@@ -38,13 +38,13 @@
     and     r2,r1
     cmp     r2,#0x0
     bne     @select_pressed
+    b       @subr_end
+@select_pressed:
     mov     r2,#0x80
     lsl     r2,r2,#0x1
     and     r2,r1
     cmp     r2,#0x0
     bne     @r_pressed
-    b       @subr_end
-@select_pressed:
     ldrh    r1,[r0,#0x4]
     mov     r2,#0x80
     lsl     r3,r2,#0x2
@@ -63,11 +63,11 @@
     bl      show_menu
     b       @subr_end
 @r_pressed:
-    ldrh    r1,[r0,#0x4]
     mov     r2,#0x4
     and     r2,r1
     cmp     r2,#0x0
-    bne     @subr_end                  ; Change to save state subroutine
+    bl      @change_rng                ; Branch to RNG changer
+
 @subr_end:
     bl      timer
     pop     {r5-r7}
@@ -100,7 +100,26 @@
     ldrh    r2,[r0]             ; Load another 2 bytes
     strh    r2,[r1]             ; Store another 2 bytes
     b       @subr_end
-    
+
+    ; RNG change function. Code taken from 0x080AD44E,
+    ; the game's existing RNG function
+    ; This also resets the stage timer
+@change_rng:
+    ldr     r2,=#ADDR_RNG
+    ldr     r1, [r2]
+    ldr     r0,=#0x343FD
+    mul     r0, r1
+    ldr     r1,=#0x269EC3
+    add     r0, r0, r1
+    lsl     r0, r0, #0x01
+    lsr     r1, r0, #0x01
+    str     r1, [r2]
+    ldr     r2,=#ADDR_STAGETIME
+    mov     r1,#0x0
+    str     r1, [r2]
+    bx      r14
+
+
     ; Jumps to subroutine end if the current game state is 0, 1 or 2
     ; Used to prevent certain functionality from being used while 
     ; the game is paused.
@@ -114,6 +133,7 @@
     cmp     r4,#0x2
     beq     @subr_end
     bx      r14
+    
     
     .pool
     .endarea

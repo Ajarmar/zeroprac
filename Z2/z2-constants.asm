@@ -1,2 +1,3 @@
     
     ADDR_STAGETIME equ 0x0202EBF8
+    ADDR_RNG equ 0x0202E188
