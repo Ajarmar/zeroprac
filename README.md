@@ -54,6 +54,7 @@ There will be a new ROM called "z2prac.gba" / "z3prac.gba" / "z4prac.gba" in the
 - Hold Select and press Start to bring up a stage select menu. Selecting a stage will bring you to it with the appropriate equipment/experience for that point in the route.
     - Hold L when selecting a stage to get the appropriate hard mode equipment.
 - Hold Select and press L to return to the latest checkpoint.
+- Hold Select and press R to perform a combined command to change RNG and reset the stage timer. This command will work anywhere in a stage, but is primarily designed to be used before boss battles begin. RNG is advanced using the standard RNG formula present in the game. 
 - Press Start during stage intro cutscenes to skip them. (Not available for other cutscenes.)
 - If you die, you can press Start to immediately return to the latest checkpoint without losing a life.
 - Skip text boxes by holding Start.
