@@ -21,12 +21,12 @@
     .include "z2-savestates.asm"
     
     .org 0x0800078C
-    bl      #REG_INPUT_CHECK
+    bl      #REG_MAIN
     
     ; Input checking for new functionality.
     ; Checks for Select+Start, Select+L, Select+R, R+Select
-    .org REG_INPUT_CHECK
-    .area REG_INPUT_CHECK_AREA
+    .org REG_MAIN
+    .area REG_MAIN_AREA
     push    {r4-r7,r14}
     mov     r7,r10
     mov     r6,r9
@@ -148,6 +148,6 @@
 @@subr_end:
     bx      r14
     .pool
-    
+
     .endarea
     .close
