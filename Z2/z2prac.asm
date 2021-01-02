@@ -67,9 +67,9 @@
     and     r2,r1
     cmp     r2,#0x0
     bl      @change_rng                ; Branch to RNG changer
-
 @subr_end:
     bl      timer
+    bl      @maintain_lives
     pop     {r5-r7}
     mov     r8,r5
     mov     r9,r6
@@ -78,6 +78,7 @@
     bl      #0x080DE58C
     pop     r0
     bx      r0
+    .pool
     
 @load_checkpoint:
     bl      @check_state
@@ -100,6 +101,7 @@
     ldrh    r2,[r0]             ; Load another 2 bytes
     strh    r2,[r1]             ; Store another 2 bytes
     b       @subr_end
+    .pool
 
     ; RNG change function. Code taken from 0x080AD44E,
     ; the game's existing RNG function
@@ -118,6 +120,7 @@
     mov     r1,#0x0
     str     r1, [r2]
     bx      r14
+    .pool
 
 
     ; Jumps to subroutine end if the current game state is 0, 1 or 2
@@ -133,8 +136,18 @@
     cmp     r4,#0x2
     beq     @subr_end
     bx      r14
-    
-    
     .pool
+    
+@maintain_lives:
+    ldr     r4,=#ADDR_STORED_LIVES
+    ldrb    r5,[r4]
+    cmp     r5,#0x9
+    bge     @@subr_end
+    mov     r5,#0x9
+    strb    r5,[r4]
+@@subr_end:
+    bx      r14
+    .pool
+    
     .endarea
     .close
