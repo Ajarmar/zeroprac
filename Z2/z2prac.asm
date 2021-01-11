@@ -18,6 +18,7 @@
     .include "z2-stageselect.asm"
     .include "z2-cutsceneskips.asm"
     .include "z2-timer.asm"
+    .include "z2-checkpoints.asm"
     .include "z2-savestates.asm"
     
     .org 0x0800078C
@@ -50,11 +51,13 @@
     lsl     r3,r2,#0x2
     and     r3,r1
     cmp     r3,#0x0
-    bne     @load_checkpoint           ; Change to load state subroutine
+    beq     @after_checkpoint
+    bl      load_checkpoint
+@after_checkpoint:
     lsl     r3,r2,#0x1
     and     r3,r1
     cmp     r3,#0x0
-    bne     @subr_end                  ; Change to save state subroutine
+    bne     @subr_end
     mov     r2,#0x8
     and     r2,r1
     cmp     r2,#0x0
@@ -150,4 +153,10 @@
     .pool
 
     .endarea
+
+    ; Set the Zero max entity count to 1
+    ; This will break multiplayer but frees up a chunk of RAM that can be used (0x304 bytes)
+    .org ROMADDR_SET_ZERO_ENTITY_MAX_LOCATION
+    mov     r2,#0x1
+
     .close
