@@ -300,7 +300,7 @@ load_checkpoint:
     ; Next checkpoint
     
     ; Intro
-    .db 0,2,3,3
+    .db 1,2,3,3
     .align 0x10
     
     ; Hyleg
@@ -505,7 +505,7 @@ load_checkpoint:
     ; Next checkpoint
     
     ; Intro
-    .db 0,2,3,4,4,4,4,4
+    .db 1,2,3,4,4,4,4,4
     .align 0x10
     
     ; Hyleg
