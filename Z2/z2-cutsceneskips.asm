@@ -13,11 +13,6 @@
     bx      r1
     
     ; Change to existing code.
-    ; Manually changes pool for PC relative load at 080E44AE.
-    .org 0x080E45A4
-    .dw REG_SKIP_RNG+0x1
-    
-    ; Change to existing code.
     ; Changes branch destination for text box handling.
     .org 0x0834E0A0
     .dw REG_TEXTBOX_SKIP+0x1
@@ -50,26 +45,5 @@
     ldr     r1,=#0x080DF73D
     pop     {r4-r6}
     bx      r1
-    .pool
-    .endarea
-    
-    ; New code.
-    ; If B is held, skips setting RNG to the stage index value
-    ; when loading a stage/checkpoint.
-    .org REG_SKIP_RNG
-    .area REG_SKIP_RNG_AREA
-    push    {r4-r6}
-    ldr     r4,=#0x02000D10
-    ldrh    r5,[r4]
-    mov     r6,#0x2
-    and     r5,r6
-    cmp     r5,#0x0
-    bne     @@subr_end
-    ldr     r1,=#0x0202E188
-    str     r0,[r1]
-@@subr_end:
-    ldr     r0,=#0x080E44B9
-    pop     {r4-r6}
-    bx      r0
     .pool
     .endarea
