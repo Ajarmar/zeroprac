@@ -22,7 +22,7 @@ There are two ways to build the practice ROMs.
 You will need a Rockman Zero 2/Rockman Zero 3/Rockman Zero 4 ROM and an IPS/BPS patcher - [Floating IPS](https://www.romhacking.net/utilities/1040/) is recommended.
 
 
-1. Download the IPS/BPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v2_1.ips), [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v2.ips) or [Zero 4](https://github.com/Ajarmar/zeroprac/raw/master/Z4/bps/z4prac_v1_1.bps)
+1. Download the IPS/BPS patch for [Zero 2](https://github.com/Ajarmar/zeroprac/raw/master/Z2/ips/z2prac_v3.ips), [Zero 3](https://github.com/Ajarmar/zeroprac/raw/master/Z3/ips/z3prac_v2.ips) or [Zero 4](https://github.com/Ajarmar/zeroprac/raw/master/Z4/bps/z4prac_v1_1.bps)
 2. Open Floating IPS and press "Apply Patch".
 3. Choose the IPS/BPS patch you want to use, then your original ROM file, and then specify the name and directory for the practice hack.
 
